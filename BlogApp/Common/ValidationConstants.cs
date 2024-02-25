@@ -16,6 +16,9 @@
         public const int PostTitleMin = 5;
         public const int PostTitleMax = 50;
 
+        public const int PostShortDescriptionMin = 10;
+        public const int PostShortDescriptionMax = 150;
+
         public const int PostContentMin = 10;
         public const int PostContentMax = 500;
 
