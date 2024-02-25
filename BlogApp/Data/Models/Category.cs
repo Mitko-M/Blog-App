@@ -14,5 +14,7 @@ namespace BlogApp.Data.Models
         [Comment("Category name")]
         [StringLength(CategoryNameMax, MinimumLength = CategoryNameMin)]
         public string Name { get; set; } = string.Empty;
+
+        public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
     }
 }
