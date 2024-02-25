@@ -15,6 +15,6 @@ namespace BlogApp.Data.Models
         [StringLength(CategoryNameMax, MinimumLength = CategoryNameMin)]
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
+        public ICollection<PostCategory> PostsCategories { get; set; } = new HashSet<PostCategory>();
     }
 }

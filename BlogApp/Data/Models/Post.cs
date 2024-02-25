@@ -45,8 +45,8 @@ namespace BlogApp.Data.Models
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-        public ICollection<PostCategory> Categories { get; set; } = new HashSet<PostCategory>();
+        public ICollection<PostCategory> PostsCategories { get; set; } = new HashSet<PostCategory>();
 
-        public ICollection<PostTag> Tags { get; set; } = new HashSet<PostTag>();
+        public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
     }
 }
