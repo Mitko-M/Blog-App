@@ -22,5 +22,8 @@
         //comment
         public const int CommentContentMin = 1;
         public const int CommentContentMax = 100;
+
+        //date format
+        public const string DateFormat = "dd MMM yyyy";
     }
 }
