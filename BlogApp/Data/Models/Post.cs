@@ -48,5 +48,9 @@ namespace BlogApp.Data.Models
         public ICollection<PostCategory> PostsCategories { get; set; } = new HashSet<PostCategory>();
 
         public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
+
+        public ICollection<LikeDislike> LikesDislikes { get; set; } = new HashSet<LikeDislike>();
+
+        public ICollection<Favorite> Favorites { get; set; } = new HashSet<Favorite>();
     }
 }

@@ -17,13 +17,30 @@ namespace BlogApp.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostCategory> PostsCategories { get; set; }
         public DbSet<PostTag> PostsTags { get; set; }
+        public DbSet<LikeDislike> LikesDislikes { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //comments model
             builder.Entity<Comment>()
-                .HasOne(p => p.Post)
-                .WithMany(c => c.Comments)
-                .HasForeignKey(p => p.PostId)
+                .HasOne(f => f.Post)
+                .WithMany(p => p.Comments)
+                .HasForeignKey(f => f.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //likes dislikes model
+            builder.Entity<LikeDislike>()
+                .HasOne(f => f.Post)
+                .WithMany(p => p.LikesDislikes)
+                .HasForeignKey(f => f.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //favorites model
+            builder.Entity<Favorite>()
+                .HasOne(f => f.Post)
+                .WithMany(p => p.Favorites)
+                .HasForeignKey(f => f.PostId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             //many-to-many configuration
