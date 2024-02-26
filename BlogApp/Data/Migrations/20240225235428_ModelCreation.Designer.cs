@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogApp.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(BlogAppDbContext))]
     [Migration("20240225235428_ModelCreation")]
     partial class ModelCreation
     {

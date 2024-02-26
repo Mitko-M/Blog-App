@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogApp.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(BlogAppDbContext))]
     [Migration("20240226204620_LikeDislikeFavoriteModelsAdded")]
     partial class LikeDislikeFavoriteModelsAdded
     {
