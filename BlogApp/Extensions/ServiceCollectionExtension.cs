@@ -1,7 +1,6 @@
-﻿using BlogApp.Data;
+﻿using BlogApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Contracts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
