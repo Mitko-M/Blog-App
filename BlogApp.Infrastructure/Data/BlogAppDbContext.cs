@@ -1,8 +1,9 @@
-﻿using BlogApp.Data.Models;
+﻿using BlogApp.Infrastructure.Data.Models;
+using BlogApp.InfrastructureData.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlogApp.Data
+namespace BlogApp.Infrastructure.Data
 {
     public class BlogAppDbContext : IdentityDbContext
     {

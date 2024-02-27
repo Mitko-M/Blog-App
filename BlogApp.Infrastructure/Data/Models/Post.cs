@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BlogApp.InfrastructureData.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static BlogApp.Common.ValidationConstants;
+using static BlogApp.Infrastructure.Common.ValidationConstants;
 
-namespace BlogApp.Data.Models
+namespace BlogApp.Infrastructure.Data.Models
 {
     public class Post
     {

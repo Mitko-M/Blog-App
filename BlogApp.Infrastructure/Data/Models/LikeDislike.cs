@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlogApp.Data.Models
+namespace BlogApp.Infrastructure.Data.Models
 {
     public class LikeDislike
     {

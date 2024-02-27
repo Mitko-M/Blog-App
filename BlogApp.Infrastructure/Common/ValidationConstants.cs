@@ -1,4 +1,4 @@
-﻿namespace BlogApp.Common
+﻿namespace BlogApp.Infrastructure.Common
 {
     public static class ValidationConstants
     {

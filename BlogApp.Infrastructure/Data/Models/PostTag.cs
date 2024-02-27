@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlogApp.Data.Models
+namespace BlogApp.Infrastructure.Data.Models
 {
     public class PostTag
     {
