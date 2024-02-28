@@ -55,13 +55,13 @@ namespace BlogApp.Infrastructure.Data
                 .HasOne(p => p.Post)
                 .WithMany(c => c.PostsCategories)
                 .HasForeignKey(p => p.PostId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<PostCategory>()
                 .HasOne(c => c.Category)
                 .WithMany(p => p.PostsCategories)
                 .HasForeignKey(c => c.CategoryId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<PostTag>(pt => pt.HasKey(e => new
             {
@@ -73,13 +73,13 @@ namespace BlogApp.Infrastructure.Data
                 .HasOne(p => p.Post)
                 .WithMany(c => c.PostsTags)
                 .HasForeignKey(p => p.PostId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<PostTag>()
                 .HasOne(p => p.Tag)
-                .WithMany(p => p.PostsCategories)
+                .WithMany(p => p.PostsTags)
                 .HasForeignKey(p => p.TagId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(builder);
         }
