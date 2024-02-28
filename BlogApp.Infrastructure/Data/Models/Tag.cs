@@ -15,6 +15,6 @@ namespace BlogApp.Infrastructure.Data.Models
         [StringLength(TagNameMax, MinimumLength = TagNameMin)]
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<PostTag> PostsCategories { get; set; } = new HashSet<PostTag>();
+        public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
     }
 }
