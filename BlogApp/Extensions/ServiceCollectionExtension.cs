@@ -1,4 +1,6 @@
-﻿using BlogApp.Infrastructure.Data;
+﻿using BlogApp.Core.Contracts;
+using BlogApp.Core.Services;
+using BlogApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
+            services.AddScoped<IPostService, PostService>();
+
             return services;
         }
 
