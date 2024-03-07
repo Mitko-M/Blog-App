@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Areas.Identity.Pages.Account
 {
+    [Authorize]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

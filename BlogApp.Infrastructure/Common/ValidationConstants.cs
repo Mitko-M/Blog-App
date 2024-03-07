@@ -28,5 +28,11 @@
 
         //date format
         public const string DateFormat = "dd MMM yyyy";
+
+        //required field
+        public const string RequiredError = "The {0} field is required";
+
+        //min and max value for input fields
+        public const string InputError = "The {0} field should be between {2} and {1} characters";
     }
 }

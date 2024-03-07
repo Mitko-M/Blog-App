@@ -1,4 +1,5 @@
-﻿using BlogApp.Infrastructure.Data.Models;
+﻿using BlogApp.Infrastructure.Data.Configuration;
+using BlogApp.Infrastructure.Data.Models;
 using BlogApp.InfrastructureData.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,19 @@ namespace BlogApp.Infrastructure.Data
         }
 
         public DbSet<Post> Posts { get; set; }
+
         public DbSet<Category> Categories { get; set; }
+
         public DbSet<Tag> Tags { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
+
         public DbSet<PostCategory> PostsCategories { get; set; }
+
         public DbSet<PostTag> PostsTags { get; set; }
+
         public DbSet<LikeDislike> LikesDislikes { get; set; }
+
         public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -80,6 +88,14 @@ namespace BlogApp.Infrastructure.Data
                 .WithMany(p => p.PostsTags)
                 .HasForeignKey(p => p.TagId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //seeding
+            builder.ApplyConfiguration(new RolesConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new AdminConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new TagConfiguration());
+            builder.ApplyConfiguration(new PostConfiguration());
 
             base.OnModelCreating(builder);
         }
