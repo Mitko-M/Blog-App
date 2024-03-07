@@ -24,7 +24,7 @@ namespace BlogApp.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public async Task<IActionResult> All()
         {
             var model = await _postService.GetAllPostsAsync();
