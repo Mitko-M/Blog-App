@@ -1,6 +1,6 @@
 ﻿namespace BlogApp.Core.Models.Post
 {
-    public class AllPostsVideModel
+    public class AllPostsViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;

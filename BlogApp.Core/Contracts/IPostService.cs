@@ -10,7 +10,7 @@ namespace BlogApp.Core.Contracts
 {
     public interface IPostService
     {
-        Task<IEnumerable<AllPostsVideModel>> GetAllPostsAsync();
+        Task<IEnumerable<AllPostsViewModel>> GetAllPostsAsync();
 
         Task AddPostAsync(AddPostViewModel postModel, string userId);
 
