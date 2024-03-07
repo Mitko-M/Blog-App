@@ -1,0 +1,30 @@
+﻿@model List<AllPostsViewModel>
+
+@{
+    ViewData["Title"] = "All Posts";
+}
+
+<div class="col-lg-8">
+    @if (Model.Count > 0)
+    {
+        <div class="row">
+            @foreach (var post in Model)
+            {
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">@post.Title</div>
+                        <div class="card-body">
+                            <p class="card-text">@post.ShortDescription</p>
+                            <div class="small text-muted">Updated on @post.UpdatedOn.ToString(DateFormat)</div>
+                            <a class="btn btn-primary" asp-route-id="@post.Id">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No post entries!</p>
+    }
+</div>
