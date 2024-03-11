@@ -3,6 +3,7 @@ using BlogApp.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace BlogApp.Controllers
 {
@@ -24,6 +25,7 @@ namespace BlogApp.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> All()
         {
