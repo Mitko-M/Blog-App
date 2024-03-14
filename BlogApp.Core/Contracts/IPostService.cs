@@ -14,10 +14,10 @@ namespace BlogApp.Core.Contracts
 
         Task AddPostAsync(AddPostFormModel postModel, string userId);
 
-        Task<PostViewModel> FindByIdAsync(int id);
+        List<int> RequestSelectionToList(string values);
 
-        Task UpdatePostAsync(AddPostFormModel postModel, Post postToEdit);
-
-        Task DeletePostAsync(Post post);
+        AddPostFormModel GetPostFormModelAsync();
+        
+        //TODO: Add the rest CRUD operations
     }
 }

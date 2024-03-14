@@ -37,24 +37,29 @@ namespace BlogApp.Core.Services
 
             foreach (var category in model.Categories)
             {
-                await _context.PostsCategories.AddAsync(new PostCategory()
+                if (category.IsSelected)
                 {
-                    PostId = postToAdd.Id,
-                    CategoryId = category.Id
-                });
+                    await _context.PostsCategories.AddAsync(new PostCategory()
+                    {
+                        PostId = postToAdd.Id,
+                        CategoryId = category.Id
+                    });
+                }
+            }
+
+            foreach (var tag in model.Tags)
+            {
+                if (tag.IsSelected)
+                {
+                    await _context.PostsTags.AddAsync(new PostTag()
+                    {
+                        PostId = postToAdd.Id,
+                        TagId = tag.Id
+                    });
+                }
             }
 
             await _context.SaveChangesAsync();
-        }
-
-        public Task DeletePostAsync(Post post)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PostViewModel> FindByIdAsync(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<AllPostsViewModel>> GetAllPostsAsync()
@@ -73,9 +78,58 @@ namespace BlogApp.Core.Services
                 .ToListAsync();
         }
 
-        public Task UpdatePostAsync(AddPostFormModel postModel, Post postToEdit)
+        public AddPostFormModel GetPostFormModelAsync()
         {
-            throw new NotImplementedException();
+            AddPostFormModel model = new AddPostFormModel()
+            {
+                Categories = GetCategories(),
+                Tags = GetTags()
+            };
+
+            return model;
+        }
+
+        public List<int> RequestSelectionToList(string values)
+        {
+            List<int> ret = new List<int>();
+
+            List<string> selected = values.Split(',').ToList();
+
+            int value = 0;
+
+            foreach (string item in selected)
+            {
+                if (int.TryParse(item, out value))
+                {
+                    ret.Add(value);
+                }
+            }
+
+            return ret;
+        }
+
+        private List<PostCategoryModel> GetCategories()
+        {
+            return _context.Categories
+                .Select(c => new PostCategoryModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    IsSelected = false
+                })
+                .ToList();
+        }
+
+        private List<PostTagModel> GetTags()
+        {
+            return _context.Tags
+                .Select(c => new PostTagModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    IsSelected = false
+                })
+                .ToList();
         }
     }
 }

@@ -21,8 +21,8 @@ namespace BlogApp.Core.Models.Post
 
         public string UserId { get; set; } = string.Empty;
 
-        public IEnumerable<PostCategoryModel>? Categories {  get; set; }
+        public List<PostCategoryModel> Categories {  get; set; } = new List<PostCategoryModel>();
 
-        public IEnumerable<PostTagModel>? Tags { get; set; }
+        public List<PostTagModel>? Tags { get; set; } = new List<PostTagModel>();
     }
 }
