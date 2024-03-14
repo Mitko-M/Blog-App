@@ -25,7 +25,7 @@ namespace BlogApp.Core.Contracts
         Task AddPostAsync(AddPostFormModel postModel, string userId);
 
         /// <summary>
-        /// A method for taking selected checkboxes from the HTTP request body
+        /// A method for taking values from the HTTP request's body
         /// </summary>
         /// <param name="values">All values from the HTTP request body</param>
         /// <returns>A list of int</returns>
