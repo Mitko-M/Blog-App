@@ -108,7 +108,7 @@ namespace BlogApp.Core.Services
             return ret;
         }
 
-        private List<PostCategoryModel> GetCategories()
+        public List<PostCategoryModel> GetCategories()
         {
             return _context.Categories
                 .Select(c => new PostCategoryModel()
@@ -120,7 +120,7 @@ namespace BlogApp.Core.Services
                 .ToList();
         }
 
-        private List<PostTagModel> GetTags()
+        public List<PostTagModel> GetTags()
         {
             return _context.Tags
                 .Select(c => new PostTagModel()

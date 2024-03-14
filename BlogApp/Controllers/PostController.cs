@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Post;
+using BlogApp.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Versioning;
 using System.Security.Claims;
@@ -31,8 +32,8 @@ namespace BlogApp.Controllers
         public async Task<IActionResult> Create(AddPostFormModel model)
         {
             //getting the categories and tags again because they aren't binded...i don't know why
-            model.Categories = _postService.GetPostFormModelAsync().Categories;
-            model.Tags = _postService.GetPostFormModelAsync().Tags;
+            model.Categories = _postService.GetCategories();
+            model.Tags = _postService.GetTags();
 
             var httpRequestBodyValuesCats = HttpContext.Request.Form["category.IsSelected"];
             var httpRequestBodyValuesTags = HttpContext.Request.Form["tag.IsSelected"];

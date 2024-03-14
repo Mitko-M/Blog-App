@@ -10,13 +10,44 @@ namespace BlogApp.Core.Contracts
 {
     public interface IPostService
     {
+        /// <summary>
+        /// Returns all posts asynchronously
+        /// </summary>
+        /// <returns>A sequence with AllPostsViewModel</returns>
         Task<IEnumerable<AllPostsViewModel>> GetAllPostsAsync();
 
+        /// <summary>
+        /// Adding a post asynchronously
+        /// </summary>
+        /// <param name="postModel"> Post's name</param>
+        /// <param name="userId">Author's identifier</param>
+        /// <returns>A task</returns>
         Task AddPostAsync(AddPostFormModel postModel, string userId);
 
+        /// <summary>
+        /// A method for taking selected checkboxes from the HTTP request body
+        /// </summary>
+        /// <param name="values">All values from the HTTP request body</param>
+        /// <returns>A list of int</returns>
         List<int> RequestSelectionToList(string values);
 
+        /// <summary>
+        /// Creating a post model to be filled in a form
+        /// </summary>
+        /// <returns>AddPostFormModel</returns>
         AddPostFormModel GetPostFormModelAsync();
+
+        /// <summary>
+        /// A method for taking all tags from the database and then parsing them to a model
+        /// </summary>
+        /// <returns>A list with PostTagModel</returns>
+        List<PostTagModel> GetTags();
+
+        /// <summary>
+        /// A method for taking all categories from the database and then parsing them to a model
+        /// </summary>
+        /// <returns>A list with PostCategoryModel</returns>
+        List<PostCategoryModel> GetCategories();
         
         //TODO: Add the rest CRUD operations
     }
