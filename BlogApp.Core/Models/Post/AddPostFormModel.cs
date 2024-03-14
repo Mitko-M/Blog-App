@@ -23,6 +23,6 @@ namespace BlogApp.Core.Models.Post
 
         public List<PostCategoryModel> Categories {  get; set; } = new List<PostCategoryModel>();
 
-        public List<PostTagModel>? Tags { get; set; } = new List<PostTagModel>();
+        public List<PostTagModel> Tags { get; set; } = new List<PostTagModel>();
     }
 }
