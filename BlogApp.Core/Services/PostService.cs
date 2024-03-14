@@ -19,9 +19,32 @@ namespace BlogApp.Core.Services
         {
             _context = context;
         }
-        public Task AddPostAsync(AddPostViewModel postModel, string userId)
+        public async Task AddPostAsync(AddPostFormModel model, string userId)
         {
-            throw new NotImplementedException();
+            Post postToAdd = new Post()
+            {
+                Title = model.Title,
+                Content = model.Content,
+                ShortDescription = model.ShortDescription,
+                CreatedOn = DateTime.Now,
+                UpdatedOn = DateTime.Now,
+                UserId = userId
+            };
+
+            await _context.Posts.AddAsync(postToAdd);
+
+            await _context.SaveChangesAsync();
+
+            foreach (var category in model.Categories)
+            {
+                await _context.PostsCategories.AddAsync(new PostCategory()
+                {
+                    PostId = postToAdd.Id,
+                    CategoryId = category.Id
+                });
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public Task DeletePostAsync(Post post)
@@ -50,7 +73,7 @@ namespace BlogApp.Core.Services
                 .ToListAsync();
         }
 
-        public Task UpdatePostAsync(AddPostViewModel postModel, Post postToEdit)
+        public Task UpdatePostAsync(AddPostFormModel postModel, Post postToEdit)
         {
             throw new NotImplementedException();
         }

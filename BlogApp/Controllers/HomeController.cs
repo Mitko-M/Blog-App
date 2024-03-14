@@ -20,6 +20,8 @@ namespace BlogApp.Controllers
             _postService = postService;
         }
 
+        //TODO: Make All the default view and when a post is
+        //clicked and the user isn't loged in to be riderected to log in
         [AllowAnonymous]
         public IActionResult Index()
         {

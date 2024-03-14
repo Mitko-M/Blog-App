@@ -12,11 +12,11 @@ namespace BlogApp.Core.Contracts
     {
         Task<IEnumerable<AllPostsViewModel>> GetAllPostsAsync();
 
-        Task AddPostAsync(AddPostViewModel postModel, string userId);
+        Task AddPostAsync(AddPostFormModel postModel, string userId);
 
         Task<PostViewModel> FindByIdAsync(int id);
 
-        Task UpdatePostAsync(AddPostViewModel postModel, Post postToEdit);
+        Task UpdatePostAsync(AddPostFormModel postModel, Post postToEdit);
 
         Task DeletePostAsync(Post post);
     }

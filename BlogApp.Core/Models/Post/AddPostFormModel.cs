@@ -3,7 +3,7 @@ using static BlogApp.Infrastructure.Common.ValidationConstants;
 
 namespace BlogApp.Core.Models.Post
 {
-    public class AddPostViewModel
+    public class AddPostFormModel
     {
         [Required(ErrorMessage = RequiredError)]
         [StringLength(PostTitleMax, MinimumLength = PostTitleMin, ErrorMessage = InputError)]
@@ -20,5 +20,9 @@ namespace BlogApp.Core.Models.Post
         public string ShortDescription { get; set; } = string.Empty;
 
         public string UserId { get; set; } = string.Empty;
+
+        public IEnumerable<PostCategoryModel>? Categories {  get; set; }
+
+        public IEnumerable<PostTagModel>? Tags { get; set; }
     }
 }
