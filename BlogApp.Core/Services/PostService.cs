@@ -78,7 +78,7 @@ namespace BlogApp.Core.Services
                 .ToListAsync();
         }
 
-        public AddPostFormModel GetPostFormModelAsync()
+        public AddPostFormModel GetPostFormModel()
         {
             AddPostFormModel model = new AddPostFormModel()
             {
@@ -132,9 +132,14 @@ namespace BlogApp.Core.Services
                 .ToList();
         }
 
-        public async Task<Post> GetPostById(int id)
+        public async Task<Post?> GetPostById(int id)
         {
             return await _context.Posts
+                .Include(p => p.PostsCategories)
+                    .ThenInclude(pc => pc.Category)
+                .Include(p => p.PostsTags)
+                    .ThenInclude(pt => pt.Tag)
+                .Include(p => p.User)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
     }

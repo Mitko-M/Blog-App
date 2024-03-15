@@ -35,7 +35,7 @@ namespace BlogApp.Core.Contracts
         /// Creating a post model to be filled in a form
         /// </summary>
         /// <returns>AddPostFormModel</returns>
-        AddPostFormModel GetPostFormModelAsync();
+        AddPostFormModel GetPostFormModel();
 
         /// <summary>
         /// A method for taking all tags from the database and then parsing them to a model
@@ -54,7 +54,7 @@ namespace BlogApp.Core.Contracts
         /// </summary>
         /// <param name="id">Post's identifier</param>
         /// <returns>A post entity</returns>
-        Task<Post> GetPostById(int id);
+        Task<Post?> GetPostById(int id);
         
         //TODO: Add the rest CRUD operations
     }
