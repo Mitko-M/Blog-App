@@ -20,7 +20,7 @@
         public const int PostShortDescriptionMax = 150;
 
         public const int PostContentMin = 10;
-        public const int PostContentMax = 500;
+        public const int PostContentMax = 5000;
 
         //comment
         public const int CommentContentMin = 1;
