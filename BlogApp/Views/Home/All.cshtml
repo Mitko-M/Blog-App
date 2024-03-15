@@ -1,4 +1,6 @@
-﻿@model List<AllPostsViewModel>
+﻿@using System.Security.Claims
+
+@model List<AllPostsViewModel>
 
 @{
     ViewData["Title"] = "All Posts";
@@ -16,7 +18,12 @@
                         <div class="card-body">
                             <p class="card-text">@post.ShortDescription</p>
                             <div class="small text-muted">Updated on @post.UpdatedOn.ToString(DateFormat)</div>
-                            <a class="btn btn-primary" asp-route-id="@post.Id">Read more →</a>
+                            <a class="btn btn-info" asp-route-id="@post.Id">Read more →</a>
+                            @if (User.Id() == post.UserId)
+                            {
+                                <a class="btn btn-primary" asp-route-id="@post.Id">Edit</a>
+                                <a class="btn btn-danger" asp-route-id="@post.Id">Delete</a>
+                            }
                         </div>
                     </div>
                 </div>
