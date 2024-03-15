@@ -27,7 +27,7 @@
         public const int CommentContentMax = 100;
 
         //date format
-        public const string DateFormat = "dd MMM yyyy";
+        public const string PostDateFormat = "dd MMM yyyy";
 
         //required field
         public const string RequiredError = "The {0} field is required";
