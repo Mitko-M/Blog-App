@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
 }
 
-<div class="row">
+<div class="d-flex flex-column justify-content-evenly h-100">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Create" asp-controller="Post" method="post">
+        <form asp-action="Create" asp-controller="Post" method="post" id="post-form">
             <div class="mb-3">
                 <label asp-for="Title" class="form-label-add-edit">Post Title</label>
                 <input asp-for="Title" class="form-control" aria-required="true" />
@@ -16,7 +16,7 @@
 
             <div class="mb-3">
                 <label asp-for="Content" class="form-label-add-edit">Post Content</label>
-                <input asp-for="Content" class="form-control" aria-required="true" />
+                <textarea asp-for="Content" class="form-control" rows="10" aria-required="true"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
@@ -26,14 +26,14 @@
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
 
-            <div class="row">
+            <div class="d-flex flex-row gap-3">
                 <div class="mb-3">
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                             Select Categories
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu" id="category-dropdown" aria-labelledby="dropdownMenuButton">
                             @foreach (var category in Model.Categories)
                             {
                                 <li>
