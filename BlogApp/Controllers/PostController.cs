@@ -1,9 +1,10 @@
 ﻿using BlogApp.Core.Contracts;
+using BlogApp.Core.Models.Comment;
 using BlogApp.Core.Models.Post;
-using BlogApp.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Versioning;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
+using static BlogApp.Infrastructure.Common.ValidationConstants;
 
 namespace BlogApp.Controllers
 {
@@ -23,7 +24,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var model = _postService.GetPostFormModelAsync();
+            var model = _postService.GetPostFormModel();
 
             return View(model);
         }
@@ -65,6 +66,64 @@ namespace BlogApp.Controllers
             await _postService.AddPostAsync(model, User.Id());
 
             return RedirectToAction("All", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var post = await _postService.GetPostById(id);
+
+            if (post == null)
+            {
+                return BadRequest();
+            }
+
+            var categories = post.PostsCategories
+                .Select(pc => pc.Category.Name)
+                .ToList();
+
+            var tags = post.PostsTags
+                .Select(pt => pt.Tag.Name)
+                .ToList();
+
+            int likes = post.LikesDislikes
+                .Where(ld => ld.Liked)
+                .Count();
+
+            int dislikes = post.LikesDislikes
+                .Where(ld => !ld.Liked)
+                .Count();
+
+            int favorites = post.Favorites.Count();
+
+            var comments = post.Comments
+                .Select(c => new CommentViewModel()
+                {
+                    Id = c.Id,
+                    Content = c.Content,
+                    UserId = c.UserId,
+                    PostId = c.PostId,
+                })
+                .ToList();
+
+            PostDetailsViewModel model = new PostDetailsViewModel()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content,
+                ShortDescription = post.ShortDescription,
+                CreatedOn = post.CreatedOn.ToString(PostDateFormat),
+                UpdatedOn = post.UpdatedOn.ToString(PostDateFormat),
+                UserName = post.User.UserName,
+                Categories = categories,
+                Tags = tags,
+                Likes = likes,
+                Dislikes = dislikes,
+                Favorites = favorites,
+                Comments = comments
+            };
+
+            return View(model);
         }
     }
 }

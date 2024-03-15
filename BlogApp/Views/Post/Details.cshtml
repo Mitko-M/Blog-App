@@ -1,0 +1,14 @@
+﻿@model PostDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_LayoutPostDetails.cshtml";
+}
+
+<div class="col-lg-8 post">
+    <h1>@Model.Title</h1>
+    <h5>Written by @Model.UserName.<br />Updated on @Model.UpdatedOn</h5>
+    <p>
+        @Model.Content
+    </p>
+</div>
