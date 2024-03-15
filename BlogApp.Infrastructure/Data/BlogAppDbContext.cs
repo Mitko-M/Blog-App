@@ -1,6 +1,5 @@
 ﻿using BlogApp.Infrastructure.Data.Configuration;
 using BlogApp.Infrastructure.Data.Models;
-using BlogApp.InfrastructureData.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

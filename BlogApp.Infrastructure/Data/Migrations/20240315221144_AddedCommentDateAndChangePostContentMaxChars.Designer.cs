@@ -4,6 +4,7 @@ using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Data.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240315221144_AddedCommentDateAndChangePostContentMaxChars")]
+    partial class AddedCommentDateAndChangePostContentMaxChars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.27")
+                .HasAnnotation("ProductVersion", "6.0.28")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -68,6 +70,9 @@ namespace BlogApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CommentUploadDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -90,6 +95,33 @@ namespace BlogApp.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Favorite identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int")
+                        .HasComment("Post identifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Application user identifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.LikeDislike", b =>
@@ -134,8 +166,8 @@ namespace BlogApp.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("Post content");
 
                     b.Property<DateTime>("CreatedOn")
@@ -174,31 +206,31 @@ namespace BlogApp.Data.Migrations
                         {
                             Id = 1,
                             Content = "This is my first post's content",
-                            CreatedOn = new DateTime(2019, 3, 1, 0, 31, 31, 622, DateTimeKind.Local).AddTicks(4565),
+                            CreatedOn = new DateTime(2019, 3, 16, 0, 11, 44, 257, DateTimeKind.Local).AddTicks(98),
                             ShortDescription = "This is my post's short description",
                             Title = "My First Post",
-                            UpdatedOn = new DateTime(2021, 9, 1, 0, 31, 31, 622, DateTimeKind.Local).AddTicks(4598),
-                            UserId = "b967ba8f-ad12-44fb-8d19-cf4bf9f022d9"
+                            UpdatedOn = new DateTime(2021, 9, 16, 0, 11, 44, 257, DateTimeKind.Local).AddTicks(132),
+                            UserId = "aa3eea82-6364-4821-a1d3-f5e11170c209"
                         },
                         new
                         {
                             Id = 2,
                             Content = "This is my second post's content",
-                            CreatedOn = new DateTime(2019, 3, 1, 0, 31, 31, 622, DateTimeKind.Local).AddTicks(4602),
+                            CreatedOn = new DateTime(2019, 3, 16, 0, 11, 44, 257, DateTimeKind.Local).AddTicks(137),
                             ShortDescription = "This is my post's short description",
                             Title = "My Second Post",
-                            UpdatedOn = new DateTime(2023, 5, 1, 0, 31, 31, 622, DateTimeKind.Local).AddTicks(4604),
-                            UserId = "b967ba8f-ad12-44fb-8d19-cf4bf9f022d9"
+                            UpdatedOn = new DateTime(2023, 5, 16, 0, 11, 44, 257, DateTimeKind.Local).AddTicks(139),
+                            UserId = "aa3eea82-6364-4821-a1d3-f5e11170c209"
                         },
                         new
                         {
                             Id = 3,
                             Content = "This is my third post's content",
-                            CreatedOn = new DateTime(2024, 1, 1, 0, 31, 31, 622, DateTimeKind.Local).AddTicks(4607),
+                            CreatedOn = new DateTime(2024, 1, 16, 0, 11, 44, 257, DateTimeKind.Local).AddTicks(142),
                             ShortDescription = "This is my post's short description",
                             Title = "My Third Post",
-                            UpdatedOn = new DateTime(2024, 2, 25, 0, 31, 31, 622, DateTimeKind.Local).AddTicks(4609),
-                            UserId = "b967ba8f-ad12-44fb-8d19-cf4bf9f022d9"
+                            UpdatedOn = new DateTime(2024, 3, 11, 0, 11, 44, 257, DateTimeKind.Local).AddTicks(144),
+                            UserId = "aa3eea82-6364-4821-a1d3-f5e11170c209"
                         });
                 });
 
@@ -269,33 +301,6 @@ namespace BlogApp.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BlogApp.InfrastructureData.Models.Favorite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasComment("Favorite identifier");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int")
-                        .HasComment("Post identifier");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasComment("Application user identifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Favorites");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -325,15 +330,15 @@ namespace BlogApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "81d2205d-a4b2-4414-92bc-23c7f8b31765",
-                            ConcurrencyStamp = "b1d34529-e7b0-487b-a950-4c04ac671e41",
+                            Id = "cdb58854-68f0-4d92-936d-2b171dbf1b04",
+                            ConcurrencyStamp = "dd8624e5-6bcb-4948-b197-fc0ab3824dd5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ab918c42-c901-4cba-b099-8d4c5000dbc1",
-                            ConcurrencyStamp = "204e11c1-ae65-4adb-9e81-ced692aee18c",
+                            Id = "4486552e-cc43-47ad-b894-4b3bfcea59e0",
+                            ConcurrencyStamp = "5b1df686-9b39-4e16-88f9-cf858683aa73",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -431,30 +436,30 @@ namespace BlogApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b967ba8f-ad12-44fb-8d19-cf4bf9f022d9",
+                            Id = "aa3eea82-6364-4821-a1d3-f5e11170c209",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad9ba667-1b43-467d-a3d1-db9d8016cc46",
+                            ConcurrencyStamp = "4080d65c-e806-4575-8efb-d7fa605dc985",
                             Email = "user@blog.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@BLOG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKCMoyoaSSNPAQUsXAAeuiz7NC6LVO512xSc6LTiNLk/mhlgIPXZN2JfN8UzucIgMA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIEtg4X93SHWV00LdM80lHI/1mSY1JYISTcRX6IsoRl2nsLu/B9I4u+qF95uIUdjHA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9563e41c-7028-4bee-a560-7de61f6cfac3",
+                            SecurityStamp = "eed126e7-535b-4f40-b488-19e7fdad54e2",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "6fec0510-8926-4572-b88e-9b181bf68bf6",
+                            Id = "2f71e6c3-9554-4eeb-b967-f6d31f764b3e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cfc5a840-e16f-4e67-91cc-f116166685d9",
+                            ConcurrencyStamp = "966ee9b0-243f-4a0f-b271-37a798c60744",
                             Email = "admin@blog.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BLOG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAM18L3b8mLET4zs5UThNymiVIAubBwsjnorYt4u6gEaUDR6wHs0qWbzYw5dWuaRZQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFl7vmkWNqXdJJ79LTUv1W0SaaEyJRyrWO3za+ynfGkZHRq9R1KFPllwO1wf2Fh0cw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "99011de3-91a8-471a-87cc-aadaaf9143d5",
+                            SecurityStamp = "de5aaf7b-6540-452d-b3be-da3c6477e7e0",
                             TwoFactorEnabled = false
                         });
                 });
@@ -563,6 +568,25 @@ namespace BlogApp.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Favorite", b =>
+                {
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.Post", "Post")
+                        .WithMany("Favorites")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.LikeDislike", b =>
                 {
                     b.HasOne("BlogApp.Infrastructure.Data.Models.Post", "Post")
@@ -629,25 +653,6 @@ namespace BlogApp.Data.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-                });
-
-            modelBuilder.Entity("BlogApp.InfrastructureData.Models.Favorite", b =>
-                {
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.Post", "Post")
-                        .WithMany("Favorites")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

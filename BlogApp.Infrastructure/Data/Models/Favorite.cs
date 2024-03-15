@@ -1,10 +1,9 @@
-﻿using BlogApp.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlogApp.InfrastructureData.Models
+namespace BlogApp.Infrastructure.Data.Models
 {
     public class Favorite
     {

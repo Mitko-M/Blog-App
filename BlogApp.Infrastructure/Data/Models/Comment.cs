@@ -30,5 +30,8 @@ namespace BlogApp.Infrastructure.Data.Models
 
         [ForeignKey(nameof(PostId))]
         public Post Post { get; set; } = null!;
+
+        [Required]
+        public DateTime CommentUploadDate { get; set; }
     }
 }
