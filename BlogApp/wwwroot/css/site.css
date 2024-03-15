@@ -17,9 +17,10 @@ body {
   margin-bottom: 60px;
 }
 
-#welcome-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#pc-footer {
+    position: fixed;
+    line-height: 60px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
