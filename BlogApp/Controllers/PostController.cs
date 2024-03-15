@@ -52,6 +52,16 @@ namespace BlogApp.Controllers
                 model.Tags.Find(t => t.Id == item).IsSelected = true;
             }
 
+            if (!model.Categories.Any(c => c.IsSelected == true))
+            {
+                ModelState.AddModelError("Post Category", "A category wasn't chosen");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             await _postService.AddPostAsync(model, User.Id());
 
             return RedirectToAction("All", "Home");
