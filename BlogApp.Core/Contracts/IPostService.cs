@@ -48,6 +48,13 @@ namespace BlogApp.Core.Contracts
         /// </summary>
         /// <returns>A list with PostCategoryModel</returns>
         List<PostCategoryModel> GetCategories();
+
+        /// <summary>
+        /// Getting a post by it's Id
+        /// </summary>
+        /// <param name="id">Post's identifier</param>
+        /// <returns>A post entity</returns>
+        Task<Post> GetPostById(int id);
         
         //TODO: Add the rest CRUD operations
     }

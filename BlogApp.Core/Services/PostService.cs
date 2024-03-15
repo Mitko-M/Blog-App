@@ -131,5 +131,11 @@ namespace BlogApp.Core.Services
                 })
                 .ToList();
         }
+
+        public async Task<Post> GetPostById(int id)
+        {
+            return await _context.Posts
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }
