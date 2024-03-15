@@ -17,8 +17,8 @@
                         <div class="card-header">@post.Title</div>
                         <div class="card-body">
                             <p class="card-text">@post.ShortDescription</p>
-                            <div class="small text-muted">Updated on @post.UpdatedOn.ToString(DateFormat)</div>
-                            <a class="btn btn-info" asp-route-id="@post.Id">Read more →</a>
+                            <div class="small text-muted">Updated on @post.UpdatedOn.ToString(PostDateFormat)</div>
+                            <a class="btn btn-info" asp-controller="Post" asp-action="Details" asp-route-id="@post.Id">Read more →</a>
                             @if (User.Id() == post.UserId)
                             {
                                 <a class="btn btn-primary" asp-route-id="@post.Id">Edit</a>
