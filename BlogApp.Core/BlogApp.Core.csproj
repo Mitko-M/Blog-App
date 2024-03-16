@@ -10,8 +10,4 @@
     <ProjectReference Include="..\BlogApp.Infrastructure\BlogApp.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Google.AdWords" Version="24.19.0" />
-  </ItemGroup>
-
 </Project>

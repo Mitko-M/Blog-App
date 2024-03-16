@@ -33,11 +33,17 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3 row">
+            <div class="col-lg-12 d-flex justify-content-evenly">
+                <!-- Filtering widget -->
+                @await Component.InvokeAsync(nameof(FilteringComponent))
+                <!-- Sorting widget -->
+                @await Component.InvokeAsync(nameof(SortingComponent))
+                <!-- Search widget-->
+                @await Component.InvokeAsync(nameof(SearchBoxComponent))
+            </div>
             @RenderBody()
             <!-- Side widgets-->
             <div class="col-lg-4">
-                <!-- Search widget-->
-                @await Component.InvokeAsync(nameof(SearchEngineComponent))
                 <!-- Categories widget-->
                 <div class="card mb-4">
                     <div class="card-header">Categories</div>

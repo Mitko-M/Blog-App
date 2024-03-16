@@ -1,0 +1,15 @@
+﻿@using BlogApp.Core.Enumerations
+
+<div class="card mb-4">
+    <div class="card-header">Filter By</div>
+    <div class="card-body">
+        <div class="input-group">
+            <select class="form-select">
+                @foreach (var item in (int[])Enum.GetValues(typeof(PostFiltering)))
+                {
+                    <option value="@item">@Enum.GetName(typeof(PostFiltering), item)</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
