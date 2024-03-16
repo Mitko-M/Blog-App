@@ -71,6 +71,11 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+            if (!(User?.Identity?.IsAuthenticated) ?? false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var post = await _postService.GetPostById(id);
 
             if (post == null)
