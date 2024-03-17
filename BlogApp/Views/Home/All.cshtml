@@ -20,7 +20,10 @@
         </div>
 
         <!-- Pagination-->
-        @await Component.InvokeAsync(nameof(PaginationComponent), Model)
+        @if (!(Model.PostsCount <= Model.PostsPerPage))
+        {
+            @await Component.InvokeAsync(nameof(PaginationComponent), Model)
+        }
 
     }
     else
