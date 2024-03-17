@@ -6,11 +6,11 @@
         <div class="card-header">@Model.Title</div>
         <div class="card-body">
             <p class="card-text">@Model.ShortDescription</p>
-            <div class="small text-muted">Updated on @Model.UpdatedOn.ToString(PostDateFormat)</div>
+            <div class="small text-muted">Updated on @Model.UpdatedOn</div>
             <a class="btn btn-info" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">Read more →</a>
             @if (User.Id() == Model.UserId)
             {
-                <a class="btn btn-primary" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-primary" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                 <a class="btn btn-danger" asp-route-id="@Model.Id">Delete</a>
             }
         </div>

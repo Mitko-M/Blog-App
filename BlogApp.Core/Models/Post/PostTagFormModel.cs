@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Core.Models.Post
 {
-    public class PostCategoryModel
+    public class PostTagFormModel : TagViewModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public bool IsSelected { get; set; }
     }
 }

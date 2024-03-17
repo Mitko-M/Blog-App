@@ -13,9 +13,9 @@ namespace BlogApp.Core.Contracts
     public interface IPostService
     {
         /// <summary>
-        /// Returns all posts asynchronously base on the filters
+        /// Returns all posts asynchronously based on the filters given with the query string in the URL
         /// </summary>
-        /// <returns>An AllPostsQueryModel</returns>
+        /// <returns>An AllPostsQueryModel containing every post mathing the given parameters</returns>
         Task<PostQueryServiceModel> GetAllPostsAsync(
             string? tagName = null,
             string? categoryName = null,
@@ -44,19 +44,19 @@ namespace BlogApp.Core.Contracts
         /// Creating a post model to be filled in a form
         /// </summary>
         /// <returns>AddPostFormModel</returns>
-        AddPostFormModel GetPostFormModel();
+        Task<AddPostFormModel> GetPostFormModel();
 
         /// <summary>
         /// A method for taking all tags from the database and then parsing them to a model
         /// </summary>
         /// <returns>A list with PostTagModel</returns>
-        List<PostTagModel> GetTags();
+        Task<IEnumerable<PostTagFormModel>> GetTagsWithIsSelected();
 
         /// <summary>
         /// A method for taking all categories from the database and then parsing them to a model
         /// </summary>
         /// <returns>A list with PostCategoryModel</returns>
-        List<PostCategoryModel> GetCategories();
+        Task<IEnumerable<PostCategoryFormModel>> GetCategoriesWithIsSelected();
 
         /// <summary>
         /// Getting a post by it's Id
@@ -64,7 +64,22 @@ namespace BlogApp.Core.Contracts
         /// <param name="id">Post's identifier</param>
         /// <returns>A post entity</returns>
         Task<Post?> GetPostById(int id);
+
+        /// <summary>
+        /// Finds a post by given Id and returns it as model for editing
+        /// </summary>
+        /// <param name="id">Post's identifier</param>
+        /// <returns>An AddPostFormModel to be edited in a form</returns>
+        Task<AddPostFormModel> GetPostToEditAsync(int id);
+
+        /// <summary>
+        /// A method for updating the post in the database
+        /// </summary>
+        /// <param name="post">The database object post</param>
+        /// <param name="model">The model containing all change data</param>
+        /// <returns></returns>
+        Task UpdatePostAsync(Post post, AddPostFormModel model);
+
         
-        //TODO: Add the rest CRUD operations
     }
 }

@@ -1,25 +1,26 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Enumerations;
-using BlogApp.Core.Models;
 using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static BlogApp.Infrastructure.Common.ValidationConstants;
 
 namespace BlogApp.Core.Services
 {
-    //TODO: write business logic
     public class PostService : IPostService
     {
         private readonly BlogAppDbContext _context;
-        public PostService(BlogAppDbContext context)
+        private readonly ICategoryService _categoryService;
+        private readonly ITagService _tagService;
+        public PostService(
+            BlogAppDbContext context, 
+            ICategoryService categoryService, 
+            ITagService tagService)
         {
             _context = context;
+            _categoryService = categoryService;
+            _tagService = tagService;
         }
         public async Task AddPostAsync(AddPostFormModel model, string userId)
         {
@@ -64,12 +65,12 @@ namespace BlogApp.Core.Services
             await _context.SaveChangesAsync();
         }
 
-        public AddPostFormModel GetPostFormModel()
+        public async Task<AddPostFormModel> GetPostFormModel()
         {
             AddPostFormModel model = new AddPostFormModel()
             {
-                Categories = GetCategories(),
-                Tags = GetTags()
+                Categories = await GetCategoriesWithIsSelected(),
+                Tags = await GetTagsWithIsSelected()
             };
 
             return model;
@@ -94,28 +95,30 @@ namespace BlogApp.Core.Services
             return ret;
         }
 
-        public List<PostCategoryModel> GetCategories()
+        public async Task<IEnumerable<PostCategoryFormModel>> GetCategoriesWithIsSelected()
         {
-            return _context.Categories
-                .Select(c => new PostCategoryModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    IsSelected = false
-                })
-                .ToList();
+            var categories = await _categoryService.GetCategoriesAsync();
+
+            return categories.Select(c => new PostCategoryFormModel()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                IsSelected = false
+            })
+            .ToList();
         }
 
-        public List<PostTagModel> GetTags()
+        public async Task<IEnumerable<PostTagFormModel>> GetTagsWithIsSelected()
         {
-            return _context.Tags
-                .Select(c => new PostTagModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    IsSelected = false
-                })
-                .ToList();
+            var tags = await _tagService.GetTagsAsync();
+
+            return tags.Select(t => new PostTagFormModel()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                IsSelected = false
+            })
+            .ToList();
         }
 
         public async Task<Post?> GetPostById(int id)
@@ -199,9 +202,10 @@ namespace BlogApp.Core.Services
                     Title = p.Title,
                     Content = p.Content,
                     ShortDescription = p.ShortDescription,
-                    CreatedOn = p.CreatedOn,
-                    UpdatedOn = p.UpdatedOn,
+                    CreatedOn = p.CreatedOn.ToString(PostDateFormat),
+                    UpdatedOn = p.UpdatedOn.ToString(PostDateFormat),
                     UserId = p.UserId,
+                    UserName = p.User.UserName,
                     Categories = categories
                                     .Where(c => p.PostsCategories
                                                     .Select(pc => pc.CategoryId)
@@ -224,6 +228,115 @@ namespace BlogApp.Core.Services
                 PostsCount = allPostsCount,
                 Posts = posts
             };
+        }
+
+        public async Task<AddPostFormModel> GetPostToEditAsync(int id)
+        {
+            var post = await GetPostById(id);
+
+            if (post == null)
+            {
+                return null;
+            }
+
+            var categories = await GetCategoriesWithIsSelected();
+            var tags = await GetTagsWithIsSelected();
+
+            var selectedCatsIds = post.PostsCategories
+                                    .Select(pc => pc.CategoryId)
+                                    .ToList();
+
+            var selectedTagsId = post.PostsTags
+                                    .Select(pt => pt.TagId)
+                                    .ToList();
+
+            foreach (var cat in categories)
+            {
+                if (selectedCatsIds.Contains(cat.Id))
+                {
+                    cat.IsSelected = true;
+                }
+            }
+
+            foreach (var tag in tags)
+            {
+                if (selectedTagsId.Contains(tag.Id))
+                {
+                    tag.IsSelected = true;
+                }
+            }
+
+            return new AddPostFormModel()
+            {
+                Title = post.Title,
+                Content = post.Content,
+                ShortDescription = post.ShortDescription,
+                UserId = post.UserId,
+                Categories = categories,
+                Tags = tags,
+            };
+        }
+
+        public async Task UpdatePostAsync(Post post, AddPostFormModel model)
+        {
+            post.Title = post.Title;
+            post.Content = post.Content;
+            post.ShortDescription = post.ShortDescription;
+            post.UpdatedOn = DateTime.Now;
+
+            foreach (var cat in model.Categories)
+            {
+                if (cat.IsSelected)
+                {
+                    if (!(post.PostsCategories.Select(pc => pc.CategoryId).Contains(cat.Id)))
+                    {
+                        var postCat = new PostCategory()
+                        {
+                            PostId = post.Id,
+                            CategoryId = cat.Id
+                        };
+
+                        post.PostsCategories.Add(postCat);
+                    }
+                }
+                else
+                {
+                    if (post.PostsCategories.Select(pc => pc.CategoryId).Contains(cat.Id))
+                    {
+                        var postCatToRemove = post.PostsCategories.First(pc => pc.CategoryId == cat.Id);
+
+                        post.PostsCategories.Remove(postCatToRemove);
+                    }
+                }
+            }
+
+            foreach (var tag in model.Tags)
+            {
+                if (tag.IsSelected)
+                {
+                    if (!(post.PostsTags.Select(pt => pt.TagId).Contains(tag.Id)))
+                    {
+                        var postTag = new PostTag()
+                        {
+                            TagId = tag.Id,
+                            PostId = post.Id,
+                        };
+
+                        post.PostsTags.Add(postTag);
+                    }
+                }
+                else
+                {
+                    if (post.PostsTags.Select(pt => pt.TagId).Contains(tag.Id))
+                    {
+                        var postTagToRemove = post.PostsTags.First(pt => pt.TagId == tag.Id);
+
+                        post.PostsTags.Remove(postTagToRemove);
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }
