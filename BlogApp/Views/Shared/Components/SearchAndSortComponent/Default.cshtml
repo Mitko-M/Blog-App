@@ -1,0 +1,64 @@
+﻿@using BlogApp.Core.Contracts
+@using BlogApp.Core.Enumerations
+@using EnumsNET
+@inject ICategoryService _categorService
+@inject ITagService _tagService
+
+@model AllPostsQueryModel
+
+
+<form class="col-lg-12 d-flex justify-content-evenly flex-row" method="get">
+    <div class="card mb-4">
+        <div class="card-header">Tags</div>
+        <div class="card-body">
+            <div class="input-group">
+                <select asp-for="TagName" class="form-select">
+                    <option value="@null">All</option>
+                    @foreach (var item in Model.Tags)
+                    {
+                        <option value="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+            <div class="input-group">
+                <select asp-for="CategoryName" class="form-select">
+                    <option value="@null">All</option>
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option value="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">Sort By</div>
+        <div class="card-body">
+            <div class="input-group">
+                <select asp-for="PostSorting" class="form-select">
+                    @foreach (var item in (int[])Enum.GetValues(typeof(PostSorting)))
+                    {
+                        <option value="@item">@(((PostSorting)item).AsString(EnumFormat.Description))</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">Search</div>
+        <div class="card-body">
+            <div class="input-group">
+                <input asp-for="SearchTerm" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" aria-describedby="button-search" />
+                <input class="btn btn-primary" id="button-search" type="submit" value="Search"></input>
+            </div>
+        </div>
+    </div>
+</form>

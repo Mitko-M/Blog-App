@@ -1,5 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models;
+using BlogApp.Core.Models.Post;
+using BlogApp.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -11,20 +13,45 @@ namespace BlogApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPostService _postService;
+        private readonly ICategoryService _categoryService;
+        private readonly ITagService _tagService;
 
         public HomeController(
             ILogger<HomeController> logger,
-            IPostService postService)
+            IPostService postService,
+            ICategoryService categoryService,
+            ITagService tagService)
         {
             _logger = logger;
             _postService = postService;
+            _categoryService = categoryService;
+            _tagService = tagService;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllPostsQueryModel model)
         {
-            var model = await _postService.GetAllPostsAsync();
+            var posts = await _postService.GetAllPostsAsync(
+                model.TagName,
+                model.CategoryName,
+                model.PostSorting,
+                model.CurrentPage,
+                model.PostsPerPage,
+                model.SearchTerm);
+
+            var categories = await _categoryService.GetCategoriesAsync();
+            var tags = await _tagService.GetTagsAsync();
+
+            model.PostsCount = posts.PostsCount;
+            model.Posts = posts.Posts;
+            model.Categories = categories;
+            model.Tags = tags;
+
+            if (model.CurrentPage > Math.Ceiling((double)model.PostsCount / model.PostsPerPage) && model.CurrentPage > 1)
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }
