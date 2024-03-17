@@ -3,6 +3,7 @@ using BlogApp.Core.Enumerations;
 using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
 
@@ -335,6 +336,13 @@ namespace BlogApp.Core.Services
                     }
                 }
             }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeletePostAsync(Post post)
+        {
+            _context.Posts.Remove(post);
 
             await _context.SaveChangesAsync();
         }

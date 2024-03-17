@@ -201,5 +201,50 @@ namespace BlogApp.Controllers
 
             return RedirectToAction("All", "Home");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var post = await _postService.GetPostById(id);
+
+            if (post == null)
+            {
+                return BadRequest();
+            }
+
+            if (post.UserId != User.Id())
+            {
+                return Unauthorized();
+            }
+
+            var model = new DeletePostViewModel()
+            {
+                Id = id,
+                Title = post.Title,
+                CreatedOn = post.CreatedOn.ToString(PostDateFormat)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var post = await _postService.GetPostById(id);
+
+            if (post == null)
+            {
+                return BadRequest();
+            }
+
+            if (post.UserId != User.Id())
+            {
+                return Unauthorized();
+            }
+
+            await _postService.DeletePostAsync(post);
+
+            return RedirectToAction("All", "Home");
+        }
     }
 }

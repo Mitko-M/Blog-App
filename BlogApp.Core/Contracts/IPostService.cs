@@ -80,6 +80,11 @@ namespace BlogApp.Core.Contracts
         /// <returns></returns>
         Task UpdatePostAsync(Post post, AddPostFormModel model);
 
-        
+        /// <summary>
+        /// A method for deleting a post asynchronously
+        /// </summary>
+        /// <param name="post">Post entity</param>
+        /// <returns></returns>
+        Task DeletePostAsync(Post post);
     }
 }
