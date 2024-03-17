@@ -1,4 +1,6 @@
-﻿using BlogApp.Core.Models.Post;
+﻿using BlogApp.Core.Enumerations;
+using BlogApp.Core.Models;
+using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,17 @@ namespace BlogApp.Core.Contracts
     public interface IPostService
     {
         /// <summary>
-        /// Returns all posts asynchronously
+        /// Returns all posts asynchronously base on the filters
         /// </summary>
-        /// <returns>A sequence with AllPostsViewModel</returns>
-        Task<IEnumerable<AllPostsViewModel>> GetAllPostsAsync();
+        /// <returns>An AllPostsQueryModel</returns>
+        Task<PostQueryServiceModel> GetAllPostsAsync(
+            string? tagName = null,
+            string? categoryName = null,
+            PostSorting sorting = PostSorting.None,
+            int currentPage = 1,
+            int postsPerPage = 1,
+            string searchTerm = null
+            );
 
         /// <summary>
         /// Adding a post asynchronously

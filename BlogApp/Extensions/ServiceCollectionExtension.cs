@@ -11,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ITagService, TagService>();
 
             return services;
         }

@@ -33,62 +33,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3 row">
-            <div class="col-lg-12 d-flex justify-content-evenly">
-                <!-- Filtering widget -->
-                @await Component.InvokeAsync(nameof(FilteringComponent))
-                <!-- Sorting widget -->
-                @await Component.InvokeAsync(nameof(SortingComponent))
-                <!-- Search widget-->
-                @await Component.InvokeAsync(nameof(SearchBoxComponent))
-            </div>
             @RenderBody()
-            <!-- Side widgets-->
-            <div class="col-lg-4">
-                <!-- Categories widget-->
-                <div class="card mb-4">
-                    <div class="card-header">Categories</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Web Design</a></li>
-                                    <li><a href="#!">HTML</a></li>
-                                    <li><a href="#!">Freebies</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">JavaScript</a></li>
-                                    <li><a href="#!">CSS</a></li>
-                                    <li><a href="#!">Tutorials</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Side widget-->
-                <div class="card mb-4">
-                    <div class="card-header">Tags</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">#Tag</a></li>
-                                    <li><a href="#!">#Tag</a></li>
-                                    <li><a href="#!">#Tag</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">#Tag</a></li>
-                                    <li><a href="#!">#Tag</a></li>
-                                    <li><a href="#!">#Tag</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </main>
     </div>
     <footer class="border-top footer text-muted">

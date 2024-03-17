@@ -1,0 +1,117 @@
+﻿@model AllPostsQueryModel
+
+@{
+    int previosPage = Model.CurrentPage - 1;
+
+    if (previosPage < 1)
+    {
+        previosPage = 1;
+    }
+
+    int maxPage = (int)Math.Ceiling((double)Model.PostsCount / Model.PostsPerPage);
+
+    int currentPagePart = (int)Math.Ceiling((double)Model.CurrentPage / Model.PostsPerPage);
+    int maxPagePart = (int)Math.Ceiling((double)maxPage / Model.PostsPerPage);
+}
+
+
+<nav aria-label="Pagination">
+    <hr class="my-0" />
+    <ul class="pagination justify-content-center my-4">
+        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : string.Empty)">
+            <a class="page-link"
+               asp-controller="Home"
+               asp-action="All"
+               asp-route-currentPage="@previosPage"
+               asp-route-categoryName="@Model.CategoryName"
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-postSorting="@((int)Model.PostSorting)">Previous</a>
+        </li>
+
+        @if (maxPage < 7)
+        {
+            @for (int i = 1; i <= maxPage; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
+                    <a class="page-link"
+                       asp-controller="Home"
+                       asp-action="All"
+                       asp-route-currentPage="@i"
+                       asp-route-categoryName="@Model.CategoryName"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-postSorting="@((int)Model.PostSorting)">@i</a>
+                </li>
+            }
+        }
+
+        else if (currentPagePart == maxPagePart - 1 || currentPagePart == maxPagePart)
+        {
+            for (int i = maxPage - 3; i <= maxPage; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
+                    <a class="page-link"
+                       asp-controller="Home"
+                       asp-action="All"
+                       asp-route-currentPage="@i"
+                       asp-route-categoryName="@Model.CategoryName"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-postSorting="@((int)Model.PostSorting)">@i</a>
+                </li>
+            }
+        }
+
+        else
+        {
+            for (int i = (currentPagePart * Model.PostsPerPage) - (Model.PostsPerPage - 1); i <= currentPagePart * Model.PostsPerPage; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
+                    <a class="page-link"
+                       asp-controller="Home"
+                       asp-action="All"
+                       asp-route-currentPage="@i"
+                       asp-route-categoryName="@Model.CategoryName"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-postSorting="@((int)Model.PostSorting)">@i</a>
+                </li>
+            }
+
+            if (Model.CurrentPage + 3 < maxPage)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="Home"
+                       asp-action="All"
+                       asp-route-currentPage="@(Model.CurrentPage + 3)"
+                       asp-route-categoryName="@Model.CategoryName"
+                       asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-postSorting="@((int)Model.PostSorting)">...</a>
+                </li>
+            }
+
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Home"
+                   asp-action="All"
+                   asp-route-currentPage="@maxPage"
+                   asp-route-categoryName="@Model.CategoryName"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-postSorting="@((int)Model.PostSorting)">@maxPage</a>
+            </li>
+        }
+
+        @{
+            var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+            !Model.Posts.Any();
+        }
+
+        <li class="page-item @(shouldButtonBeDisabled ? "disabled" : string.Empty)">
+            <a class="page-link"
+               asp-controller="Home"
+               asp-action="All"
+               asp-route-currentPage="@(Model.CurrentPage + 1)"
+               asp-route-categoryName="@Model.CategoryName"
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-postSorting="@((int)Model.PostSorting)">Next</a>
+        </li>
+    </ul>
+</nav>
