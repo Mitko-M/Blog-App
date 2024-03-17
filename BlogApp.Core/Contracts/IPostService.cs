@@ -13,9 +13,34 @@ namespace BlogApp.Core.Contracts
     public interface IPostService
     {
         /// <summary>
-        /// Returns all posts asynchronously based on the filters given with the query string in the URL
+        /// A method for getting all posts mathing a given criteria and are associated with the application user 
         /// </summary>
-        /// <returns>An AllPostsQueryModel containing every post mathing the given parameters</returns>
+        /// <param name="tagName">Tag name</param>
+        /// <param name="categoryName">Category name</param>
+        /// <param name="sorting">Type of sorting</param>
+        /// <param name="currentPage">The current page in the All view</param>
+        /// <param name="postsPerPage">How many posts per page should be</param>
+        /// <param name="searchTerm">The search term from the search bar</param>
+        /// <returns>A PostQueryServiceModel containning all posts for a page and the count</returns>
+        Task<PostQueryServiceModel> GetMinePostsAsync(
+            string UserId,
+            string? tagName = null,
+            string? categoryName = null,
+            PostSorting sorting = PostSorting.None,
+            int currentPage = 1,
+            int postsPerPage = 1,
+            string searchTerm = null);
+
+        /// <summary>
+        /// A method for getting all posts matching a given criteria
+        /// </summary>
+        /// <param name="tagName">Tag name</param>
+        /// <param name="categoryName">Category name</param>
+        /// <param name="sorting">Type of sorting</param>
+        /// <param name="currentPage">The current page in the All view</param>
+        /// <param name="postsPerPage">How many posts per page should be</param>
+        /// <param name="searchTerm">The search term from the search bar</param>
+        /// <returns>A PostQueryServiceModel containning all posts for a page and the count</returns>
         Task<PostQueryServiceModel> GetAllPostsAsync(
             string? tagName = null,
             string? categoryName = null,

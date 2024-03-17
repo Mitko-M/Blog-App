@@ -20,8 +20,8 @@
     <ul class="pagination justify-content-center my-4">
         <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : string.Empty)">
             <a class="page-link"
-               asp-controller="Home"
-               asp-action="All"
+               asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+               asp-action="@(Model.MinePosts ? "Mine" : "All")"
                asp-route-currentPage="@previosPage"
                asp-route-categoryName="@Model.CategoryName"
                asp-route-searchTerm="@Model.SearchTerm"
@@ -34,8 +34,8 @@
             {
                 <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
                     <a class="page-link"
-                       asp-controller="Home"
-                       asp-action="All"
+                       asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+                       asp-action="@(Model.MinePosts ? "Mine" : "All")"
                        asp-route-currentPage="@i"
                        asp-route-categoryName="@Model.CategoryName"
                        asp-route-searchTerm="@Model.SearchTerm"
@@ -50,8 +50,8 @@
             {
                 <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
                     <a class="page-link"
-                       asp-controller="Home"
-                       asp-action="All"
+                       asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+                       asp-action="@(Model.MinePosts ? "Mine" : "All")"
                        asp-route-currentPage="@i"
                        asp-route-categoryName="@Model.CategoryName"
                        asp-route-searchTerm="@Model.SearchTerm"
@@ -66,8 +66,8 @@
             {
                 <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)">
                     <a class="page-link"
-                       asp-controller="Home"
-                       asp-action="All"
+                       asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+                       asp-action="@(Model.MinePosts ? "Mine" : "All")"
                        asp-route-currentPage="@i"
                        asp-route-categoryName="@Model.CategoryName"
                        asp-route-searchTerm="@Model.SearchTerm"
@@ -75,12 +75,12 @@
                 </li>
             }
 
-            if (Model.CurrentPage + 3 < maxPage)
+            if (Model.CurrentPage + 3 <= maxPage)
             {
                 <li class="page-item">
                     <a class="page-link"
-                       asp-controller="Home"
-                       asp-action="All"
+                       asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+                       asp-action="@(Model.MinePosts ? "Mine" : "All")"
                        asp-route-currentPage="@(Model.CurrentPage + 3)"
                        asp-route-categoryName="@Model.CategoryName"
                        asp-route-searchTerm="@Model.SearchTerm"
@@ -90,8 +90,8 @@
 
             <li class="page-item">
                 <a class="page-link"
-                   asp-controller="Home"
-                   asp-action="All"
+                   asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+                   asp-action="@(Model.MinePosts ? "Mine" : "All")"
                    asp-route-currentPage="@maxPage"
                    asp-route-categoryName="@Model.CategoryName"
                    asp-route-searchTerm="@Model.SearchTerm"
@@ -106,8 +106,8 @@
 
         <li class="page-item @(shouldButtonBeDisabled ? "disabled" : string.Empty)">
             <a class="page-link"
-               asp-controller="Home"
-               asp-action="All"
+               asp-controller="@(Model.MinePosts ? "Post" : "Home")"
+               asp-action="@(Model.MinePosts ? "Mine" : "All")"
                asp-route-currentPage="@(Model.CurrentPage + 1)"
                asp-route-categoryName="@Model.CategoryName"
                asp-route-searchTerm="@Model.SearchTerm"

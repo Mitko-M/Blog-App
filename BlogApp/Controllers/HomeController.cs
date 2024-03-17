@@ -47,6 +47,7 @@ namespace BlogApp.Controllers
             model.Posts = posts.Posts;
             model.Categories = categories;
             model.Tags = tags;
+            model.MinePosts = false;
 
             if (model.CurrentPage > Math.Ceiling((double)model.PostsCount / model.PostsPerPage) && model.CurrentPage > 1)
             {

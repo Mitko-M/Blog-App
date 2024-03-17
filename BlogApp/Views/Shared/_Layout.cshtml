@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BlogApp</title>
+    <title>BlogApp - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BlogApp.styles.css" asp-append-version="true" />
@@ -26,8 +26,7 @@
     <header class="py-5 bg-light border-bottom mb-4">
         <div class="container">
             <div class="text-center my-5">
-                <h1 class="fw-bolder">Welcome to Mitko's Blogging App Home!</h1>
-                <p class="lead mb-0">A blogging app for your next post.</p>
+                <h1 class="fw-bolder">@ViewBag.Title</h1>
             </div>
         </div>
     </header>

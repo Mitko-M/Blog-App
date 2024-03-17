@@ -17,6 +17,7 @@ body {
   margin-bottom: 60px;
 }
 
+/* this is the id of the footer in _LayoutWithoutWidgets */
 #pc-footer {
     position: fixed;
     line-height: 60px;

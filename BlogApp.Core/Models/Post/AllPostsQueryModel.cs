@@ -9,6 +9,7 @@ namespace BlogApp.Core.Models.Post
 {
     public class AllPostsQueryModel
     {
+        public bool MinePosts { get; set; }
         public string TagName { get; set; } = null!;
         public string CategoryName { get; set; } = null!;
         public PostSorting PostSorting { get; set; } = PostSorting.None;

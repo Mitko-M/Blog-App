@@ -1,11 +1,39 @@
-﻿<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+﻿@inject IHttpContextAccessor _httpContextAccessor;
+
+@{
+    //we take the request to check the path and determine whether a link is active or not
+    var request = _httpContextAccessor.HttpContext.Request;
+}
+
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
     <li class="nav-item">
-        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="All">Home</a>
+        <a class="nav-link  @(request.Path == "/Home/All" || request.Path == "/" ? "active" : string.Empty)" asp-area="" asp-controller="Home" asp-action="All">Home</a>
     </li>
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Create">Create</a>
+            <div class="dropdown">
+                <a class ="btn btn-dark dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Posts
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Create">
+                            Create
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Mine">
+                            Mine Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="All">
+                            All Posts
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
     }
 </ul>

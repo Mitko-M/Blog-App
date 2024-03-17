@@ -141,7 +141,7 @@ namespace BlogApp.Core.Services
             int postsPerPage = 1,
             string searchTerm = null)
         {
-            var postsToShow = await _context.Posts
+            var posts = await _context.Posts
                 .Include(p => p.PostsCategories)
                     .ThenInclude(pc => pc.Category)
                 .Include(p => p.PostsTags)
@@ -151,14 +151,14 @@ namespace BlogApp.Core.Services
 
             if (tagName != null)
             {
-                postsToShow = postsToShow
+                posts = posts
                     .Where(p => p.PostsTags.Any(pt => pt.Tag.Name == tagName))
                     .ToList();
             }
 
             if (categoryName != null)
             {
-                postsToShow = postsToShow
+                posts = posts
                     .Where(p => p.PostsCategories.Any(pc => pc.Category.Name == categoryName))
                     .ToList();
             }
@@ -167,34 +167,34 @@ namespace BlogApp.Core.Services
             {
                 string normalizedTerm = searchTerm.ToLower();
 
-                postsToShow = postsToShow
+                posts = posts
                     .Where(p => p.Title.ToLower().Contains(normalizedTerm) ||
                         p.ShortDescription.ToLower().Contains(normalizedTerm) ||
                         p.Content.ToLower().Contains(normalizedTerm))
                     .ToList();
             }
 
-            postsToShow = sorting switch
+            posts = sorting switch
             {
-                PostSorting.Newest => postsToShow
+                PostSorting.Newest => posts
                 .OrderByDescending(p => p.UpdatedOn)
                 .ToList(),
-                PostSorting.Oldest => postsToShow
+                PostSorting.Oldest => posts
                 .OrderBy(p => p.UpdatedOn)
                 .ToList(),
-                PostSorting.TitleAscending => postsToShow
+                PostSorting.TitleAscending => posts
                 .OrderBy(p => p.Title)
                 .ToList(),
-                PostSorting.TitleDescending => postsToShow
+                PostSorting.TitleDescending => posts
                 .OrderByDescending(p => p.Title)
                 .ToList(),
-                _ => postsToShow
+                _ => posts
             };
 
             var categories = await _context.Categories.ToListAsync();
             var tags = await _context.Tags.ToListAsync();
 
-            var posts = postsToShow
+            var postsToShow = posts
                 .Skip((currentPage - 1) * postsPerPage)
                 .Take(postsPerPage)
                 .Select(p => new PostsViewModel
@@ -222,12 +222,112 @@ namespace BlogApp.Core.Services
                 })
                 .ToList();
 
-            int allPostsCount = postsToShow.Count;
+            int allPostsCount = posts.Count;
 
             return new PostQueryServiceModel()
             {
                 PostsCount = allPostsCount,
-                Posts = posts
+                Posts = postsToShow
+            };
+        }
+
+        public async Task<PostQueryServiceModel> GetMinePostsAsync(
+            string UserId, 
+            string? tagName = null,
+            string? categoryName = null,
+            PostSorting sorting = PostSorting.None, 
+            int currentPage = 1,
+            int postsPerPage = 1, 
+            string searchTerm = null)
+        {
+            var posts = await _context.Posts
+                .Include(p => p.PostsCategories)
+                    .ThenInclude(pc => pc.Category)
+                .Include(p => p.PostsTags)
+                    .ThenInclude(pt => pt.Tag)
+                .Include(p => p.User)
+                .Where(p => p.UserId == UserId)
+                .ToListAsync();
+
+            if (tagName != null)
+            {
+                posts = posts
+                    .Where(p => p.PostsTags.Any(pt => pt.Tag.Name == tagName))
+                    .ToList();
+            }
+
+            if (categoryName != null)
+            {
+                posts = posts
+                    .Where(p => p.PostsCategories.Any(pc => pc.Category.Name == categoryName))
+                    .ToList();
+            }
+
+            if (searchTerm != null)
+            {
+                string normalizedTerm = searchTerm.ToLower();
+
+                posts = posts
+                    .Where(p => p.Title.ToLower().Contains(normalizedTerm) ||
+                        p.ShortDescription.ToLower().Contains(normalizedTerm) ||
+                        p.Content.ToLower().Contains(normalizedTerm))
+                    .ToList();
+            }
+
+            posts = sorting switch
+            {
+                PostSorting.Newest => posts
+                .OrderByDescending(p => p.UpdatedOn)
+                .ToList(),
+                PostSorting.Oldest => posts
+                .OrderBy(p => p.UpdatedOn)
+                .ToList(),
+                PostSorting.TitleAscending => posts
+                .OrderBy(p => p.Title)
+                .ToList(),
+                PostSorting.TitleDescending => posts
+                .OrderByDescending(p => p.Title)
+                .ToList(),
+                _ => posts
+            };
+
+            var categories = await _context.Categories.ToListAsync();
+            var tags = await _context.Tags.ToListAsync();
+
+            var postsToShow = posts
+                .Skip((currentPage - 1) * postsPerPage)
+                .Take(postsPerPage)
+                .Select(p => new PostsViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Content = p.Content,
+                    ShortDescription = p.ShortDescription,
+                    CreatedOn = p.CreatedOn.ToString(PostDateFormat),
+                    UpdatedOn = p.UpdatedOn.ToString(PostDateFormat),
+                    UserId = p.UserId,
+                    UserName = p.User.UserName,
+                    Categories = categories
+                                    .Where(c => p.PostsCategories
+                                                    .Select(pc => pc.CategoryId)
+                                                    .Contains(c.Id))
+                                    .Select(c => c.Name)
+                                    .ToList(),
+                    Tags = tags
+                            .Where(t => p.PostsTags
+                                            .Select(pt => pt.TagId)
+                                            .Contains(t.Id))
+                            .Select(t => t.Name)
+                            .ToList()
+                })
+                .ToList();
+
+            int allPostsCount = posts.Count;
+
+            return new PostQueryServiceModel()
+            {
+                PostsCount = allPostsCount,
+                Posts = postsToShow
             };
         }
 

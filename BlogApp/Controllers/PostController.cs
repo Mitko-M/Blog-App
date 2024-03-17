@@ -1,6 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Comment;
 using BlogApp.Core.Models.Post;
+using BlogApp.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
@@ -12,13 +13,19 @@ namespace BlogApp.Controllers
     {
         private readonly ILogger _logger;
         private readonly IPostService _postService;
+        private readonly ICategoryService _categoryService;
+        private readonly ITagService _tagService;
 
         public PostController(
             ILogger<PostController> logger,
-            IPostService postService)
+            IPostService postService,
+            ICategoryService categoryService,
+            ITagService tagService)
         {
             _logger = logger;
             _postService = postService;
+            _categoryService = categoryService;
+            _tagService = tagService;
         }
 
         [HttpGet]
@@ -245,6 +252,35 @@ namespace BlogApp.Controllers
             await _postService.DeletePostAsync(post);
 
             return RedirectToAction("All", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine([FromQuery] AllPostsQueryModel model)
+        {
+            var posts = await _postService.GetMinePostsAsync(
+                User.Id(),
+                model.TagName,
+                model.CategoryName,
+                model.PostSorting,
+                model.CurrentPage,
+                model.PostsPerPage,
+            model.SearchTerm);
+
+            var categories = await _categoryService.GetCategoriesAsync();
+            var tags = await _tagService.GetTagsAsync();
+
+            model.PostsCount = posts.PostsCount;
+            model.Posts = posts.Posts;
+            model.Categories = categories;
+            model.Tags = tags;
+            model.MinePosts = true;
+
+            if (model.CurrentPage > Math.Ceiling((double)model.PostsCount / model.PostsPerPage) && model.CurrentPage > 1)
+            {
+                return BadRequest();
+            }
+
+            return View(model);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿//A js script for validation a dropdown with checkboxes
+﻿//A js script for validation on dropdown with checkboxes in the Create view
 $(document).ready(function () {
     $('#post-form').submit(function () {
         if ($('input[name="category.IsSelected"]:checked').length === 0) {
