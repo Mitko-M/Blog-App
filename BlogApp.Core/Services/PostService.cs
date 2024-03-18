@@ -380,9 +380,9 @@ namespace BlogApp.Core.Services
 
         public async Task UpdatePostAsync(Post post, AddPostFormModel model)
         {
-            post.Title = post.Title;
-            post.Content = post.Content;
-            post.ShortDescription = post.ShortDescription;
+            post.Title = model.Title;
+            post.Content = model.Content;
+            post.ShortDescription = model.ShortDescription;
             post.UpdatedOn = DateTime.Now;
 
             foreach (var cat in model.Categories)

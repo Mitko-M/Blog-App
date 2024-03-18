@@ -128,7 +128,7 @@ namespace BlogApp.Controllers
                 CreatedOn = post.CreatedOn.ToString(PostDateFormat),
                 UpdatedOn = post.UpdatedOn.ToString(PostDateFormat),
                 UserName = post.User.UserName,
-                UserId = User.Id(),
+                UserId = post.UserId,
                 Categories = categories,
                 Tags = tags,
                 Likes = likes,
