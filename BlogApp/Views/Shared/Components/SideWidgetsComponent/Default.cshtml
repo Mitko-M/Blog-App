@@ -1,0 +1,47 @@
+﻿@using BlogApp.Core.Contracts
+@inject ICategoryService _categoryService
+@inject ITagService _tagService
+
+@{
+    var sideWidgetsModel = new SideWidgetsViewModel()
+    {
+        Categories = await _categoryService.GetCategoriesAsync(),
+        Tags = await _tagService.GetTagsAsync()
+    };
+}
+
+<!-- Side widgets -->
+<div class="col-lg-4">
+    <!-- Categories widget-->
+    <div class="card mb-4">
+        <div class="card-header">
+            Categories
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var cat in sideWidgetsModel.Categories)
+            {
+                <li class="list-group-item list-group-item-action">
+                    <a asp-route-categoryName="@cat.Name">
+                        @cat.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <!-- Tags widget-->
+    <div class="card mb-4">
+        <div class="card-header">
+            Tags
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var tag in sideWidgetsModel.Tags)
+            {
+                <li class="list-group-item list-group-item-action">
+                    <a asp-route-tagName="@tag.Name">
+                        @tag.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

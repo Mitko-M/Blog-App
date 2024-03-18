@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddAppDbContext(builder.Configuration);
 builder.Services.AddAppIdentity();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
 
 builder.Services.AddAppServices();
 

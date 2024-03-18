@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = Model.Title;
-    Layout = "~/Views/Shared/_LayoutPostDetails.cshtml";
 }
 
 <div class="col-lg-8 post">
@@ -18,3 +17,5 @@
         <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     }
 </div>
+
+@await Component.InvokeAsync(nameof(SideWidgetsComponent))
