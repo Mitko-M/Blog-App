@@ -1,13 +1,21 @@
 ﻿@using BlogApp.Core.Contracts
+@using Microsoft.AspNetCore.Http
+@using System.Net.Http
+
+@inject IHttpContextAccessor _httpContextAccessor
 @inject ICategoryService _categoryService
 @inject ITagService _tagService
 
 @{
+    var request = _httpContextAccessor.HttpContext.Request;
+
     var sideWidgetsModel = new SideWidgetsViewModel()
     {
         Categories = await _categoryService.GetCategoriesAsync(),
         Tags = await _tagService.GetTagsAsync()
     };
+
+    bool mine = request.Path == "/Post/Mine";
 }
 
 <!-- Side widgets -->
@@ -21,7 +29,9 @@
             @foreach (var cat in sideWidgetsModel.Categories)
             {
                 <li class="list-group-item list-group-item-action">
-                    <a asp-route-categoryName="@cat.Name">
+                    <a asp-route-categoryName="@cat.Name"
+                       asp-controller="@(mine ? "Post" : "Home")"
+                       asp-action="@(mine ? "Mine" : "All")">
                         @cat.Name
                     </a>
                 </li>
@@ -37,7 +47,9 @@
             @foreach (var tag in sideWidgetsModel.Tags)
             {
                 <li class="list-group-item list-group-item-action">
-                    <a asp-route-tagName="@tag.Name">
+                    <a asp-route-tagName="@tag.Name"
+                       asp-controller="@(mine ? "Post" : "Home")"
+                       asp-action="@(mine ? "Mine" : "All")">
                         @tag.Name
                     </a>
                 </li>
