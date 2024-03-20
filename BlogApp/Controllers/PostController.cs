@@ -147,7 +147,7 @@ namespace BlogApp.Controllers
 
             if (model == null)
             {
-                return RedirectToAction("All", "Home");
+                return BadRequest();
             }
 
             if (model.UserId != User.Id())
