@@ -4,6 +4,22 @@
     {
         //change the values if needed later
 
+        //identity constants
+        public const int FirstNameMax = 50;
+        public const int LastNameMax = 50;
+
+        public const int FirstNameMin = 3;
+        public const int LastNameMin = 3;
+
+        public const int UserNameMax = 20; 
+        public const int UserNameMin = 5;
+
+        public const int EmailMax = 60;
+        public const int EmailMin = 10;
+
+        public const int PassMax = 20;
+        public const int PassMin = 5;
+
         //category
         public const int CategoryNameMin = 3;
         public const int CategoryNameMax = 40;

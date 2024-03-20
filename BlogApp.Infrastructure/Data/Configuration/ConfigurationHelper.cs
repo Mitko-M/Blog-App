@@ -1,16 +1,15 @@
 ﻿using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using System.Net.Http;
 
 namespace BlogApp.Infrastructure.Data.Configuration
 {
     public static class ConfigurationHelper
     {
-        private static PasswordHasher<IdentityUser> hasher = new PasswordHasher<IdentityUser>();
+        private static PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
 
         public static IdentityUser Admin = GetAdmin();
 
-        public static IdentityUser TestUser = GetUser();
+        //categories
 
         public static Category Science = new Category()
         {
@@ -30,6 +29,8 @@ namespace BlogApp.Infrastructure.Data.Configuration
             Name = "IT and Computer Science",
         };
 
+        //tags
+
         public static Tag Funny = new Tag()
         {
             Id = 1,
@@ -48,28 +49,20 @@ namespace BlogApp.Infrastructure.Data.Configuration
             Name = "Boring"
         };
 
-        private static IdentityUser GetUser()
+        private static ApplicationUser GetAdmin()
         {
-            var user = new IdentityUser()
+            var adminUser = new ApplicationUser()
             {
-                Email = "user@blog.com",
-                NormalizedEmail = "USER@BLOG.COM"
-            };
-
-            user.PasswordHash = hasher.HashPassword(user, "userpass");
-
-            return user;
-        }
-
-        private static IdentityUser GetAdmin()
-        {
-            var adminUser = new IdentityUser()
-            {
+                Id = "1",
+                FirstName = "Mitko",
+                LastName = "Mitkov",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
                 Email = "admin@blog.com",
                 NormalizedEmail = "ADMIN@BLOG.COM"
             };
 
-            adminUser.PasswordHash = hasher.HashPassword(adminUser, "adminpass");
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "mitkov");
 
             return adminUser;
         }

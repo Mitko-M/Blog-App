@@ -1,11 +1,6 @@
 ﻿using BlogApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlogApp.Infrastructure.Data.Configuration
 {
@@ -23,7 +18,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
                     ShortDescription = "This is my post's short description",
                     CreatedOn = DateTime.Now.AddMonths(-60),
                     UpdatedOn = DateTime.Now.AddMonths(-30),
-                    UserId = ConfigurationHelper.TestUser.Id,
+                    UserId = ConfigurationHelper.Admin.Id,
                 },
                 new Post()
                 {
@@ -33,7 +28,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
                     ShortDescription = "This is my post's short description",
                     CreatedOn = DateTime.Now.AddYears(-5),
                     UpdatedOn = DateTime.Now.AddMonths(-10),
-                    UserId = ConfigurationHelper.TestUser.Id,
+                    UserId = ConfigurationHelper.Admin.Id,
                 },
                 new Post()
                 {
@@ -43,7 +38,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
                     ShortDescription = "This is my post's short description",
                     CreatedOn = DateTime.Now.AddDays(-60),
                     UpdatedOn = DateTime.Now.AddDays(-5),
-                    UserId = ConfigurationHelper.TestUser.Id,
+                    UserId = ConfigurationHelper.Admin.Id,
                 }
             });
         }

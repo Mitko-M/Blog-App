@@ -12,6 +12,8 @@ namespace BlogApp.Infrastructure.Data
         {
         }
 
+        public DbSet<ApplicationUser> AppUser {  get; set; }    
+
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -89,12 +91,14 @@ namespace BlogApp.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             //seeding
-            //builder.ApplyConfiguration(new RolesConfiguration());
-            //builder.ApplyConfiguration(new UserConfiguration());
-            //builder.ApplyConfiguration(new AdminConfiguration());
-            //builder.ApplyConfiguration(new CategoryConfiguration());
-            //builder.ApplyConfiguration(new TagConfiguration());
-            //builder.ApplyConfiguration(new PostConfiguration());
+            builder.ApplyConfiguration(new RolesConfiguration());
+            builder.ApplyConfiguration(new AdminConfiguration());
+            builder.ApplyConfiguration(new IdentityUserRoleConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new TagConfiguration());
+            builder.ApplyConfiguration(new PostConfiguration());
+            builder.ApplyConfiguration(new PostCategoriesConfiguration());
+            builder.ApplyConfiguration(new PostTagsConfiguration());
 
             base.OnModelCreating(builder);
         }
