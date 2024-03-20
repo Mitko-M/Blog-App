@@ -33,5 +33,7 @@ namespace BlogApp.Infrastructure.Data.Models
 
         [Required]
         public DateTime CommentUploadDate { get; set; }
+
+        public bool Liked {  get; set; }
     }
 }
