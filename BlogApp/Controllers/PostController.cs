@@ -1,9 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Comment;
 using BlogApp.Core.Models.Post;
-using BlogApp.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
 
