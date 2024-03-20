@@ -1,6 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+﻿@using BlogApp.Infrastructure.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @inject IHttpContextAccessor _httpContextAccessor;
 
 @{
@@ -14,7 +15,7 @@
             <a class="nav-link @(request.Path == "/Identity/Account/Manage" ? "active" : string.Empty)" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("All", "Home", new { area = "" })">
+            <form class="form-inline" asp-area="Identity" asp-controller="User" asp-action="Logout" asp-route-returnUrl="@Url.Action("All", "Home", new { area = "" })">
             <button  type="submit" class="nav-link btn btn-link">Logout</button>
         </form>
     </li>
@@ -22,10 +23,10 @@
 else
 {
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/Identity/Account/Register" ? "active" : string.Empty)" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link @(request.Path == "/User/Register" ? "active" : string.Empty)" asp-area="" asp-controller="User" asp-action="Register">Register</a>
     </li>
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/Identity/Account/Login" ? "active" : string.Empty)" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link @(request.Path == "/User/Login" ? "active" : string.Empty)" asp-area="" asp-controller="User" asp-action="Login">Login</a>
     </li>
 }
 </ul>

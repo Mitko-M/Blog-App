@@ -1,6 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Services;
 using BlogApp.Infrastructure.Data;
+using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,14 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITagService, TagService>();
             services.AddHttpContextAccessor();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User/Login";
+                options.LogoutPath = "/User/Logout";
+            });
+
+            services.AddRazorPages();
 
             return services;
         }
@@ -29,7 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddAppIdentity(this IServiceCollection services)
         {
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
