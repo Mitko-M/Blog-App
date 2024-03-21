@@ -8,12 +8,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            builder.HasData(new Tag[]
-            { 
-                ConfigurationHelper.Funny, 
-                ConfigurationHelper.Boring,
-                ConfigurationHelper.Interesting
-            });
+            builder.HasData(ConfigurationHelper.SeedingTags());
         }
     }
 }

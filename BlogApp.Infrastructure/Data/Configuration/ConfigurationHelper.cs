@@ -1,5 +1,7 @@
 ﻿using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
+using System.Collections.Immutable;
 
 namespace BlogApp.Infrastructure.Data.Configuration
 {
@@ -11,43 +13,33 @@ namespace BlogApp.Infrastructure.Data.Configuration
 
         //categories
 
-        public static Category Science = new Category()
+        public static Category[] SeedCategories()
         {
-            Id = 1,
-            Name = "Science",
-        };
+            string dir = GetDirectory();
 
-        public static Category Nature = new Category()
-        {
-            Id = 2,
-            Name = "Nature",
-        };
+            string path = dir + @"../BlogApp.Infrastructure/Data/Configuration/categoryconfig.json";
 
-        public static Category IT = new Category()
-        {
-            Id = 3,
-            Name = "IT and Computer Science",
-        };
+            string jsonString = File.ReadAllText(path);
+
+            var categories = JsonConvert.DeserializeObject<Category[]>(jsonString);
+
+            return categories;
+        }
 
         //tags
 
-        public static Tag Funny = new Tag()
+        public static Tag[] SeedingTags()
         {
-            Id = 1,
-            Name = "Funny"
-        };
+            string dir = GetDirectory();
 
-        public static Tag Interesting = new Tag()
-        {
-            Id = 2,
-            Name = "Interesting"
-        };
+            string path = dir + @"../BlogApp.Infrastructure/Data/Configuration/tagconfig.json";
 
-        public static Tag Boring = new Tag()
-        {
-            Id= 3,
-            Name = "Boring"
-        };
+            string jsonString = File.ReadAllText(path);
+
+            var tags = JsonConvert.DeserializeObject<Tag[]>(jsonString);
+
+            return tags;
+        }
 
         private static ApplicationUser GetAdmin()
         {
@@ -65,6 +57,15 @@ namespace BlogApp.Infrastructure.Data.Configuration
             adminUser.PasswordHash = hasher.HashPassword(adminUser, "mitkov");
 
             return adminUser;
+        }
+
+        private static string GetDirectory()
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var directoryName = Path.GetFileName(currentDirectory);
+            var relativePath = directoryName.StartsWith("net6.0") ? @"../../../" : string.Empty;
+
+            return relativePath;
         }
     }
 }

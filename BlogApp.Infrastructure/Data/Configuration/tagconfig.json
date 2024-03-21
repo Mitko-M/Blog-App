@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "ASP.NET"
+  },
+  {
+    "id": 2,
+    "name": "C#"
+  },
+  {
+    "id": 3,
+    "name": "JavaScript"
+  },
+  {
+    "id": 4,
+    "name": "HTML"
+  },
+  {
+    "id": 5,
+    "name": "CSS"
+  },
+  {
+    "id": 6,
+    "name": "SQL"
+  }
+]

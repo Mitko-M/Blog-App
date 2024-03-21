@@ -8,12 +8,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasData(new Category[] 
-            { 
-                ConfigurationHelper.Nature, 
-                ConfigurationHelper.Science, 
-                ConfigurationHelper.IT 
-            });
+            builder.HasData(ConfigurationHelper.SeedCategories());
         }
     }
 }

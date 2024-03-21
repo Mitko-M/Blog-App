@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlogApp.Infrastructure.Migrations
 {
-    public partial class SeedingDataAndAdmin : Migration
+    public partial class SeedingDataWithAdmin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,23 +14,26 @@ namespace BlogApp.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "54007d7c-5d94-4d4a-9a76-93a4a844eddc", "Admin", "ADMIN" },
-                    { "2", "0dad8e03-fa5b-4d0a-b4ed-a9d441f4972a", "User", "USER" }
+                    { "1", "09387403-33d0-42f0-a617-5af491693fc9", "Admin", "ADMIN" },
+                    { "2", "0d65e9d8-7b91-4a0c-ac2c-f80e85be7922", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "9452d8d9-63c5-479f-8558-740da9951372", "ApplicationUser", "admin@blog.com", false, "Mitko", "Mitkov", false, null, "ADMIN@BLOG.COM", "ADMIN", "AQAAAAEAACcQAAAAEL3P5uiSpyTRZq/f6u9P5ChA/iEPRG5ya8Js/h+/rXPtqVnKpRFXz/RmJj6eGb8XEg==", null, false, "12706ad9-db3b-49e6-a906-45f832bfab19", false, "admin" });
+                values: new object[] { "1", 0, "03cdc70e-2c5b-4306-9477-966ac9c13bfc", "ApplicationUser", "admin@blog.com", false, "Mitko", "Mitkov", false, null, "ADMIN@BLOG.COM", "ADMIN", "AQAAAAEAACcQAAAAEE3wyrsCJOXUs1/JQTAh5bFwd/aSXmlJL7QwGw5X9sbb9a0y1nY+BNiCuJCHOaA/Yg==", null, false, "c99a8f18-d157-4c81-b9a9-90af60de086d", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Science" },
-                    { 2, "Nature" },
-                    { 3, "IT and Computer Science" }
+                    { 1, "Technology" },
+                    { 2, "Science" },
+                    { 3, "Art" },
+                    { 4, "Travel" },
+                    { 5, "Lifestyle" },
+                    { 6, "Education" }
                 });
 
             migrationBuilder.InsertData(
@@ -38,9 +41,12 @@ namespace BlogApp.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Funny" },
-                    { 2, "Interesting" },
-                    { 3, "Boring" }
+                    { 1, "ASP.NET" },
+                    { 2, "C#" },
+                    { 3, "JavaScript" },
+                    { 4, "HTML" },
+                    { 5, "CSS" },
+                    { 6, "SQL" }
                 });
 
             migrationBuilder.InsertData(
@@ -53,9 +59,9 @@ namespace BlogApp.Infrastructure.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "ShortDescription", "Title", "UpdatedOn", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "This is my first post's content", new DateTime(2019, 3, 21, 20, 49, 18, 913, DateTimeKind.Local).AddTicks(5208), "This is my post's short description", "My First Post", new DateTime(2021, 9, 21, 20, 49, 18, 913, DateTimeKind.Local).AddTicks(5239), "1" },
-                    { 2, "This is my second post's content", new DateTime(2019, 3, 21, 20, 49, 18, 913, DateTimeKind.Local).AddTicks(5244), "This is my post's short description", "My Second Post", new DateTime(2023, 5, 21, 20, 49, 18, 913, DateTimeKind.Local).AddTicks(5247), "1" },
-                    { 3, "This is my third post's content", new DateTime(2024, 1, 21, 20, 49, 18, 913, DateTimeKind.Local).AddTicks(5250), "This is my post's short description", "My Third Post", new DateTime(2024, 3, 16, 20, 49, 18, 913, DateTimeKind.Local).AddTicks(5251), "1" }
+                    { 1, "This is my first post's content", new DateTime(2019, 3, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8410), "This is my post's short description", "My First Post", new DateTime(2021, 9, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8446), "1" },
+                    { 2, "This is my second post's content", new DateTime(2019, 3, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8453), "This is my post's short description", "My Second Post", new DateTime(2023, 5, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8455), "1" },
+                    { 3, "This is my third post's content", new DateTime(2024, 1, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8459), "This is my post's short description", "My Third Post", new DateTime(2024, 3, 16, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8460), "1" }
                 });
 
             migrationBuilder.InsertData(
@@ -92,6 +98,21 @@ namespace BlogApp.Infrastructure.Migrations
                 keyValues: new object[] { "1", "1" });
 
             migrationBuilder.DeleteData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 6);
+
+            migrationBuilder.DeleteData(
                 table: "PostsCategories",
                 keyColumns: new[] { "CategoryId", "PostId" },
                 keyValues: new object[] { 1, 1 });
@@ -120,6 +141,21 @@ namespace BlogApp.Infrastructure.Migrations
                 table: "PostsTags",
                 keyColumns: new[] { "PostId", "TagId" },
                 keyValues: new object[] { 3, 3 });
+
+            migrationBuilder.DeleteData(
+                table: "Tags",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                table: "Tags",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                table: "Tags",
+                keyColumn: "Id",
+                keyValue: 6);
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
