@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    [Migration("20240321212340_SeedingDataWithAdmin")]
+    [Migration("20240321224145_SeedingDataWithAdmin")]
     partial class SeedingDataWithAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,30 +245,30 @@ namespace BlogApp.Infrastructure.Migrations
                         {
                             Id = 1,
                             Content = "This is my first post's content",
-                            CreatedOn = new DateTime(2019, 3, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8410),
+                            CreatedOn = new DateTime(2019, 3, 22, 0, 41, 45, 94, DateTimeKind.Local).AddTicks(4628),
                             ShortDescription = "This is my post's short description",
                             Title = "My First Post",
-                            UpdatedOn = new DateTime(2021, 9, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8446),
+                            UpdatedOn = new DateTime(2021, 9, 22, 0, 41, 45, 94, DateTimeKind.Local).AddTicks(4659),
                             UserId = "1"
                         },
                         new
                         {
                             Id = 2,
                             Content = "This is my second post's content",
-                            CreatedOn = new DateTime(2019, 3, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8453),
+                            CreatedOn = new DateTime(2019, 3, 22, 0, 41, 45, 94, DateTimeKind.Local).AddTicks(4664),
                             ShortDescription = "This is my post's short description",
                             Title = "My Second Post",
-                            UpdatedOn = new DateTime(2023, 5, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8455),
+                            UpdatedOn = new DateTime(2023, 5, 22, 0, 41, 45, 94, DateTimeKind.Local).AddTicks(4666),
                             UserId = "1"
                         },
                         new
                         {
                             Id = 3,
                             Content = "This is my third post's content",
-                            CreatedOn = new DateTime(2024, 1, 21, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8459),
+                            CreatedOn = new DateTime(2024, 1, 22, 0, 41, 45, 94, DateTimeKind.Local).AddTicks(4669),
                             ShortDescription = "This is my post's short description",
                             Title = "My Third Post",
-                            UpdatedOn = new DateTime(2024, 3, 16, 23, 23, 40, 549, DateTimeKind.Local).AddTicks(8460),
+                            UpdatedOn = new DateTime(2024, 3, 17, 0, 41, 45, 94, DateTimeKind.Local).AddTicks(4670),
                             UserId = "1"
                         });
                 });
@@ -419,14 +419,14 @@ namespace BlogApp.Infrastructure.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "09387403-33d0-42f0-a617-5af491693fc9",
+                            ConcurrencyStamp = "284a5ae8-2921-47fc-935c-9195b00beb72",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "0d65e9d8-7b91-4a0c-ac2c-f80e85be7922",
+                            ConcurrencyStamp = "fc01ff95-6752-4c46-bd48-179ff2ebbe55",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -637,15 +637,15 @@ namespace BlogApp.Infrastructure.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "03cdc70e-2c5b-4306-9477-966ac9c13bfc",
+                            ConcurrencyStamp = "c9f317b7-6d22-47f6-928e-85272baee886",
                             Email = "admin@blog.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BLOG.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE3wyrsCJOXUs1/JQTAh5bFwd/aSXmlJL7QwGw5X9sbb9a0y1nY+BNiCuJCHOaA/Yg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF5RdPZ4DxICTcNiGZvySNZWnWSUczJUMamUCKe5WceLXUi4LMaIsq5DG62ky00WAA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c99a8f18-d157-4c81-b9a9-90af60de086d",
+                            SecurityStamp = "5cb32a9b-1784-426f-bab3-173ea91c9b86",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FirstName = "Mitko",
@@ -661,7 +661,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -680,7 +680,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -699,7 +699,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -718,7 +718,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -731,7 +731,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>
                 {
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

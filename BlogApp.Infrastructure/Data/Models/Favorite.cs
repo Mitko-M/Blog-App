@@ -23,6 +23,6 @@ namespace BlogApp.Infrastructure.Data.Models
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public ApplicationUser User { get; set; } = null!;
+        public IdentityUser User { get; set; } = null!;
     }
 }

@@ -19,10 +19,19 @@ namespace BlogApp.Core.Contracts
         Task<IEnumerable<CommentViewModel>> LoadCommentsAsync(int postId);
 
         /// <summary>
-        /// Liking a comment by finding it and adding a like
+        /// Adding a like to comment
         /// </summary>
         /// <param name="commentId">Comment identifier</param>
+        /// <param name="userId">User identifier</param>
         /// <returns></returns>
         Task LikeComment(int commentId, string userId);
+
+        /// <summary>
+        /// Removing a like from a comment
+        /// </summary>
+        /// <param name="commentId">Comment identifier</param>
+        /// <param name="userId">User identifier</param>
+        /// <returns></returns>
+        Task UnlikeComment(int commentId, string userId);
     }
 }

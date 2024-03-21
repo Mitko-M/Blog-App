@@ -133,7 +133,7 @@ namespace BlogApp.Controllers
                 Likes = likes,
                 Dislikes = dislikes,
                 Favorites = favorites,
-                Comments = comments
+                Comments = comments,
             };
 
             return View(model);

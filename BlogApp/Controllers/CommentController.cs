@@ -1,6 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Comment;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BlogApp.Controllers
 {
@@ -16,9 +17,13 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddComment(CommentFormModel model)
+        public async Task<IActionResult> AddComment(CommentFormModel model)
         {
-            return View();
+            model.UserId = User.Id();
+
+            await _commentService.AddCommentAsync(model);
+
+            return RedirectToAction("Details", "Post", new { id = model.PostId });
         }
     }
 }

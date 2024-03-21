@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    [Migration("20240321184550_InitialMigration")]
+    [Migration("20240321224013_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -488,7 +488,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -507,7 +507,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -526,7 +526,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -545,7 +545,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -558,7 +558,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>
                 {
-                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

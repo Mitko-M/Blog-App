@@ -9,12 +9,22 @@ namespace BlogApp.Core.Services
     public class CommentService : ICommentService
     {
         private readonly BlogAppDbContext _context;
-        public CommentService(BlogAppDbContext context)
+        private readonly IPostService _postService;
+        public CommentService(BlogAppDbContext context,
+            IPostService postService)
         {
             _context = context;
+            _postService = postService;
         }
         public async Task AddCommentAsync(CommentFormModel model)
         {
+            var post = _postService.GetPostById(model.PostId);
+
+            if (post == null)
+            {
+                throw new ArgumentException("Post doesn't exist");
+            }
+
             var comment = new Comment()
             {
                 Content = model.Content,
@@ -71,6 +81,25 @@ namespace BlogApp.Core.Services
                 .ToListAsync();
 
             return comments;
+        }
+
+        public async Task UnlikeComment(int commentId, string userId)
+        {
+            var comment = await _context.Comments.FindAsync(commentId);
+
+            if (comment == null)
+            {
+                throw new ArgumentException("Comment doesn't exist");
+            }
+
+            var commentLike = await _context.CommentsLikes.FirstOrDefaultAsync(cl => cl.CommentId == commentId && cl.UserId == userId);
+
+            if (commentLike == null)
+            {
+                throw new ArgumentException("CommentLike doesn't exist");
+            }
+
+            _context.CommentsLikes.Remove(commentLike);
         }
     }
 }
