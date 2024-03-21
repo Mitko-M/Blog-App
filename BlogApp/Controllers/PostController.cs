@@ -79,7 +79,7 @@ namespace BlogApp.Controllers
         {
             if (!(User?.Identity?.IsAuthenticated) ?? false)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "User");
             }
 
             var post = await _postService.GetPostById(id);
