@@ -1,0 +1,26 @@
+﻿@inject IHttpContextAccessor _httpContextAccessor
+
+@model AllPostsQueryModel
+
+@{
+    var request = _httpContextAccessor.HttpContext.Request;
+
+    if (request.Path == "/Post/Mine")
+    {
+        Model.MinePosts = true;
+    }
+}
+
+<div class="container mt-2" style="width: 500px;">
+    <form class="d-flex" role="search" method="get" asp-controller="@(Model.MinePosts ? "Post" : "Home")" asp-action="@(Model.MinePosts ? "Mine" : "All")">
+        <input asp-for="SearchTerm" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" aria-describedby="button-search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+
+        <!-- Hidden fields for other properties -->
+        <input type="hidden" asp-for="TagName" />
+        <input type="hidden" asp-for="CategoryName" />
+        <input type="hidden" asp-for="PostSorting" />
+        <input type="hidden" asp-for="MinePosts" />
+    </form>
+</div>
+

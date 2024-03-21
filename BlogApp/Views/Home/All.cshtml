@@ -7,8 +7,16 @@
     ViewData["Title"] = "All Posts";
 }
 
-<!-- Search and Sorting widget -->
-@await Component.InvokeAsync(nameof(SearchAndSortComponent), Model)
+<button class="btn btn-primary mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#searchForm" aria-expanded="false" aria-controls="searchForm">
+    Filters
+</button>
+
+<form id="searchForm" class="collapse" method="get">
+    <!-- Sorting widget -->
+    @await Component.InvokeAsync(nameof(SortAndFilterComponent), Model)
+</form>
+
+
 
 <div class="col-lg-8">
     @if (Model.Posts.Any())

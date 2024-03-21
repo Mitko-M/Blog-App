@@ -11,29 +11,27 @@
     </li>
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
-        <li class="nav-item">
-            <div class="dropdown">
-                <a class ="btn btn-dark dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Posts
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Create">
-                            Create
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Mine">
-                            Mine Blog
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="All">
-                            All Posts
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <li class="nav-item dropdown">
+            <a class ="btn btn-dark dropdown-toggle nav-link text-start" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Posts
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Create">
+                        Create
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Mine">
+                        Mine Blog
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="All">
+                        All Posts
+                    </a>
+                </li>
+            </ul>
         </li>
     }
 </ul>

@@ -9,19 +9,7 @@
     <link rel="stylesheet" href="~/BlogApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <!-- Responsive navbar-->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="All">Blogging</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @await Component.InvokeAsync(nameof(MainMenuComponent));
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
+    @await Component.InvokeAsync(nameof(ResponsiveNavComponent));
     <!-- Page header with logo and tagline-->
     <header class="py-5 bg-light border-bottom mb-4">
         <div class="container">
@@ -40,6 +28,7 @@
             &copy; @DateTime.Now.Year - BlogApp
         </div>
     </footer>
+    <script src="https://kit.fontawesome.com/4ca92add59.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

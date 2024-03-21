@@ -2,7 +2,7 @@
 
 namespace BlogApp.Components
 {
-    public class SearchAndSortComponent : ViewComponent
+    public class ResponsiveNavComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {

@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Page not found";
+    Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/404.css" asp-append-version="true" />
+</head>
+
+<section class="page_404">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <div class="four_zero_four_bg">
+                    <h1 class="text-center ">404</h1>
+                </div>
+            
+                <div class="contant_box_404">
+            
+                    <h3 class="h2">
+                        Look like you're lost
+                    </h3>
+                    <p>the page you are looking for not avaible!</p>
+                    <a asp-action="All" asp-controller="Home" class="btn btn-primary">Go to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

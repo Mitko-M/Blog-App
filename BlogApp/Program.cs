@@ -23,6 +23,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
+    app.UseStatusCodePagesWithReExecute("/StatusCode/{0}", "?statusCode={0}");
     app.UseHsts();
 }
 
