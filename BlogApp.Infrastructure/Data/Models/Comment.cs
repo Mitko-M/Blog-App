@@ -34,6 +34,6 @@ namespace BlogApp.Infrastructure.Data.Models
         [Required]
         public DateTime CommentUploadDate { get; set; }
 
-        public IEnumerable<CommentLike> CommentsLikes { get; set; } = new List<CommentLike>();
+        public ICollection<CommentLike> CommentsLikes { get; set; } = new List<CommentLike>();
     }
 }
