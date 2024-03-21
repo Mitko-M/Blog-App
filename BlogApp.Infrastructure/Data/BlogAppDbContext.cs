@@ -28,6 +28,8 @@ namespace BlogApp.Infrastructure.Data
 
         public DbSet<LikeDislike> LikesDislikes { get; set; }
 
+        public DbSet<CommentLike> CommentsLikes { get; set; }
+
         public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -44,6 +46,13 @@ namespace BlogApp.Infrastructure.Data
                 .HasOne(f => f.Post)
                 .WithMany(p => p.LikesDislikes)
                 .HasForeignKey(f => f.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //comment likes model
+            builder.Entity<CommentLike>()
+                .HasOne(c => c.Comment)
+                .WithMany(c => c.CommentsLikes)
+                .HasForeignKey(f => f.CommentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             //favorites model

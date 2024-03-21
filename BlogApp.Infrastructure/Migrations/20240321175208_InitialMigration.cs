@@ -216,8 +216,7 @@ namespace BlogApp.Infrastructure.Migrations
                     Content = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Comment content"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Application user and commen creator identifier"),
                     PostId = table.Column<int>(type: "int", nullable: false, comment: "Post identifier"),
-                    CommentUploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Liked = table.Column<bool>(type: "bit", nullable: false)
+                    CommentUploadDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -334,6 +333,31 @@ namespace BlogApp.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CommentsLikes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CommentId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentsLikes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommentsLikes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommentsLikes_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -381,6 +405,16 @@ namespace BlogApp.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
                 table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentsLikes_CommentId",
+                table: "CommentsLikes",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentsLikes_UserId",
+                table: "CommentsLikes",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -437,7 +471,7 @@ namespace BlogApp.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "CommentsLikes");
 
             migrationBuilder.DropTable(
                 name: "Favorites");
@@ -455,13 +489,16 @@ namespace BlogApp.Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

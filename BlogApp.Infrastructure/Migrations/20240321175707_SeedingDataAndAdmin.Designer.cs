@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    [Migration("20240320213406_SeedingDataAndUser")]
-    partial class SeedingDataAndUser
+    [Migration("20240321175707_SeedingDataAndAdmin")]
+    partial class SeedingDataAndAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,9 +79,6 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasComment("Comment content");
 
-                    b.Property<bool>("Liked")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PostId")
                         .HasColumnType("int")
                         .HasComment("Post identifier");
@@ -98,6 +95,30 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.CommentLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CommentsLikes");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Favorite", b =>
@@ -209,30 +230,30 @@ namespace BlogApp.Infrastructure.Migrations
                         {
                             Id = 1,
                             Content = "This is my first post's content",
-                            CreatedOn = new DateTime(2019, 3, 20, 23, 34, 6, 671, DateTimeKind.Local).AddTicks(7537),
+                            CreatedOn = new DateTime(2019, 3, 21, 19, 57, 7, 503, DateTimeKind.Local).AddTicks(4287),
                             ShortDescription = "This is my post's short description",
                             Title = "My First Post",
-                            UpdatedOn = new DateTime(2021, 9, 20, 23, 34, 6, 671, DateTimeKind.Local).AddTicks(7578),
+                            UpdatedOn = new DateTime(2021, 9, 21, 19, 57, 7, 503, DateTimeKind.Local).AddTicks(4331),
                             UserId = "1"
                         },
                         new
                         {
                             Id = 2,
                             Content = "This is my second post's content",
-                            CreatedOn = new DateTime(2019, 3, 20, 23, 34, 6, 671, DateTimeKind.Local).AddTicks(7583),
+                            CreatedOn = new DateTime(2019, 3, 21, 19, 57, 7, 503, DateTimeKind.Local).AddTicks(4336),
                             ShortDescription = "This is my post's short description",
                             Title = "My Second Post",
-                            UpdatedOn = new DateTime(2023, 5, 20, 23, 34, 6, 671, DateTimeKind.Local).AddTicks(7586),
+                            UpdatedOn = new DateTime(2023, 5, 21, 19, 57, 7, 503, DateTimeKind.Local).AddTicks(4338),
                             UserId = "1"
                         },
                         new
                         {
                             Id = 3,
                             Content = "This is my third post's content",
-                            CreatedOn = new DateTime(2024, 1, 20, 23, 34, 6, 671, DateTimeKind.Local).AddTicks(7589),
+                            CreatedOn = new DateTime(2024, 1, 21, 19, 57, 7, 503, DateTimeKind.Local).AddTicks(4342),
                             ShortDescription = "This is my post's short description",
                             Title = "My Third Post",
-                            UpdatedOn = new DateTime(2024, 3, 15, 23, 34, 6, 671, DateTimeKind.Local).AddTicks(7591),
+                            UpdatedOn = new DateTime(2024, 3, 16, 19, 57, 7, 503, DateTimeKind.Local).AddTicks(4343),
                             UserId = "1"
                         });
                 });
@@ -368,14 +389,14 @@ namespace BlogApp.Infrastructure.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "ca9422d8-8121-4a33-9dc0-6a6edad87bcd",
+                            ConcurrencyStamp = "5c9d83aa-1026-44cb-8be8-6843a23c6643",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "7ee86a09-ede4-4082-8311-98da82bdf408",
+                            ConcurrencyStamp = "0860e9ae-06c6-4111-9cee-12770ca85499",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -586,15 +607,15 @@ namespace BlogApp.Infrastructure.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "317e3330-9f38-4e8e-8d11-a9f0599a1af5",
+                            ConcurrencyStamp = "e4ec1ec8-f4cf-4b59-aad9-1c5b89bc37bc",
                             Email = "admin@blog.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BLOG.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDX5pp40t+2e0piHyZTSH6Qb3Dr+ha6suxMP0CHc2pMZz2j9Zv8pOePNvfCTRACHUw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPyM8UPb911jbvz83sHoPp5aY9u17KqFNwn2jKUU7zDaLoZax2RpLNUiJ297C6L66Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "763685aa-b0d2-4aa2-8b9f-40ecabb7d1b2",
+                            SecurityStamp = "c452144a-d5d2-4c2a-ac33-ac94b855bae0",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FirstName = "Mitko",
@@ -610,13 +631,32 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.CommentLike", b =>
+                {
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.Comment", "Comment")
+                        .WithMany("CommentsLikes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
 
                     b.Navigation("User");
                 });
@@ -629,7 +669,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -648,7 +688,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -661,7 +701,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -762,6 +802,11 @@ namespace BlogApp.Infrastructure.Migrations
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Category", b =>
                 {
                     b.Navigation("PostsCategories");
+                });
+
+            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Comment", b =>
+                {
+                    b.Navigation("CommentsLikes");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>

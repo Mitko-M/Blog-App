@@ -22,7 +22,7 @@ namespace BlogApp.Infrastructure.Data.Models
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
 
         [Required]
         [Comment("Post identifier")]
@@ -34,6 +34,6 @@ namespace BlogApp.Infrastructure.Data.Models
         [Required]
         public DateTime CommentUploadDate { get; set; }
 
-        public bool Liked {  get; set; }
+        public IEnumerable<CommentLike> CommentsLikes { get; set; } = new List<CommentLike>();
     }
 }
