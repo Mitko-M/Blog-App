@@ -86,7 +86,7 @@ namespace BlogApp.Controllers
 
             if (post == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             var categories = post.PostsCategories
