@@ -1,20 +1,20 @@
 ﻿<!-- Responsive navbar-->
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <!-- Brand column -->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="All">Blogging</a>
 
-            <!-- Button trigger for collapsible menu -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!-- Brand column -->
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="All">Blogging</a>
 
-            <!-- Collapsible menu -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                @await Component.InvokeAsync(nameof(MainMenuComponent));
-                <partial name="_LoginPartial" />
-            </div>
+        <!-- Button trigger for collapsible menu -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <!-- Collapsible menu -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @await Component.InvokeAsync(nameof(MainMenuComponent));
+            <partial name="_LoginPartial" />
             @await Component.InvokeAsync(nameof(SearchComponent));
         </div>
-    </nav>
-</header>
+    </div>
+</nav>

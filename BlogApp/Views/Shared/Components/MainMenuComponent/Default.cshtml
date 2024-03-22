@@ -12,10 +12,10 @@
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <li class="nav-item dropdown">
-            <a class ="btn btn-dark dropdown-toggle nav-link text-start" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class ="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Posts
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-dark">
                 <li>
                     <a class="dropdown-item" asp-area="" asp-controller="Post" asp-action="Create">
                         Create
@@ -26,6 +26,7 @@
                         Mine Blog
                     </a>
                 </li>
+                <li><hr class="dropdown-divider"/></li>
                 <li>
                     <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="All">
                         All Posts
