@@ -6,7 +6,7 @@ namespace BlogApp.Controllers
 {
     public class SortAndFilterController : BaseController
     {
-        public IActionResult Index([FromQuery] AllPostsQueryModel model)
+        public IActionResult ClearFilters([FromQuery] AllPostsQueryModel model)
         {
             string controller = model.MinePosts ? "Post" : "Home";
             string action = model.MinePosts ? "Mine" : "All";
