@@ -45,6 +45,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<BlogAppDbContext>();
 
