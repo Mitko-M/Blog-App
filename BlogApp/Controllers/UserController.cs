@@ -82,6 +82,12 @@ namespace BlogApp.Controllers
                 var user = await _userManager.FindByIdAsync(userId);
                 await _userManager.AddToRoleAsync(user, roleName);
             }
+            else
+            {
+                await _roleManager.CreateAsync(new IdentityRole() { Name = roleName, NormalizedName = roleName.ToUpper() });
+                var user = await _userManager.FindByIdAsync(userId);
+                await _userManager.AddToRoleAsync(user, roleName);
+            }
         }
 
         [HttpGet]
