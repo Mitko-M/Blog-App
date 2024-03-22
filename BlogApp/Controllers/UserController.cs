@@ -84,7 +84,10 @@ namespace BlogApp.Controllers
 
                 if (user != null)
                 {
-                    await _userManager.AddToRoleAsync(user, roleName);
+                    if (!await _userManager.IsInRoleAsync(user, roleName))
+                    {
+                        await _userManager.AddToRoleAsync(user, roleName);
+                    }
                 }
             }
             else
@@ -94,7 +97,10 @@ namespace BlogApp.Controllers
 
                 if (user != null)
                 {
-                    await _userManager.AddToRoleAsync(user, roleName);
+                    if (!await _userManager.IsInRoleAsync(user, roleName))
+                    {
+                        await _userManager.AddToRoleAsync(user, roleName);
+                    }
                 }
             }
         }
