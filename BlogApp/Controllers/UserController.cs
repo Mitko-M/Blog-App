@@ -57,11 +57,9 @@ namespace BlogApp.Controllers
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
                 await AddUserToRole(user.Id);
 
-                return RedirectToAction("All", "Home");
+                return RedirectToAction("Login", "User");
             }
 
             foreach (var item in result.Errors)
