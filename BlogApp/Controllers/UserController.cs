@@ -72,6 +72,7 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
+        //add try catch block for exceptions
         private async Task AddUserToRole(string userId)
         {
             var roleName = "User";
@@ -80,13 +81,21 @@ namespace BlogApp.Controllers
             if (roleExists)
             {
                 var user = await _userManager.FindByIdAsync(userId);
-                await _userManager.AddToRoleAsync(user, roleName);
+
+                if (user != null)
+                {
+                    await _userManager.AddToRoleAsync(user, roleName);
+                }
             }
             else
             {
                 await _roleManager.CreateAsync(new IdentityRole() { Name = roleName, NormalizedName = roleName.ToUpper() });
                 var user = await _userManager.FindByIdAsync(userId);
-                await _userManager.AddToRoleAsync(user, roleName);
+
+                if (user != null)
+                {
+                    await _userManager.AddToRoleAsync(user, roleName);
+                }
             }
         }
 
