@@ -111,5 +111,12 @@ namespace BlogApp.Core.Contracts
         /// <param name="post">Post entity</param>
         /// <returns></returns>
         Task DeletePostAsync(Post post);
+
+        /// <summary>
+        /// Creates and returns the model for the Details view in the post controller
+        /// </summary>
+        /// <param name="post">The post to convert</param>
+        /// <returns></returns>
+        PostDetailsViewModel GetPostDetailsViewModel(Post post);
     }
 }

@@ -90,40 +90,7 @@ namespace BlogApp.Controllers
                 return NotFound();
             }
 
-            var categories = post.PostsCategories
-                .Select(pc => pc.Category.Name)
-                .ToList();
-
-            var tags = post.PostsTags
-                .Select(pt => pt.Tag.Name)
-                .ToList();
-
-            int likes = post.LikesDislikes
-                .Where(ld => ld.Liked)
-                .Count();
-
-            int dislikes = post.LikesDislikes
-                .Where(ld => !ld.Liked)
-                .Count();
-
-            int favorites = post.Favorites.Count();
-
-            PostDetailsViewModel model = new PostDetailsViewModel()
-            {
-                Id = post.Id,
-                Title = post.Title,
-                Content = post.Content,
-                ShortDescription = post.ShortDescription,
-                CreatedOn = post.CreatedOn.ToString(PostDateFormat),
-                UpdatedOn = post.UpdatedOn.ToString(PostDateFormat),
-                UserName = post.User.UserName,
-                UserId = post.UserId,
-                Categories = categories,
-                Tags = tags,
-                Likes = likes,
-                Dislikes = dislikes,
-                Favorites = favorites,
-            };
+            var model = _postService.GetPostDetailsViewModel(post);
 
             return View(model);
         }
