@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+@using Ganss.Xss
 
 @model PostDetailsViewModel
 
@@ -7,7 +8,7 @@
 
     Layout = "~/Views/Shared/_DetailsLayout.cshtml";
 
-    var splitetContent = Model.Content.Split(". ", StringSplitOptions.RemoveEmptyEntries).ToList();
+    var sanitizer = new HtmlSanitizer();
 }
 
 <input type="hidden" id="postId" asp-for="Id"/>
@@ -38,12 +39,20 @@
         </figure>
         <!-- Post content -->
         <section class="mb-5">
-            @foreach (var sentence in splitetContent)
-            {
-                <p class="fs-5 mb-4">@(sentence.TrimStart().TrimEnd() + ".")</p>
-            }
+            @Html.Raw(sanitizer.Sanitize(Model.Content))
         </section>
     </article>
+    @if (Model.UserId == User.Id())
+    {
+        <div class="d-flex flex-row">
+            <div class="row p-3">
+                <a class="btn btn-primary" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            </div>
+            <div class="row p-3">
+                <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            </div>
+        </div>
+    }
     <!-- Comment section -->
     <section class="mb-5">
         <div class="card bg-light">
