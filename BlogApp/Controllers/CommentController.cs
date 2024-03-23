@@ -25,8 +25,6 @@ namespace BlogApp.Controllers
 
             await _commentService.AddCommentAsync(model);
 
-            TempData["LoadComments"] = true;
-
             return RedirectToAction("Details", "Post", new { id = model.PostId });
         }
 

@@ -125,8 +125,6 @@ namespace BlogApp.Controllers
                 Favorites = favorites,
             };
 
-            model.LoadComments = TempData["LoadComments"] as bool? ?? false;
-
             return View(model);
         }
 
