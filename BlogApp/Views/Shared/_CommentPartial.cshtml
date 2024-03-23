@@ -1,1 +1,21 @@
-﻿
+﻿@using BlogApp.Core.Models.Comment
+
+@model List<CommentViewModel>
+
+@if (Model.Count > 0)
+{
+    foreach (var comm in Model)
+    {
+        <div class="d-flex">
+            <div class="ms-3">
+                <div class="fw-bold">@comm.UserName</div>
+                @comm.Content
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h4>No comments yet!</h4>
+}
+

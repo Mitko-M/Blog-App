@@ -66,7 +66,7 @@ namespace BlogApp.Core.Services
                 {
                     Id = c.Id,
                     Content = c.Content,
-                    UserId = c.UserId,
+                    UserName = c.User.UserName,
                     PostId = c.PostId,
                     CommentUploadDate = c.CommentUploadDate,
                     CommentsLikes = c.CommentsLikes
@@ -78,6 +78,7 @@ namespace BlogApp.Core.Services
                                         })
                                         .ToList()
                 })
+                .OrderBy( c => c.CommentUploadDate)
                 .ToListAsync();
 
             return comments;

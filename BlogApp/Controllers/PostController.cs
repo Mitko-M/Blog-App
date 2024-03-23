@@ -108,16 +108,6 @@ namespace BlogApp.Controllers
 
             int favorites = post.Favorites.Count();
 
-            var comments = post.Comments
-                .Select(c => new CommentViewModel()
-                {
-                    Id = c.Id,
-                    Content = c.Content,
-                    UserId = c.UserId,
-                    PostId = c.PostId,
-                })
-                .ToList();
-
             PostDetailsViewModel model = new PostDetailsViewModel()
             {
                 Id = post.Id,
@@ -133,8 +123,9 @@ namespace BlogApp.Controllers
                 Likes = likes,
                 Dislikes = dislikes,
                 Favorites = favorites,
-                Comments = comments,
             };
+
+            model.LoadComments = TempData["LoadComments"] as bool? ?? false;
 
             return View(model);
         }

@@ -2,8 +2,15 @@
 
 @model CommentFormModel
 
-<form asp-controller="Comment" asp-action="AddComment" method="post">
+<form class="mb-4" asp-controller="Comment" asp-action="AddComment" method="post">
+    <div class="row">
+        <div class="col-8">
+            <span asp-validation-for="Content" class="text-danger"></span>
+            <textarea asp-for="Content" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+        </div>
+        <div class="col-4">
+            <input type="submit" class="btn btn-primary" value="Comment" />
+        </div>
+    </div>
     <input type="hidden" asp-for="PostId"/>
-    <input type="text" asp-for="Content"/>
-    <input type="submit" class="btn btn-primary" value="Comment"/>
 </form>

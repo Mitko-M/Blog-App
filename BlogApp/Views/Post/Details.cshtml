@@ -4,21 +4,70 @@
 
 @{
     ViewData["Title"] = Model.Title;
+
+    Layout = "~/Views/Shared/_DetailsLayout.cshtml";
+
+    var splitetContent = Model.Content.Split(". ", StringSplitOptions.RemoveEmptyEntries).ToList();
 }
 
-<div class="col-lg-8 post">
-    <h5>Written by @Model.UserName.<br />Updated on @Model.UpdatedOn</h5>
-    <p>
-        @Model.Content
-    </p>
-    @if (User.Id() == Model.UserId)
-    {
-        <a class="btn btn-primary" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-        <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-    }
-    <div class="container">
-        @await Component.InvokeAsync(nameof(CommentFormComponent), new { id = Model.Id })
-    </div>
+<input type="hidden" id="postId" asp-for="Id"/>
+
+<div class="col-lg-8">
+    <!-- Post content -->
+    <article>
+        <!-- Post header -->
+        <header class="mb-4">
+            <!-- Post title -->
+            <h1 class="fw-bolder mb-1">@Model.Title</h1>
+            <!-- Post meta content -->
+            <div class="text-muted fst-italic mb-2">Posted on @Model.CreatedOn by @Model.UserName</div>
+            <!-- Post categories -->
+            @foreach (var cat in Model.Categories)
+            {
+                <a asp-controller="Home" asp-action="All" class="badge bg-secondary text-decoration-none link-light" asp-route-categoryName="@cat">@cat</a>
+            }
+            <!-- Post tags -->
+            @foreach (var tag in Model.Tags)
+            {
+                <a asp-controller="Home" asp-action="All" class="badge bg-secondary text-decoration-none link-light" asp-route-tagName="@tag">#@tag</a>
+            }
+        </header>
+        <!-- Preview image figure -->
+        <figure class="mb-4">
+            <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+        </figure>
+        <!-- Post content -->
+        <section class="mb-5">
+            @foreach (var sentence in splitetContent)
+            {
+                <p class="fs-5 mb-4">@(sentence.TrimStart().TrimEnd() + ".")</p>
+            }
+        </section>
+    </article>
+    <!-- Comment section -->
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <!-- Comment form -->
+                <!-- 
+                    When the form is submited the page refreshes since it's a post request from a form i tried to use ajax 
+                    but it didn't work i will think of something later for how to just render the comments again or click the
+                    load comments button via js or some other way
+                -->
+                @await Component.InvokeAsync(nameof(CommentFormComponent), new { id = Model.Id })
+                <!-- Loaded comments -->
+                <button id="loadComments" class="btn btn-primary">Load Comments</button>
+                <div id="commentsContainer">
+                    <!-- Here the partial view is rendered via AJAX -->
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 @await Component.InvokeAsync(nameof(SideWidgetsComponent))
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

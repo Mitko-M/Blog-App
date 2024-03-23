@@ -12,6 +12,8 @@ namespace BlogApp.Core.Models.Post
         public int Likes { get; set; }
         public int Dislikes { get; set; }
         public int Favorites { get; set; }
+
+        public bool LoadComments { get; set; }
         public IEnumerable<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
     }
 }
