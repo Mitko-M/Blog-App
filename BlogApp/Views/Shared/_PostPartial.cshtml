@@ -3,10 +3,11 @@
 
 <div class="col-lg-6">
     <div class="card mb-4">
-        <div class="card-header">@Model.Title</div>
+        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
         <div class="card-body">
+            <div class="small text-muted">Uploaded on @Model.CreatedOn</div>
+            <h2 class="card-title h4">@Model.Title</h2>
             <p class="card-text">@Model.ShortDescription</p>
-            <div class="small text-muted">Updated on @Model.UpdatedOn</div>
             <a class="btn btn-info" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">Read more →</a>
             @if (User.Id() == Model.UserId)
             {

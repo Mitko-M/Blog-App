@@ -177,10 +177,10 @@ namespace BlogApp.Core.Services
             posts = sorting switch
             {
                 PostSorting.Newest => posts
-                .OrderByDescending(p => p.UpdatedOn)
+                .OrderByDescending(p => p.CreatedOn)
                 .ToList(),
                 PostSorting.Oldest => posts
-                .OrderBy(p => p.UpdatedOn)
+                .OrderBy(p => p.CreatedOn)
                 .ToList(),
                 PostSorting.TitleAscending => posts
                 .OrderBy(p => p.Title)
@@ -277,10 +277,10 @@ namespace BlogApp.Core.Services
             posts = sorting switch
             {
                 PostSorting.Newest => posts
-                .OrderByDescending(p => p.UpdatedOn)
+                .OrderByDescending(p => p.CreatedOn)
                 .ToList(),
                 PostSorting.Oldest => posts
-                .OrderBy(p => p.UpdatedOn)
+                .OrderBy(p => p.CreatedOn)
                 .ToList(),
                 PostSorting.TitleAscending => posts
                 .OrderBy(p => p.Title)
