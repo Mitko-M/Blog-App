@@ -60,14 +60,15 @@ namespace BlogApp.Core.Services
 
         public async Task<IEnumerable<CommentViewModel>> LoadCommentsAsync(int postId)
         {
+            var post = await _postService.GetPostById(postId);
+
             var comments = await _context.Comments
                 .Where(c => c.PostId == postId)
                 .Select(c => new CommentViewModel()
                 {
-                    Id = c.Id,
                     Content = c.Content,
                     UserName = c.User.UserName,
-                    PostId = c.PostId,
+                    PostOwnerId = post.User.UserName,
                     CommentUploadDate = c.CommentUploadDate,
                     CommentsLikes = c.CommentsLikes
                                         .Select(cl => new CommentLikeViewModel()

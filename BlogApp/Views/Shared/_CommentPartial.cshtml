@@ -8,8 +8,16 @@
     {
         <div class="d-flex">
             <div class="ms-3">
-                <div class="fw-bold">@comm.UserName</div>
+                @if (comm.PostOwnerId == comm.UserName)
+                {
+                    <div class="fw-bold">@(comm.UserName)(Post Owner)</div>
+                }
+                else
+                {
+                    <div class="fw-bold">@comm.UserName</div>
+                }
                 @comm.Content
+                <p style="font-size: 12px;">Commented on @comm.CommentUploadDate.ToString(PostDateFormat)</p>
             </div>
         </div>
     }

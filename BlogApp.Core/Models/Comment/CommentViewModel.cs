@@ -8,10 +8,9 @@ namespace BlogApp.Core.Models.Comment
 {
     public class CommentViewModel
     {
-        public int Id { get; set; }
         public string Content { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
-        public int PostId { get; set; }
+        public string PostOwnerId { get; set; } = string.Empty;
         public DateTime CommentUploadDate { get; set; }
         public IEnumerable<CommentLikeViewModel> CommentsLikes { get; set; } = new List<CommentLikeViewModel>();
     }
