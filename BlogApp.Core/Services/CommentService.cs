@@ -18,7 +18,7 @@ namespace BlogApp.Core.Services
         }
         public async Task AddCommentAsync(CommentFormModel model)
         {
-            var post = _postService.GetPostById(model.PostId);
+            var post = await _postService.GetPostById(model.PostId);
 
             if (post == null)
             {

@@ -11,6 +11,12 @@
     </li>
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link @(request.Path == "/Admin/Dashboard" ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+            </li>
+        }
         <li class="nav-item dropdown">
             <a class ="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Posts

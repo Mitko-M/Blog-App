@@ -6,7 +6,7 @@ namespace BlogApp.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Dashboard()
         {
             return View();
         }
