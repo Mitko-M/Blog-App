@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Models;
+using BlogApp.Core.Models.Post;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,11 @@ namespace BlogApp.Core.Contracts
         /// </summary>
         /// <returns>A sequence with CategoryViewModel</returns>
         Task<IEnumerable<CategoryViewModel>> GetCategoriesAsync();
+
+        /// <summary>
+        /// A method for taking all categories from the database and then parsing them to a model
+        /// </summary>
+        /// <returns>A list with PostCategoryModel</returns>
+        Task<IEnumerable<PostCategoryFormModel>> GetCategoriesWithIsSelected();
     }
 }

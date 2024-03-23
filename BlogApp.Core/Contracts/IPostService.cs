@@ -72,18 +72,6 @@ namespace BlogApp.Core.Contracts
         Task<AddPostFormModel> GetPostFormModel();
 
         /// <summary>
-        /// A method for taking all tags from the database and then parsing them to a model
-        /// </summary>
-        /// <returns>A list with PostTagModel</returns>
-        Task<IEnumerable<PostTagFormModel>> GetTagsWithIsSelected();
-
-        /// <summary>
-        /// A method for taking all categories from the database and then parsing them to a model
-        /// </summary>
-        /// <returns>A list with PostCategoryModel</returns>
-        Task<IEnumerable<PostCategoryFormModel>> GetCategoriesWithIsSelected();
-
-        /// <summary>
         /// Getting a post by it's Id
         /// </summary>
         /// <param name="id">Post's identifier</param>

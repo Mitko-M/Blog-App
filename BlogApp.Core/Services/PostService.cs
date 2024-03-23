@@ -3,7 +3,6 @@ using BlogApp.Core.Enumerations;
 using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
 
@@ -70,8 +69,8 @@ namespace BlogApp.Core.Services
         {
             AddPostFormModel model = new AddPostFormModel()
             {
-                Categories = await GetCategoriesWithIsSelected(),
-                Tags = await GetTagsWithIsSelected()
+                Categories = await _categoryService.GetCategoriesWithIsSelected(),
+                Tags = await _tagService.GetTagsWithIsSelected()
             };
 
             return model;
@@ -94,32 +93,6 @@ namespace BlogApp.Core.Services
             }
 
             return ret;
-        }
-
-        public async Task<IEnumerable<PostCategoryFormModel>> GetCategoriesWithIsSelected()
-        {
-            var categories = await _categoryService.GetCategoriesAsync();
-
-            return categories.Select(c => new PostCategoryFormModel()
-            {
-                Id = c.Id,
-                Name = c.Name,
-                IsSelected = false
-            })
-            .ToList();
-        }
-
-        public async Task<IEnumerable<PostTagFormModel>> GetTagsWithIsSelected()
-        {
-            var tags = await _tagService.GetTagsAsync();
-
-            return tags.Select(t => new PostTagFormModel()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                IsSelected = false
-            })
-            .ToList();
         }
 
         public async Task<Post?> GetPostById(int id)
@@ -340,8 +313,8 @@ namespace BlogApp.Core.Services
                 return null;
             }
 
-            var categories = await GetCategoriesWithIsSelected();
-            var tags = await GetTagsWithIsSelected();
+            var categories = await _categoryService.GetCategoriesWithIsSelected();
+            var tags = await _tagService.GetTagsWithIsSelected();
 
             var selectedCatsIds = post.PostsCategories
                                     .Select(pc => pc.CategoryId)

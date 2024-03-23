@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models;
+using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,6 +27,19 @@ namespace BlogApp.Core.Services
             })
             .AsNoTracking()
             .ToListAsync();
+        }
+
+        public async Task<IEnumerable<PostTagFormModel>> GetTagsWithIsSelected()
+        {
+            var tags = await GetTagsAsync();
+
+            return tags.Select(t => new PostTagFormModel()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                IsSelected = false
+            })
+            .ToList();
         }
     }
 }

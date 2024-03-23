@@ -10,7 +10,7 @@ namespace BlogApp.Controllers
 {
     public class PostController : BaseController
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<PostController> _logger;
         private readonly IPostService _postService;
         private readonly ICategoryService _categoryService;
         private readonly ITagService _tagService;
@@ -40,8 +40,8 @@ namespace BlogApp.Controllers
         {
             //TODO: Make a model binder for the categories and tags since i used ul
             //and it can't have the asp-for attribute
-            model.Categories = await _postService.GetCategoriesWithIsSelected();
-            model.Tags = await _postService.GetTagsWithIsSelected();
+            model.Categories = await _categoryService.GetCategoriesWithIsSelected();
+            model.Tags = await _tagService.GetTagsWithIsSelected();
 
             var httpRequestBodyValuesCats = HttpContext.Request.Form["category.IsSelected"];
             var httpRequestBodyValuesTags = HttpContext.Request.Form["tag.IsSelected"];
@@ -130,8 +130,8 @@ namespace BlogApp.Controllers
 
             //TODO: Make a model binder for the categories and tags since i used ul
             //and it can't have the asp-for attribute
-            model.Categories = await _postService.GetCategoriesWithIsSelected();
-            model.Tags = await _postService.GetTagsWithIsSelected();
+            model.Categories = await _categoryService.GetCategoriesWithIsSelected();
+            model.Tags = await _tagService.GetTagsWithIsSelected();
 
             var httpRequestBodyValuesCats = HttpContext.Request.Form["category.IsSelected"];
             var httpRequestBodyValuesTags = HttpContext.Request.Form["tag.IsSelected"];

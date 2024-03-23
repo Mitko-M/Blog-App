@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models;
+using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,19 @@ namespace BlogApp.Core.Services
             })
             .AsNoTracking()
             .ToListAsync();
+        }
+
+        public async Task<IEnumerable<PostCategoryFormModel>> GetCategoriesWithIsSelected()
+        {
+            var categories = await GetCategoriesAsync();
+
+            return categories.Select(c => new PostCategoryFormModel()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                IsSelected = false
+            })
+            .ToList();
         }
     }
 }

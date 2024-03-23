@@ -8,15 +8,18 @@ namespace BlogApp.Controllers
 {
     public class UserController : BaseController
     {
+        private readonly ILogger<UserController> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserController(
+            ILogger<UserController> logger,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager)
         {
+            _logger = logger;
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -71,6 +74,7 @@ namespace BlogApp.Controllers
         }
 
         //add try catch block for exceptions
+        //configure better error handling(cause there isn't any)
         private async Task AddUserToRole(string userId)
         {
             var roleName = "User";
