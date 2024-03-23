@@ -45,9 +45,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
         {
             var adminUser = new ApplicationUser()
             {
-                //change the id to guid when the testing period is done
-                //Guid.NewGuid().ToString()
-                Id = "1",
+                Id = Guid.NewGuid().ToString(),
                 FirstName = "Mitko",
                 LastName = "Mitkov",
                 UserName = "admin",

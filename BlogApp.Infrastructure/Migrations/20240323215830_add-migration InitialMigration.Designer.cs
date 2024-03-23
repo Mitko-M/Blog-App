@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    [Migration("20240321224013_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240323215830_add-migration InitialMigration")]
+    partial class addmigrationInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

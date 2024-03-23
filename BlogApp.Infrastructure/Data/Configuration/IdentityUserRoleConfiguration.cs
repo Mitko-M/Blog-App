@@ -8,7 +8,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
         {
-            builder.HasData(new IdentityUserRole<string> { RoleId = "1", UserId = "1"});
+            builder.HasData(new IdentityUserRole<string> { RoleId = "1", UserId = ConfigurationHelper.Admin.Id});
         }
     }
 }

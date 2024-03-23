@@ -103,6 +103,9 @@ namespace BlogApp.Core.Services
                 .Include(p => p.PostsTags)
                     .ThenInclude(pt => pt.Tag)
                 .Include(p => p.User)
+                .Include(p => p.Comments)
+                .Include(p => p.Favorites)
+                .Include(p => p.LikesDislikes)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -415,6 +418,19 @@ namespace BlogApp.Core.Services
 
         public async Task DeletePostAsync(Post post)
         {
+            foreach (var comment in post.Comments)
+            {
+                _context.CommentsLikes.RemoveRange(comment.CommentsLikes);
+            }
+
+            await _context.SaveChangesAsync();
+
+            _context.Comments.RemoveRange(post.Comments);
+            _context.LikesDislikes.RemoveRange(post.LikesDislikes);
+            _context.Favorites.RemoveRange(post.Favorites);
+
+            await _context.SaveChangesAsync();
+
             _context.Posts.Remove(post);
 
             await _context.SaveChangesAsync();
