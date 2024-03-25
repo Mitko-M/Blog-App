@@ -1,8 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
-using BlogApp.Core.Models.Comment;
 using BlogApp.Core.Models.Post;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Security.Claims;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
 
@@ -70,7 +68,15 @@ namespace BlogApp.Controllers
                 return View(model);
             }
 
-            await _postService.AddPostAsync(model, User.Id());
+            try
+            {
+                await _postService.AddPostAsync(model, User.Id());
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogCritical("Exception on post creating", ex.Message);
+                return StatusCode(500);
+            }
 
             return RedirectToAction("All", "Home");
         }
@@ -102,7 +108,7 @@ namespace BlogApp.Controllers
 
             if (model == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             if (model.UserId != User.Id())
@@ -120,7 +126,7 @@ namespace BlogApp.Controllers
 
             if (post == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             if (post.UserId != User.Id())
@@ -160,7 +166,15 @@ namespace BlogApp.Controllers
                 return View(model);
             }
 
-            await _postService.UpdatePostAsync(post, model);
+            try
+            {
+                await _postService.UpdatePostAsync(post, model);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(500);
+                _logger.LogCritical("Exception on post updationg", ex.Message);
+            }
 
             return RedirectToAction("All", "Home");
         }
@@ -172,7 +186,7 @@ namespace BlogApp.Controllers
 
             if (post == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             if (post.UserId != User.Id())
@@ -197,7 +211,7 @@ namespace BlogApp.Controllers
 
             if (post == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             if (post.UserId != User.Id())
@@ -205,7 +219,15 @@ namespace BlogApp.Controllers
                 return Unauthorized();
             }
 
-            await _postService.DeletePostAsync(post);
+            try
+            {
+                await _postService.DeletePostAsync(post);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogCritical("Exception on post deleting", ex.Message);
+                return StatusCode(500);
+            }
 
             return RedirectToAction("All", "Home");
         }

@@ -1,4 +1,8 @@
-﻿@{
+﻿@inject IHttpContextAccessor _httpContextAccessor
+
+@model string
+
+@{
     ViewBag.Title = "Page not found";
     Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
 }
@@ -7,7 +11,7 @@
     <link rel="stylesheet" href="~/css/404.css" asp-append-version="true" />
 </head>
 
-<section class="page_404">
+<section class="page_404 mb-5">
     <div class="container">
         <div class="row">
             <div class="text-center">
@@ -20,7 +24,7 @@
                     <h3 class="h2">
                         Look like you're lost
                     </h3>
-                    <p>the page you are looking for not avaible!</p>
+                    <p>the page could not be found!</p>
                     <a asp-action="All" asp-controller="Home" class="btn btn-primary">Go to Home</a>
                 </div>
             </div>

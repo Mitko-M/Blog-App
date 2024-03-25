@@ -36,7 +36,12 @@ namespace BlogApp.Core.Services
 
             await _context.Posts.AddAsync(postToAdd);
 
-            await _context.SaveChangesAsync();
+            int saves = await _context.SaveChangesAsync();
+
+            if (saves == 0)
+            {
+                throw new ArgumentException("Post wasn't added succesfully");
+            }
 
             foreach (var category in model.Categories)
             {
@@ -62,7 +67,12 @@ namespace BlogApp.Core.Services
                 }
             }
 
-            await _context.SaveChangesAsync();
+            int postSaves = await _context.SaveChangesAsync();
+
+            if (postSaves == 0)
+            {
+                throw new ArgumentException("Post's categories or tags were't added succesfully");
+            }
         }
 
         public async Task<AddPostFormModel> GetPostFormModel()
@@ -413,7 +423,12 @@ namespace BlogApp.Core.Services
                 }
             }
 
-            await _context.SaveChangesAsync();
+            int saves = await _context.SaveChangesAsync();
+
+            if (saves == 0)
+            {
+                throw new ArgumentException("Post wasn't updated succesfully");
+            }
         }
 
         public async Task DeletePostAsync(Post post)
@@ -433,7 +448,12 @@ namespace BlogApp.Core.Services
 
             _context.Posts.Remove(post);
 
-            await _context.SaveChangesAsync();
+            int saves = await _context.SaveChangesAsync();
+
+            if (saves == 0)
+            {
+                throw new ArgumentException("Post wasn't deleted succesfully");
+            }
         }
 
         public PostDetailsViewModel GetPostDetailsViewModel(Post post)
