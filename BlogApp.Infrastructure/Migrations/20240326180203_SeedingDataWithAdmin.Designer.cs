@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    [Migration("20240325145653_SeedingDataWithAdmin")]
+    [Migration("20240326180203_SeedingDataWithAdmin")]
     partial class SeedingDataWithAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,31 +245,31 @@ namespace BlogApp.Infrastructure.Migrations
                         {
                             Id = 1,
                             Content = "This is my first post's content",
-                            CreatedOn = new DateTime(2019, 3, 25, 16, 56, 52, 884, DateTimeKind.Local).AddTicks(357),
+                            CreatedOn = new DateTime(2019, 3, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8517),
                             ShortDescription = "This is my post's short description",
                             Title = "My First Post",
-                            UpdatedOn = new DateTime(2021, 9, 25, 16, 56, 52, 884, DateTimeKind.Local).AddTicks(393),
-                            UserId = "32dd459c-ff9f-47f1-ad59-dac146787d30"
+                            UpdatedOn = new DateTime(2021, 9, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8554),
+                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70"
                         },
                         new
                         {
                             Id = 2,
                             Content = "This is my second post's content",
-                            CreatedOn = new DateTime(2019, 3, 25, 16, 56, 52, 884, DateTimeKind.Local).AddTicks(399),
+                            CreatedOn = new DateTime(2019, 3, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8562),
                             ShortDescription = "This is my post's short description",
                             Title = "My Second Post",
-                            UpdatedOn = new DateTime(2023, 5, 25, 16, 56, 52, 884, DateTimeKind.Local).AddTicks(401),
-                            UserId = "32dd459c-ff9f-47f1-ad59-dac146787d30"
+                            UpdatedOn = new DateTime(2023, 5, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8564),
+                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70"
                         },
                         new
                         {
                             Id = 3,
                             Content = "This is my third post's content",
-                            CreatedOn = new DateTime(2024, 1, 25, 16, 56, 52, 884, DateTimeKind.Local).AddTicks(405),
+                            CreatedOn = new DateTime(2024, 1, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8567),
                             ShortDescription = "This is my post's short description",
                             Title = "My Third Post",
-                            UpdatedOn = new DateTime(2024, 3, 20, 16, 56, 52, 884, DateTimeKind.Local).AddTicks(406),
-                            UserId = "32dd459c-ff9f-47f1-ad59-dac146787d30"
+                            UpdatedOn = new DateTime(2024, 3, 21, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8569),
+                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70"
                         });
                 });
 
@@ -419,14 +419,14 @@ namespace BlogApp.Infrastructure.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "202dd7eb-6d03-4cac-b669-23c6b1d9106b",
+                            ConcurrencyStamp = "9660295d-812e-4af2-bd99-a7837f872695",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "68b91506-4f96-4eb8-9f1d-158eb6432b25",
+                            ConcurrencyStamp = "f9caf067-2c42-41a8-a902-378628f95352",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -592,7 +592,7 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "32dd459c-ff9f-47f1-ad59-dac146787d30",
+                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70",
                             RoleId = "1"
                         });
                 });
@@ -635,17 +635,17 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "32dd459c-ff9f-47f1-ad59-dac146787d30",
+                            Id = "7850d3f5-bbc1-409e-9237-91e8afb5ef70",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1a26ea0d-374d-4449-9418-5345317d1975",
+                            ConcurrencyStamp = "06f03200-4dc3-45fc-a3b6-782c073ee847",
                             Email = "admin@blog.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BLOG.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFgmPYxvjQtHow8XQ8FKoVuT/DqRPX6pSLtyQ1nSj2+f6Hjj2UhO6S3t+7E++MYdJQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPNezvQpiQzJZLIoNzrwnr0Bu0OeuctLfuqIdxP/gp0uCrgICvoGG0SEv/ItLYD2pA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "efa2669b-9937-4e01-ae56-1cbbd428ca8a",
+                            SecurityStamp = "c912d0f1-bc81-433e-8dfd-7638b1291aa8",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FirstName = "Mitko",
