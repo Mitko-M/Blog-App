@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css"/>
 </head>
 <body>
     @await Component.InvokeAsync(nameof(ResponsiveNavComponent));
@@ -19,7 +20,7 @@
         </div>
     </header>
     <div class="container">
-        <main role="main" class="pb-3 row">
+        <main role="main" class="pb-4 row">
             @RenderBody()
         </main>
     </div>
