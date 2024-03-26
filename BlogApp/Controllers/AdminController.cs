@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BlogApp.Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Controllers
@@ -6,9 +7,21 @@ namespace BlogApp.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
-        public IActionResult Dashboard()
+        private readonly ILogger<AdminController> _logger;
+        private readonly IUserService _userService;
+        public AdminController(
+            ILogger<AdminController> logger,
+            IUserService userService)
         {
-            return View();
+            _logger = logger;
+            _userService = userService;
+        }
+
+        public async Task<IActionResult> Dashboard()
+        {
+            var model = await _userService.GetUsersAsync();
+
+            return View(model);
         }
     }
 }
