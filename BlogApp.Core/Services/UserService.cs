@@ -1,7 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Identity;
 using BlogApp.Infrastructure.Data;
-using BlogApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Core.Services
@@ -13,17 +12,65 @@ namespace BlogApp.Core.Services
         {
             _context = context;
         }
-        //t'va neshto e maloumno
+
+        public async Task<IEnumerable<ApplicationUserViewModel>> GetAdminsAsync()
+        {
+            var users = await GetUsersOnRoleNameAsync("Admin");
+
+            return users;
+        }
+
+        public async Task<IEnumerable<ApplicationUserViewModel>> GetAllUsersAsync()
+        {
+            var admins = await GetAdminsAsync();
+            var users = await GetUsersOnRoleNameAsync("User");
+            var allUsers = admins.Concat(users).ToList();
+
+            return allUsers;
+        }
+
         public async Task<IEnumerable<ApplicationUserViewModel>> GetUsersAsync()
         {
+            var users = await GetUsersOnRoleNameAsync("User");
+
+            return users;
+        }
+
+        public async Task<IEnumerable<ApplicationUserViewModel>> GetUsersOnRoleNameAsync(string roleName)
+        {
+            //joining the AspNetUser with AspNetRoles and AspNetUserRoles
+            //and then we take only the needed values
+            var joinedUserRoles = _context.UserRoles
+                            .Join(_context.Users,
+                                userRole => userRole.UserId,
+                                user => user.Id,
+                                (userRole, user) => new { UserRole = userRole, User = user })
+                            .Join(_context.Roles,
+                                userRoleUser => userRoleUser.UserRole.RoleId,
+                                role => role.Id,
+                                (userRoleUser, role) => new { UserRoleUser = userRoleUser, Role = role })
+                            .Select(x => new
+                            {
+                                UserId = x.UserRoleUser.User.Id,
+                                RoleId = x.Role.Id,
+                                RoleName = x.Role.Name
+                            })
+                            .ToList();
+
+            //we take all users
             var users = await _context.ApplicationUsers.ToListAsync();
 
-            var userRoles = await _context.UserRoles.ToArrayAsync();
-
+            //we take all roles
             var roles = await _context.Roles.ToArrayAsync();
 
+            //we take all posts
             var posts = await _context.Posts.ToListAsync();
 
+            //here we take the role Id by comparing the given role name
+            string roleId = roles.FirstOrDefault(u => u.NormalizedName == roleName.ToUpper()).Id;
+
+
+            //defining model
             var model = users.Select(u => new ApplicationUserViewModel()
             {
                 Id = u.Id,
@@ -33,12 +80,12 @@ namespace BlogApp.Core.Services
                 Email = u.Email,
                 PhoneNumber = u.PhoneNumber,
                 PostCount = posts.Where(p => p.UserId == u.Id).Count(),
-                Role = roles
-                        .Where(r => userRoles.FirstOrDefault(ur => ur.RoleId == r.Id).UserId == u.Id)
-                        .Select(r => r.Name)
-                        .FirstOrDefault()
+                Role = joinedUserRoles.Where(jt => jt.RoleId == roleId && jt.UserId == u.Id).Select(jt => jt.RoleName).FirstOrDefault()
             })
                 .ToList();
+
+            //taking the users only with the given role
+            model = model.Where(u => u.Role == roleName).ToList();
 
             return model;
         }
