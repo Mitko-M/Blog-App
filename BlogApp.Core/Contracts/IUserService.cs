@@ -19,6 +19,12 @@ namespace BlogApp.Core.Contracts
         Task<IEnumerable<ApplicationUserViewModel>> GetAdminsAsync();
 
         /// <summary>
+        /// Gets all application users that are in the User role
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ApplicationUserViewModel>> GetUsersAsync();
+
+        /// <summary>
         /// Returning all application users
         /// </summary>
         /// <returns></returns>

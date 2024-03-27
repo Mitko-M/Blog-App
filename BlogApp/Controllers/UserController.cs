@@ -62,6 +62,16 @@ namespace BlogApp.Controllers
             {
                 await AddUserToRole(user.Id);
 
+                try
+                {
+                    await AddUserToRole(user.Id);
+                }
+                catch (ArgumentException)
+                {
+                    return StatusCode(500);
+                }
+
+
                 return RedirectToAction("Login", "User");
             }
 
@@ -73,8 +83,6 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
-        //add try catch block for exceptions
-        //configure better error handling(cause there isn't any)
         private async Task AddUserToRole(string userId)
         {
             var roleName = "User";
@@ -90,20 +98,22 @@ namespace BlogApp.Controllers
                     {
                         await _userManager.AddToRoleAsync(user, roleName);
                     }
+                    else
+                    {
+                        _logger.LogWarning($"User is already in role {roleName}");
+                    }
+                }
+                else
+                {
+                    _logger.LogError("User wasn't found");
+                    throw new ArgumentException("User wasn't found in the database");
                 }
             }
             else
             {
-                await _roleManager.CreateAsync(new IdentityRole() { Name = roleName, NormalizedName = roleName.ToUpper() });
-                var user = await _userManager.FindByIdAsync(userId);
+                _logger.LogCritical("User role doesn't exist");
 
-                if (user != null)
-                {
-                    if (!await _userManager.IsInRoleAsync(user, roleName))
-                    {
-                        await _userManager.AddToRoleAsync(user, roleName);
-                    }
-                }
+                throw new ArgumentException("User role doesn't exist in the database");
             }
         }
 

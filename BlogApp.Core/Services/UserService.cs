@@ -29,6 +29,13 @@ namespace BlogApp.Core.Services
             return allUsers;
         }
 
+        public async Task<IEnumerable<ApplicationUserViewModel>> GetUsersAsync()
+        {
+            var users = await GetUsersOnRoleNameAsync("User");
+
+            return users;
+        }
+
         public async Task<IEnumerable<ApplicationUserViewModel>> GetUsersOnRoleNameAsync(string roleName)
         {
             //joining the AspNetUser with AspNetRoles and AspNetUserRoles
