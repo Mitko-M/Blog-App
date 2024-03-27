@@ -100,6 +100,55 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PromoteToAdmin(string userId)
+        {
+            try
+            {
+                await AddUserToAdminRole(userId);
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(500);
+            }
+
+            return RedirectToAction(nameof(Dashboard), "Admin");
+        }
+
+        public async Task AddAdminRoleToUser(string userId)
+        {
+            var roleName = "Admin";
+            var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+            if (roleExists)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+
+                if (user != null)
+                {
+                    if (!await _userManager.IsInRoleAsync(user, roleName))
+                    {
+                        await _userManager.AddToRoleAsync(user, roleName);
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"User is already in role {roleName}");
+                    }
+                }
+                else
+                {
+                    _logger.LogError("User wasn't found while trying to add role admin to a user");
+                    throw new ArgumentException("User wasn't found in the database");
+                }
+            }
+            else
+            {
+                _logger.LogCritical("Admin role doesn't exist. Tried to add the role to a user");
+
+                throw new ArgumentException("Admin role doesn't exist in the database");
+            }
+        }
+
         private async Task AddUserToAdminRole(string userId)
         {
             var roleName = "Admin";

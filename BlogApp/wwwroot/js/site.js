@@ -25,4 +25,6 @@ $(document).ready(() => {
 
         $('#loadComments').hide();
     });
+
+    $('#usersTable').DataTable();
 });
