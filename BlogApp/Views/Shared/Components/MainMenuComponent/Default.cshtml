@@ -14,7 +14,7 @@
         @if (User.IsInRole("Admin"))
         {
             <li class="nav-item">
-                <a class="nav-link @(request.Path == "/Admin/Dashboard" ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                <a class="nav-link @(request.Path.ToString().Contains("Admin") ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
             </li>
         }
         <li class="nav-item dropdown">
