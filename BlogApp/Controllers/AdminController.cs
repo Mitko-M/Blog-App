@@ -19,9 +19,16 @@ namespace BlogApp.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var model = await _userService.GetUsersAsync();
+            var model = await _userService.GetAllUsersAsync();
 
             return View(model);
+        }
+
+        public async Task<IActionResult> DashboardWithAdmins()
+        {
+            var model = await _userService.GetAdminsAsync();
+
+            return View("Dashboard", model);
         }
     }
 }

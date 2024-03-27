@@ -4,6 +4,7 @@
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int num = 1;
 }
 
 <div class="container-fluid px-4">
@@ -16,9 +17,9 @@
     <div class="row">
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Primary Card</div>
+                <div class="card-body">Admins</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" asp-controller="Admin" asp-action="DashboardWithAdmins">View Admins' Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -75,50 +76,41 @@
     </div>
 
     <!-- Table -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Users
-        </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Post count</th>
-                        <th>Phone Number</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Post count</th>
-                        <th>Phone Number</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    @foreach (var user in Model)
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Post Count</th>
+                <th scope="col">Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th scope="row">@num</th>
+                    <td scope="col">@user.FirstName</td>
+                    <td scope="col">@user.LastName</td>
+                    <td scope="col">@user.UserName</td>
+                    <td scope="col">@user.Email</td>
+                    <td scope="col">@user.Role</td>
+                    <td scope="col">@user.PostCount</td>
+                    @if (String.IsNullOrEmpty(user.PhoneNumber))
                     {
-                        <tr>
-                            <td>@user.FirstName</td>
-                            <td>@user.LastName</td>
-                            <td>@user.UserName</td>
-                            <td>@user.Email</td>
-                            <td>@user.Role</td>
-                            <td>@user.PostCount</td>
-                            <td>@user.PhoneNumber</td>
-                        </tr>
+                        <td scope="col">NULL</td>
                     }
-                </tbody>
-            </table>
-        </div>
-    </div>
+                    else
+                    {
+                        <td scope="col">@user.PhoneNumber</td>
+                    }
+                </tr>
+                num++;
+            }
+        </tbody>
+    </table>
 </div>

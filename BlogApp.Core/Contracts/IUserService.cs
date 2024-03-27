@@ -5,6 +5,23 @@ namespace BlogApp.Core.Contracts
 {
     public interface IUserService
     {
-        Task<IEnumerable<ApplicationUserViewModel>> GetUsersAsync();
+        /// <summary>
+        /// Gets users based on the given role name
+        /// </summary>
+        /// <param name="roleName">User role's name</param>
+        /// <returns></returns>
+        Task<IEnumerable<ApplicationUserViewModel>> GetUsersOnRoleNameAsync(string roleName);
+
+        /// <summary>
+        /// Gets all application users that are in the Admin role
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ApplicationUserViewModel>> GetAdminsAsync();
+
+        /// <summary>
+        /// Returning all application users
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ApplicationUserViewModel>> GetAllUsersAsync();
     }
 }
