@@ -51,5 +51,7 @@ namespace BlogApp.Infrastructure.Data.Models
         public ICollection<LikeDislike> LikesDislikes { get; set; } = new HashSet<LikeDislike>();
 
         public ICollection<Favorite> Favorites { get; set; } = new HashSet<Favorite>();
+
+        public ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
     }
 }

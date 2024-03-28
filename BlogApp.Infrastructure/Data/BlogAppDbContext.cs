@@ -14,6 +14,8 @@ namespace BlogApp.Infrastructure.Data
 
         public DbSet<ApplicationUser> ApplicationUsers {  get; set; }    
 
+        public DbSet<PostReport> PostsReports { get; set; }
+
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -39,6 +41,13 @@ namespace BlogApp.Infrastructure.Data
                 .HasOne(f => f.Post)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(f => f.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //post reports
+            builder.Entity<PostReport>()
+                .HasOne(pr => pr.Post)
+                .WithMany(p => p.PostReports)
+                .HasForeignKey(r => r.PostId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             //likes dislikes model

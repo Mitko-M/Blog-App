@@ -116,6 +116,7 @@ namespace BlogApp.Core.Services
                 .Include(p => p.Comments)
                 .Include(p => p.Favorites)
                 .Include(p => p.LikesDislikes)
+                .Include(p => p.PostReports)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -443,6 +444,7 @@ namespace BlogApp.Core.Services
             _context.Comments.RemoveRange(post.Comments);
             _context.LikesDislikes.RemoveRange(post.LikesDislikes);
             _context.Favorites.RemoveRange(post.Favorites);
+            _context.PostsReports.RemoveRange(post.PostReports);
 
             await _context.SaveChangesAsync();
 
