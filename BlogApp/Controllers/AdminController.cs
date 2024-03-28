@@ -100,6 +100,7 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
+        //use this action after you add a buttom for managing users
         [HttpPost]
         public async Task<IActionResult> PromoteToAdmin(string userId)
         {
@@ -113,6 +114,12 @@ namespace BlogApp.Controllers
             }
 
             return RedirectToAction(nameof(Dashboard), "Admin");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Reports()
+        {
+            throw new NotImplementedException();
         }
 
         private async Task AddUserToAdminRole(string userId)
