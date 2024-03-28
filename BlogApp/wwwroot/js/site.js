@@ -28,3 +28,13 @@ $(document).ready(() => {
 
     $('#usersTable').DataTable();
 });
+
+//asking whether the user is sure if he wants to submit a report
+$('#report-for').on('submit', (event) => {
+    var confirmation = confirm('Are you sure you want to submit this report?');
+
+    if (!confirmation) {
+        event.preventDefault();
+    }
+});
+

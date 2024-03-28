@@ -6,7 +6,7 @@
 
 <div class="d-flex flex-column h-100 mt-5 justify-content-evenly">
     <h4 class="text-center">Write Your Reason For Reporting This Post</h4>
-    <form asp-action="Report" asp-controller="Post" method="post">
+    <form id="report-for" asp-action="Report" asp-controller="Post" method="post">
         <div class="mb-3">
             <textarea asp-for="ReportContent" class="form-control" rows="10" aria-required="true"></textarea>
             <span asp-validation-for="ReportContent" class="text-danger"></span>
