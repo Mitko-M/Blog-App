@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Core.Services
 {
-    public class UserService : IUserService
+    public class AdminService : IAdminService
     {
         private readonly BlogAppDbContext _context;
-        public UserService(BlogAppDbContext context)
+        public AdminService(BlogAppDbContext context)
         {
             _context = context;
         }
