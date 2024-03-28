@@ -4,6 +4,7 @@ using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    partial class BlogAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240328201516_AddedPostReports")]
+    partial class AddedPostReports
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +136,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -212,7 +214,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.CommentLike", b =>
@@ -236,7 +238,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CommentsLikes", (string)null);
+                    b.ToTable("CommentsLikes");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Favorite", b =>
@@ -263,7 +265,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Favorites", (string)null);
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.LikeDislike", b =>
@@ -294,7 +296,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LikesDislikes", (string)null);
+                    b.ToTable("LikesDislikes");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>
@@ -341,7 +343,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
 
                     b.HasData(
                         new
@@ -388,7 +390,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("PostsCategories", (string)null);
+                    b.ToTable("PostsCategories");
 
                     b.HasData(
                         new
@@ -433,7 +435,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PostsReports", (string)null);
+                    b.ToTable("PostsReports");
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.PostTag", b =>
@@ -448,7 +450,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("PostsTags", (string)null);
+                    b.ToTable("PostsTags");
 
                     b.HasData(
                         new
@@ -485,7 +487,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
 
                     b.HasData(
                         new
