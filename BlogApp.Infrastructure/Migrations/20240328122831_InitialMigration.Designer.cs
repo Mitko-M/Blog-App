@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogAppDbContext))]
-    [Migration("20240326180203_SeedingDataWithAdmin")]
-    partial class SeedingDataWithAdmin
+    [Migration("20240328122831_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,81 @@ namespace BlogApp.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Category", b =>
                 {
@@ -42,38 +117,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Technology"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Science"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Art"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Travel"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Lifestyle"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Education"
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Comment", b =>
@@ -239,38 +282,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "This is my first post's content",
-                            CreatedOn = new DateTime(2019, 3, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8517),
-                            ShortDescription = "This is my post's short description",
-                            Title = "My First Post",
-                            UpdatedOn = new DateTime(2021, 9, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8554),
-                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Content = "This is my second post's content",
-                            CreatedOn = new DateTime(2019, 3, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8562),
-                            ShortDescription = "This is my post's short description",
-                            Title = "My Second Post",
-                            UpdatedOn = new DateTime(2023, 5, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8564),
-                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Content = "This is my third post's content",
-                            CreatedOn = new DateTime(2024, 1, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8567),
-                            ShortDescription = "This is my post's short description",
-                            Title = "My Third Post",
-                            UpdatedOn = new DateTime(2024, 3, 21, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8569),
-                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70"
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.PostCategory", b =>
@@ -286,23 +297,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("PostsCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            PostId = 1,
-                            CategoryId = 1
-                        },
-                        new
-                        {
-                            PostId = 2,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            PostId = 3,
-                            CategoryId = 3
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.PostTag", b =>
@@ -318,23 +312,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("PostsTags");
-
-                    b.HasData(
-                        new
-                        {
-                            PostId = 1,
-                            TagId = 1
-                        },
-                        new
-                        {
-                            PostId = 2,
-                            TagId = 2
-                        },
-                        new
-                        {
-                            PostId = 3,
-                            TagId = 3
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Tag", b =>
@@ -355,38 +332,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "ASP.NET"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "C#"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "JavaScript"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "HTML"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "CSS"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "SQL"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -414,22 +359,6 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            ConcurrencyStamp = "9660295d-812e-4af2-bd99-a7837f872695",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            ConcurrencyStamp = "f9caf067-2c42-41a8-a902-378628f95352",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -455,77 +384,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -588,13 +446,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "7850d3f5-bbc1-409e-9237-91e8afb5ef70",
-                            RoleId = "1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -616,43 +467,6 @@ namespace BlogApp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7850d3f5-bbc1-409e-9237-91e8afb5ef70",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "06f03200-4dc3-45fc-a3b6-782c073ee847",
-                            Email = "admin@blog.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@BLOG.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPNezvQpiQzJZLIoNzrwnr0Bu0OeuctLfuqIdxP/gp0uCrgICvoGG0SEv/ItLYD2pA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c912d0f1-bc81-433e-8dfd-7638b1291aa8",
-                            TwoFactorEnabled = false,
-                            UserName = "admin",
-                            FirstName = "Mitko",
-                            LastName = "Mitkov"
-                        });
-                });
-
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Comment", b =>
                 {
                     b.HasOne("BlogApp.Infrastructure.Data.Models.Post", "Post")
@@ -661,7 +475,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -680,7 +494,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -699,7 +513,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -718,7 +532,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -731,7 +545,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -789,7 +603,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -798,7 +612,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -813,7 +627,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -822,7 +636,7 @@ namespace BlogApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("BlogApp.Infrastructure.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

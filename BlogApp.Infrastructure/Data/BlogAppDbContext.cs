@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Infrastructure.Data
 {
-    public class BlogAppDbContext : IdentityDbContext
+    public class BlogAppDbContext : IdentityDbContext<ApplicationUser>
     {
         public BlogAppDbContext(DbContextOptions<BlogAppDbContext> options)
             : base(options)

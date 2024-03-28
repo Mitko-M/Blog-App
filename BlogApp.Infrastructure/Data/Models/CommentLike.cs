@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogApp.Infrastructure.Data.Models
 {
@@ -16,6 +10,6 @@ namespace BlogApp.Infrastructure.Data.Models
         public Comment Comment { get; set; }
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }
