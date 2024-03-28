@@ -3,7 +3,7 @@ using BlogApp.Infrastructure.Data.Models;
 
 namespace BlogApp.Core.Contracts
 {
-    public interface IUserService
+    public interface IAdminService
     {
         /// <summary>
         /// Gets users based on the given role name
