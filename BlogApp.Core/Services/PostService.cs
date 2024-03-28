@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Enumerations;
+using BlogApp.Core.Models;
 using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
@@ -496,6 +497,22 @@ namespace BlogApp.Core.Services
             };
 
             return model;
+        }
+
+        public async Task ReportPost(PostReportViewModel reportViewModel)
+        {
+            var post = await GetPostById(reportViewModel.PostId);
+
+            var report = new PostReport()
+            {
+                PostId = reportViewModel.PostId,
+                UserId = reportViewModel.UserId,
+                ReportContent = reportViewModel.ReportContent
+            };
+
+            post.PostReports.Add(report);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

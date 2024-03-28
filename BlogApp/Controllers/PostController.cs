@@ -1,5 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
+using BlogApp.Core.Models;
 using BlogApp.Core.Models.Post;
+using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
@@ -259,6 +261,55 @@ namespace BlogApp.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Report(int id)
+        {
+            if (!(User?.Identity?.IsAuthenticated) ?? false)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var post = await _postService.GetPostById(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            var model = new PostReportViewModel();
+
+            TempData["PostId"] = id;
+            TempData["UserId"] = User.Id();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Report(PostReportViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            int postId = int.Parse(TempData["PostId"].ToString());
+            string userId = TempData["UserId"].ToString();
+
+            var post = await _postService.GetPostById(postId);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            model.PostId = postId;
+            model.UserId = userId;
+
+            await _postService.ReportPost(model);
+
+            return RedirectToAction(nameof(Details), "Post", new { id = model.PostId });
         }
     }
 }

@@ -4,6 +4,10 @@
     {
         //change the values if needed later
 
+        //post report
+        public const int ReportContentMin = 5;
+        public const int ReportContentMax = 1000;
+
         //identity constants
         public const int FirstNameMax = 50;
         public const int LastNameMax = 50;

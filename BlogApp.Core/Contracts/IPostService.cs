@@ -106,5 +106,11 @@ namespace BlogApp.Core.Contracts
         /// <param name="post">The post to convert</param>
         /// <returns></returns>
         PostDetailsViewModel GetPostDetailsViewModel(Post post);
+
+        /// <summary>
+        /// Adds a report to a post
+        /// </summary>
+        /// <returns></returns>
+        Task ReportPost(PostReportViewModel report);
     }
 }
