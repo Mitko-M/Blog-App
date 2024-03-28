@@ -3,7 +3,7 @@
 
 <div class="col-lg-6">
     <div class="card mb-4">
-        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+        <a asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
         <div class="card-body">
             <div class="small text-muted">Uploaded on @Model.CreatedOn</div>
             <h2 class="card-title h4">@Model.Title</h2>
