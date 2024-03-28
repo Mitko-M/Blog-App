@@ -1,26 +1,34 @@
 [
   {
-    "id":  1,
-    "name": "Technology"
+    "id": 1,
+    "name": "IT"
   },
   {
     "id": 2,
-    "name": "Science"
+    "name": "Technology"
   },
   {
     "id": 3,
-    "name": "Art"
+    "name": "Science"
   },
   {
     "id": 4,
-    "name": "Travel"
+    "name": "Art"
   },
   {
     "id": 5,
-    "name": "Lifestyle"
+    "name": "Travel"
   },
   {
     "id": 6,
+    "name": "Lifestyle"
+  },
+  {
+    "id": 7,
     "name": "Education"
+  },
+  {
+    "id": 8,
+    "name": "Computer Science"
   }
 ]

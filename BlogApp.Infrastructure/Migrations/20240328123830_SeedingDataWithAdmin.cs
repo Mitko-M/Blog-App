@@ -14,26 +14,28 @@ namespace BlogApp.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "9660295d-812e-4af2-bd99-a7837f872695", "Admin", "ADMIN" },
-                    { "2", "f9caf067-2c42-41a8-a902-378628f95352", "User", "USER" }
+                    { "1", "685752fe-e2f3-4c10-92ac-62b65fb13fa5", "Admin", "ADMIN" },
+                    { "2", "d6b2de01-f334-4804-a3b6-ea53a04876f6", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7850d3f5-bbc1-409e-9237-91e8afb5ef70", 0, "06f03200-4dc3-45fc-a3b6-782c073ee847", "ApplicationUser", "admin@blog.com", false, "Mitko", "Mitkov", false, null, "ADMIN@BLOG.COM", "ADMIN", "AQAAAAEAACcQAAAAEPNezvQpiQzJZLIoNzrwnr0Bu0OeuctLfuqIdxP/gp0uCrgICvoGG0SEv/ItLYD2pA==", null, false, "c912d0f1-bc81-433e-8dfd-7638b1291aa8", false, "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "6da7a3e5-8411-4229-a9aa-ff572d6cba23", 0, "6306f5d1-331e-4b50-991e-5c9f6103e820", "admin@blog.com", false, "Mitko", "Mitkov", false, null, "ADMIN@BLOG.COM", "ADMIN", "AQAAAAEAACcQAAAAEOjIlZV41ilbbtr8FXChSnermxUNiGrTeYiSFsqlT7/4mUb9QOXqmSKc8DcKGu0idw==", null, false, "977c0b25-c2fb-4aec-aa3b-7062e730ba4c", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Technology" },
-                    { 2, "Science" },
-                    { 3, "Art" },
-                    { 4, "Travel" },
-                    { 5, "Lifestyle" },
-                    { 6, "Education" }
+                    { 1, "IT" },
+                    { 2, "Technology" },
+                    { 3, "Science" },
+                    { 4, "Art" },
+                    { 5, "Travel" },
+                    { 6, "Lifestyle" },
+                    { 7, "Education" },
+                    { 8, "Computer Science" }
                 });
 
             migrationBuilder.InsertData(
@@ -46,22 +48,24 @@ namespace BlogApp.Infrastructure.Migrations
                     { 3, "JavaScript" },
                     { 4, "HTML" },
                     { 5, "CSS" },
-                    { 6, "SQL" }
+                    { 6, "SQL" },
+                    { 7, "Interesting" },
+                    { 8, "Funny" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "7850d3f5-bbc1-409e-9237-91e8afb5ef70" });
+                values: new object[] { "1", "6da7a3e5-8411-4229-a9aa-ff572d6cba23" });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Content", "CreatedOn", "ShortDescription", "Title", "UpdatedOn", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "This is my first post's content", new DateTime(2019, 3, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8517), "This is my post's short description", "My First Post", new DateTime(2021, 9, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8554), "7850d3f5-bbc1-409e-9237-91e8afb5ef70" },
-                    { 2, "This is my second post's content", new DateTime(2019, 3, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8562), "This is my post's short description", "My Second Post", new DateTime(2023, 5, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8564), "7850d3f5-bbc1-409e-9237-91e8afb5ef70" },
-                    { 3, "This is my third post's content", new DateTime(2024, 1, 26, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8567), "This is my post's short description", "My Third Post", new DateTime(2024, 3, 21, 20, 2, 3, 312, DateTimeKind.Local).AddTicks(8569), "7850d3f5-bbc1-409e-9237-91e8afb5ef70" }
+                    { 1, "This is my first post's content", new DateTime(2019, 3, 28, 14, 38, 29, 954, DateTimeKind.Local).AddTicks(6399), "This is my post's short description", "My First Post", new DateTime(2021, 9, 28, 14, 38, 29, 954, DateTimeKind.Local).AddTicks(6437), "6da7a3e5-8411-4229-a9aa-ff572d6cba23" },
+                    { 2, "This is my second post's content", new DateTime(2019, 3, 28, 14, 38, 29, 954, DateTimeKind.Local).AddTicks(6444), "This is my post's short description", "My Second Post", new DateTime(2023, 5, 28, 14, 38, 29, 954, DateTimeKind.Local).AddTicks(6446), "6da7a3e5-8411-4229-a9aa-ff572d6cba23" },
+                    { 3, "This is my third post's content", new DateTime(2024, 1, 28, 14, 38, 29, 954, DateTimeKind.Local).AddTicks(6449), "This is my post's short description", "My Third Post", new DateTime(2024, 3, 23, 14, 38, 29, 954, DateTimeKind.Local).AddTicks(6450), "6da7a3e5-8411-4229-a9aa-ff572d6cba23" }
                 });
 
             migrationBuilder.InsertData(
@@ -95,7 +99,7 @@ namespace BlogApp.Infrastructure.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUserRoles",
                 keyColumns: new[] { "RoleId", "UserId" },
-                keyValues: new object[] { "1", "7850d3f5-bbc1-409e-9237-91e8afb5ef70" });
+                keyValues: new object[] { "1", "6da7a3e5-8411-4229-a9aa-ff572d6cba23" });
 
             migrationBuilder.DeleteData(
                 table: "Categories",
@@ -111,6 +115,16 @@ namespace BlogApp.Infrastructure.Migrations
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 7);
+
+            migrationBuilder.DeleteData(
+                table: "Categories",
+                keyColumn: "Id",
+                keyValue: 8);
 
             migrationBuilder.DeleteData(
                 table: "PostsCategories",
@@ -156,6 +170,16 @@ namespace BlogApp.Infrastructure.Migrations
                 table: "Tags",
                 keyColumn: "Id",
                 keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                table: "Tags",
+                keyColumn: "Id",
+                keyValue: 7);
+
+            migrationBuilder.DeleteData(
+                table: "Tags",
+                keyColumn: "Id",
+                keyValue: 8);
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
@@ -210,7 +234,7 @@ namespace BlogApp.Infrastructure.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "7850d3f5-bbc1-409e-9237-91e8afb5ef70");
+                keyValue: "6da7a3e5-8411-4229-a9aa-ff572d6cba23");
         }
     }
 }
