@@ -100,7 +100,7 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
-        //implement this action after you add a buttom for managing users
+        //use this action after you add a buttom for managing users
         [HttpPost]
         public async Task<IActionResult> PromoteToAdmin(string userId)
         {
