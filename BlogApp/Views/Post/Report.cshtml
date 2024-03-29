@@ -15,7 +15,27 @@
         </div>
 
         <div class="mb-3">
-            <input class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="submit" value="Report" />
+            <!-- Button trigger modal -->
+            <input class="btn btn-danger mb-2 w-100 p-3 fw-bold" type="button" value="Report" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Report Submitting</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to submit this report?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-danger" value="Report"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
