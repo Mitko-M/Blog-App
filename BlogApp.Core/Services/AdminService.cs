@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Identity;
+using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,23 @@ namespace BlogApp.Core.Services
             var users = await GetUsersOnRoleNameAsync("Admin");
 
             return users;
+        }
+
+        public async Task<IEnumerable<PostReportAdminViewModel>> GetAllReportsAsync()
+        {
+            var reports = await _context.PostsReports
+                                    .Select(r => new PostReportAdminViewModel()
+                                    {
+                                        Id = r.Id,
+                                        PostId = r.PostId,
+                                        UserId = r.UserId,
+                                        ReporterUserName = r.User.UserName,
+                                        PostTitle = r.Post.Title,
+                                        ReportContent = r.ReportContent
+                                    })
+                                    .ToListAsync();
+
+            return reports;
         }
 
         public async Task<IEnumerable<ApplicationUserViewModel>> GetAllUsersAsync()

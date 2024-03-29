@@ -1,1 +1,55 @@
-﻿
+﻿@using BlogApp.Core.Models.Report
+
+@model List<PostReportAdminViewModel>
+
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int num = 1;
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">All Submitted Reports</h1>
+
+    <div class="table-responsive mt-4">
+        <table id="reportsTable" class="table table-light table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Reported Post's Title</th>
+                    <th scope="col">Reporter Username</th>
+                    <th scope="col">Reason For Reporting</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var report in Model)
+                {
+                    <tr>
+                        <th scope="row">@num</th>
+                        <td>@report.PostTitle</td>
+                        <td>@report.ReporterUserName</td>
+                        <td>@report.ReportContent</td>
+                        <td>
+                            <button href="#" class="btn btn-primary">View</button>
+                            <button href="#" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+
+                    num++;
+                }
+            </tbody>
+
+            <tfoot class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Reported Post's Title</th>
+                    <th scope="col">Reporter Username</th>
+                    <th scope="col">Reason For Reporting</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

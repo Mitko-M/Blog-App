@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Models.Identity;
+using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
 
 namespace BlogApp.Core.Contracts
@@ -29,5 +30,11 @@ namespace BlogApp.Core.Contracts
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<ApplicationUserViewModel>> GetAllUsersAsync();
+
+        /// <summary>
+        /// Returns all reports converted to a view model
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<PostReportAdminViewModel>> GetAllReportsAsync();
     }
 }
