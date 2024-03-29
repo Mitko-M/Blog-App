@@ -1,0 +1,51 @@
+﻿@using BlogApp.Core.Models.Report
+
+@model PostReportsAdminViewModel
+
+@{
+    ViewBag.Title = "Report Preview";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-sm">
+    <div class="card text-bg-dark text-center" style="margin-top: 10em;">
+        <div class="card-header">
+            <h3>Report Number: @Model.Id</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title p-3">Post Title: @Model.PostTitle</h4>
+            <h5 class="card-text p-3">Reason For Reporting: <strong>@Model.ReportContent</strong></h5>
+            <div class="d-flex flex-row justify-content-center">
+                <a class="btn btn-primary m-1" asp-action="Details" asp-controller="Post" asp-route-id="@Model.PostId">Check Post</a>
+                <a class="btn btn-primary m-1" asp-action="Reports" asp-controller="Admin">Back To Reports</a>
+                <form method="post" asp-controller="Admin" asp-action="DeleteConfirmed" asp-route-reportId="@Model.Id">
+                    <!-- Button trigger modal -->
+                    <input class="btn btn-danger m-1" type="button" value="Delete Report" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting Report</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this report?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-danger" value="Delete" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <a href="#" class="btn btn-warning m-1">Warn The Post Owner</a>
+            </div>
+        </div>
+        <div class="card-footer">
+            <h5>Reported by @Model.ReporterUserName</h5>
+        </div>
+    </div>
+</div>

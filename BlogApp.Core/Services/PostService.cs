@@ -1,7 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Enumerations;
-using BlogApp.Core.Models;
 using BlogApp.Core.Models.Post;
+using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;

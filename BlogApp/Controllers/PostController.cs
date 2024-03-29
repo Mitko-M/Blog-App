@@ -1,6 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
-using BlogApp.Core.Models;
 using BlogApp.Core.Models.Post;
+using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

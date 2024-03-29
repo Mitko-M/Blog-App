@@ -4,6 +4,7 @@ using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Policy;
 
 namespace BlogApp.Controllers
 {
@@ -14,16 +15,16 @@ namespace BlogApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IAdminService _userService;
+        private readonly IAdminService _adminService;
         public AdminController(
             ILogger<AdminController> logger,
-            IAdminService userService,
+            IAdminService adminService,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
-            _userService = userService;
+            _adminService = adminService;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _userManager = userManager;
@@ -31,7 +32,7 @@ namespace BlogApp.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var model = await _userService.GetAllUsersAsync();
+            var model = await _adminService.GetAllUsersAsync();
 
             return View(model);
         }
@@ -39,7 +40,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> DashboardWithAdmins()
         {
-            var model = await _userService.GetAdminsAsync();
+            var model = await _adminService.GetAdminsAsync();
 
             return View("Dashboard", model);
         }
@@ -47,7 +48,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> DashboardWithUsers()
         {
-            var model = await _userService.GetUsersAsync();
+            var model = await _adminService.GetUsersAsync();
 
             return View("Dashboard", model);
         }
@@ -119,7 +120,40 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Reports()
         {
-            throw new NotImplementedException();
+            var reports = await _adminService.GetAllReportsAsync();
+
+            return View(reports);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PreviewReport(int id)
+        {
+            var report = await _adminService.GetReportById(id);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            return View(report);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int reportId)
+        {
+            try
+            {
+                await _adminService.DeleteReport(reportId);
+            }
+            catch (ArgumentException)
+            {
+                _logger.LogCritical($"Something happened while deleting a report with id {reportId}");
+                return StatusCode(500);
+            }
+
+            var reports = await _adminService.GetAllReportsAsync();
+
+            return View(nameof(Reports), reports);
         }
 
         private async Task AddUserToAdminRole(string userId)
