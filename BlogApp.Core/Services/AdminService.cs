@@ -146,5 +146,10 @@ namespace BlogApp.Core.Services
 
             return model;
         }
+
+        public Task WarnApplicationUser(int reportId, int postId, string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
