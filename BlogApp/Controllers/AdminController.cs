@@ -14,16 +14,16 @@ namespace BlogApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IAdminService _userService;
+        private readonly IAdminService _adminService;
         public AdminController(
             ILogger<AdminController> logger,
-            IAdminService userService,
+            IAdminService adminService,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
-            _userService = userService;
+            _adminService = adminService;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _userManager = userManager;
@@ -31,7 +31,7 @@ namespace BlogApp.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var model = await _userService.GetAllUsersAsync();
+            var model = await _adminService.GetAllUsersAsync();
 
             return View(model);
         }
@@ -39,7 +39,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> DashboardWithAdmins()
         {
-            var model = await _userService.GetAdminsAsync();
+            var model = await _adminService.GetAdminsAsync();
 
             return View("Dashboard", model);
         }
@@ -47,7 +47,7 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> DashboardWithUsers()
         {
-            var model = await _userService.GetUsersAsync();
+            var model = await _adminService.GetUsersAsync();
 
             return View("Dashboard", model);
         }
@@ -119,7 +119,9 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Reports()
         {
-            throw new NotImplementedException();
+            var reports = await _adminService.GetAllReportsAsync();
+
+            return View(reports);
         }
 
         private async Task AddUserToAdminRole(string userId)

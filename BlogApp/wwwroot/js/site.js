@@ -27,6 +27,7 @@ $(document).ready(() => {
     });
 
     $('#usersTable').DataTable();
+    $('#reportsTable').DataTable();
 });
 
 //asking whether the user is sure if he wants to submit a report
