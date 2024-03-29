@@ -12,5 +12,7 @@ namespace BlogApp.Infrastructure.Data.Models
         [Required]
         [StringLength(LastNameMax, MinimumLength = LastNameMin)]
         public string LastName { get; set; } = string.Empty;
+
+        public ICollection<Warning> Warnings { get; set; }
     }
 }
