@@ -48,64 +48,9 @@ namespace BlogApp.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "Warning");
 
-            migrationBuilder.DeleteData(
-                table: "AspNetUserRoles",
-                keyColumns: new[] { "RoleId", "UserId" },
-                keyValues: new object[] { "1", "e12b58bc-530b-4246-89f4-e4383154d41b" });
-
-            migrationBuilder.DeleteData(
-                table: "AspNetUsers",
-                keyColumn: "Id",
-                keyValue: "e12b58bc-530b-4246-89f4-e4383154d41b");
-
             migrationBuilder.DropColumn(
                 name: "Hidden",
                 table: "Posts");
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "1",
-                column: "ConcurrencyStamp",
-                value: "6ccc0560-c7e1-439c-b43e-7473a6cc353b");
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "2",
-                column: "ConcurrencyStamp",
-                value: "7d288b08-53d9-4e4f-ab59-06dd666222e5");
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "79f84b72-a493-4acd-8dd2-f4ac73e42c52", 0, "49e367ca-8c67-4ca0-839f-c8c3277cccc4", "admin@blog.com", false, "Mitko", "Mitkov", false, null, "ADMIN@BLOG.COM", "ADMIN", "AQAAAAEAACcQAAAAELl3IKJlp+j0eYWLlbTiCY+2PJhl7zGP892qiMsXTSr5dtlkPGkA3B5IRMRTabNXTw==", null, false, "d7e81149-b708-48bb-83c7-0943bcfef05b", false, "admin" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "79f84b72-a493-4acd-8dd2-f4ac73e42c52" });
-
-            migrationBuilder.UpdateData(
-                table: "Posts",
-                keyColumn: "Id",
-                keyValue: 1,
-                columns: new[] { "CreatedOn", "UpdatedOn", "UserId" },
-                values: new object[] { new DateTime(2019, 3, 28, 22, 15, 16, 309, DateTimeKind.Local).AddTicks(3507), new DateTime(2021, 9, 28, 22, 15, 16, 309, DateTimeKind.Local).AddTicks(3539), "79f84b72-a493-4acd-8dd2-f4ac73e42c52" });
-
-            migrationBuilder.UpdateData(
-                table: "Posts",
-                keyColumn: "Id",
-                keyValue: 2,
-                columns: new[] { "CreatedOn", "UpdatedOn", "UserId" },
-                values: new object[] { new DateTime(2019, 3, 28, 22, 15, 16, 309, DateTimeKind.Local).AddTicks(3545), new DateTime(2023, 5, 28, 22, 15, 16, 309, DateTimeKind.Local).AddTicks(3547), "79f84b72-a493-4acd-8dd2-f4ac73e42c52" });
-
-            migrationBuilder.UpdateData(
-                table: "Posts",
-                keyColumn: "Id",
-                keyValue: 3,
-                columns: new[] { "CreatedOn", "UpdatedOn", "UserId" },
-                values: new object[] { new DateTime(2024, 1, 28, 22, 15, 16, 309, DateTimeKind.Local).AddTicks(3550), new DateTime(2024, 3, 23, 22, 15, 16, 309, DateTimeKind.Local).AddTicks(3552), "79f84b72-a493-4acd-8dd2-f4ac73e42c52" });
         }
     }
 }
