@@ -49,5 +49,14 @@ namespace BlogApp.Core.Contracts
         /// <param name="id">The Report's Id</param>
         /// <returns></returns>
         Task DeleteReport(int id);
+
+        /// <summary>
+        /// Adds a warning to a user form a reported post
+        /// </summary>
+        /// <param name="reportId">The report'identifier to be deleted after warning</param>
+        /// <param name="postId">The reported post's identifier for the post to be hiden after a warning</param>
+        /// <param name="userId">The user identifier to be warned and potentially baned if he must</param>
+        /// <returns></returns>
+        Task WarnApplicationUser(int reportId, int postId, string userId);
     }
 }
