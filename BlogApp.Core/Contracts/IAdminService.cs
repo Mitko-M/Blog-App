@@ -35,6 +35,6 @@ namespace BlogApp.Core.Contracts
         /// Returns all reports converted to a view model
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<PostReportAdminViewModel>> GetAllReportsAsync();
+        Task<IEnumerable<PostReportsAdminViewModel>> GetAllReportsAsync();
     }
 }

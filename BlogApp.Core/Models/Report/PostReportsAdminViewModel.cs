@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Core.Models.Report
 {
-    public class PostReportAdminViewModel : PostReportViewModel
+    public class PostReportsAdminViewModel : PostReportViewModel
     {
         public int Id { get; set; }
         public string PostTitle { get; set; }

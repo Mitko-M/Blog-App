@@ -21,10 +21,10 @@ namespace BlogApp.Core.Services
             return users;
         }
 
-        public async Task<IEnumerable<PostReportAdminViewModel>> GetAllReportsAsync()
+        public async Task<IEnumerable<PostReportsAdminViewModel>> GetAllReportsAsync()
         {
             var reports = await _context.PostsReports
-                                    .Select(r => new PostReportAdminViewModel()
+                                    .Select(r => new PostReportsAdminViewModel()
                                     {
                                         Id = r.Id,
                                         PostId = r.PostId,
