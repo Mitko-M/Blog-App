@@ -13,6 +13,8 @@ namespace BlogApp.Infrastructure.Data.Models
         [StringLength(LastNameMax, MinimumLength = LastNameMin)]
         public string LastName { get; set; } = string.Empty;
 
+        public bool Banned { get; set; }
+
         public ICollection<Warning> Warnings { get; set; }
     }
 }
