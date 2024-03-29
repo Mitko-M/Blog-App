@@ -42,6 +42,8 @@ namespace BlogApp.Infrastructure.Data.Models
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; } = null!;
 
+        public bool Hidden { get; set; }
+
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         public ICollection<PostCategory> PostsCategories { get; set; } = new HashSet<PostCategory>();
