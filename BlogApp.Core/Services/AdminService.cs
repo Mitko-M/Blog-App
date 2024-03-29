@@ -14,6 +14,20 @@ namespace BlogApp.Core.Services
             _context = context;
         }
 
+        public async Task DeleteReport(int id)
+        {
+            var report = await _context.PostsReports.FindAsync(id);
+
+            if (report == null)
+            {
+                throw new ArgumentException($"Report with id {id} doesn't exist.");
+            }
+
+            _context.PostsReports.Remove(report);
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<ApplicationUserViewModel>> GetAdminsAsync()
         {
             var users = await GetUsersOnRoleNameAsync("Admin");
@@ -45,6 +59,31 @@ namespace BlogApp.Core.Services
             var allUsers = admins.Concat(users).ToList();
 
             return allUsers;
+        }
+
+        public async Task<PostReportsAdminViewModel> GetReportById(int id)
+        {
+            var report = await _context.PostsReports
+                                    .Include(pr => pr.Post)
+                                    .Include(pr => pr.User)
+                                    .FirstOrDefaultAsync(pr => pr.Id == id);
+
+            if (report == null)
+            {
+                return null;
+            }
+
+            var model = new PostReportsAdminViewModel()
+            {
+                Id = report.Id,
+                PostId = report.PostId,
+                UserId = report.UserId,
+                ReportContent = report.ReportContent,
+                PostTitle = report.Post.Title,
+                ReporterUserName = report.User.UserName,
+            };
+
+            return model;
         }
 
         public async Task<IEnumerable<ApplicationUserViewModel>> GetUsersAsync()

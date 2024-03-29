@@ -11,45 +11,76 @@
 <div class="container mt-5">
     <h1 class="text-center">All Submitted Reports</h1>
 
-    <div class="table-responsive mt-4">
-        <table id="reportsTable" class="table table-light table-striped table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Reported Post's Title</th>
-                    <th scope="col">Reporter Username</th>
-                    <th scope="col">Reason For Reporting</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var report in Model)
-                {
+    @if (Model.Count > 0)
+    {
+        <div class="table-responsive mt-4">
+            <table id="reportsTable" class="table table-light table-striped table-bordered">
+                <thead class="table-dark">
                     <tr>
-                        <th scope="row">@num</th>
-                        <td>@report.PostTitle</td>
-                        <td>@report.ReporterUserName</td>
-                        <td>@report.ReportContent</td>
-                        <td>
-                            <button href="#" class="btn btn-primary">View</button>
-                            <button href="#" class="btn btn-danger">Delete</button>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Reported Post's Title</th>
+                        <th scope="col">Reporter Username</th>
+                        <th scope="col">Reason For Reporting</th>
+                        <th scope="col">Actions</th>
                     </tr>
+                </thead>
 
-                    num++;
-                }
-            </tbody>
+                <tbody>
+                    @foreach (var report in Model)
+                    {
+                        <tr>
+                            <th scope="row">@num</th>
+                            <td>@report.PostTitle</td>
+                            <td>@report.ReporterUserName</td>
+                            <td>@report.ReportContent</td>
+                            <td>
+                                <div class="d-flex flex-row">
+                                    <a asp-controller="Admin" asp-action="PreviewReport" asp-route-id="@report.Id" class="btn btn-primary m-2">View</a>
+                                    <form method="post" asp-controller="Admin" asp-action="DeleteConfirmed" asp-route-reportId="@report.Id">
+                                        <!-- Button trigger modal -->
+                                        <input class="btn btn-danger m-2" type="button" value="Delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(num)" />
 
-            <tfoot class="table-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Reported Post's Title</th>
-                    <th scope="col">Reporter Username</th>
-                    <th scope="col">Reason For Reporting</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop@(num)" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting Report</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Are you sure you want to delete this report?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <input type="submit" class="btn btn-danger" value="Delete" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+
+                        num++;
+                    }
+                </tbody>
+
+                <tfoot class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Reported Post's Title</th>
+                        <th scope="col">Reporter Username</th>
+                        <th scope="col">Reason For Reporting</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h3 class="text-center mt-4">No reports for now.</h3>
+    }
 </div>

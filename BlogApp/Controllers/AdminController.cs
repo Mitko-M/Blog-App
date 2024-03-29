@@ -4,6 +4,7 @@ using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Policy;
 
 namespace BlogApp.Controllers
 {
@@ -122,6 +123,37 @@ namespace BlogApp.Controllers
             var reports = await _adminService.GetAllReportsAsync();
 
             return View(reports);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PreviewReport(int id)
+        {
+            var report = await _adminService.GetReportById(id);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            return View(report);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int reportId)
+        {
+            try
+            {
+                await _adminService.DeleteReport(reportId);
+            }
+            catch (ArgumentException)
+            {
+                _logger.LogCritical($"Something happened while deleting a report with id {reportId}");
+                return StatusCode(500);
+            }
+
+            var reports = await _adminService.GetAllReportsAsync();
+
+            return View(nameof(Reports), reports);
         }
 
         private async Task AddUserToAdminRole(string userId)
