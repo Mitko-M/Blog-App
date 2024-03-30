@@ -16,5 +16,6 @@ namespace BlogApp.Infrastructure.Data.Models
         public bool Banned { get; set; }
 
         public ICollection<Warning> Warnings { get; set; }
+        public ICollection<ContactFormEntry> ContactFormEntries { get; set; }
     }
 }
