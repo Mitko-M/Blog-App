@@ -1,10 +1,10 @@
 ﻿@model DeletePostViewModel
 @{
-    ViewBag.Title = "Delete Post";
+    ViewData["Title"] = "Delete Post";
     Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
 }
 
-<h2 class="text-center" style="margin-top: 5em;">@ViewBag.Title</h2>
+<h2 class="text-center" style="margin-top: 5em;">@ViewData["Title"]</h2>
 <hr />
 
 <div class="row justify-content-center">
