@@ -20,6 +20,12 @@ namespace BlogApp.Core.Services
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
+            //if a user wasn't found it means he is loged out
+            if (user == null)
+            {
+                return false;
+            }
+
             return user.Banned;
         }
     }
