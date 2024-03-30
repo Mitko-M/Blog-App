@@ -51,7 +51,8 @@ namespace BlogApp.Core.Contracts
         Task DeleteReport(int id);
 
         /// <summary>
-        /// Adds a warning to a user form a reported post
+        /// Adds a warning to a user form a reported post then hides the post and if the user reaches 3 warnings
+        /// he/she is banned
         /// </summary>
         /// <param name="reportId">The report'identifier to be deleted after warning</param>
         /// <param name="postId">The reported post's identifier for the post to be hiden after a warning</param>
