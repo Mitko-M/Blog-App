@@ -98,6 +98,11 @@ namespace BlogApp.Controllers
                 return NotFound();
             }
 
+            if (post.Hidden)
+            {
+                return BadRequest();
+            }
+
             var model = _postService.GetPostDetailsViewModel(post);
 
             return View(model);
@@ -116,6 +121,13 @@ namespace BlogApp.Controllers
             if (model.UserId != User.Id())
             {
                 return Unauthorized();
+            }
+
+            var post = await _postService.GetPostById(id);
+
+            if (post.Hidden)
+            {
+                return BadRequest();
             }
 
             return View(model);
