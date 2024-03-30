@@ -1,9 +1,11 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Identity;
+using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Security.Policy;
 
 namespace BlogApp.Controllers
@@ -16,18 +18,21 @@ namespace BlogApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAdminService _adminService;
+        private readonly IPostService _postService;
         public AdminController(
             ILogger<AdminController> logger,
             IAdminService adminService,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IPostService postService)
         {
             _logger = logger;
             _adminService = adminService;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _userManager = userManager;
+            _postService = postService;
         }
 
         public async Task<IActionResult> Dashboard()
@@ -129,11 +134,19 @@ namespace BlogApp.Controllers
         public async Task<IActionResult> PreviewReport(int id)
         {
             var report = await _adminService.GetReportById(id);
+            var post = await _postService.GetPostById(report.PostId);
+
+            string postOwner = post.UserId;
 
             if (report == null)
             {
                 return NotFound();
             }
+
+            string serializedReport = JsonConvert.SerializeObject(report);
+
+            TempData["ReportModel"] = serializedReport;
+            TempData["PostOwner"] = postOwner;
 
             return View(report);
         }
@@ -154,6 +167,28 @@ namespace BlogApp.Controllers
             var reports = await _adminService.GetAllReportsAsync();
 
             return View(nameof(Reports), reports);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WarnUser()
+        {
+            string serializedReport = TempData["ReportModel"].ToString();
+            string postOwner = TempData["PostOwner"].ToString();
+
+            PostReportsAdminViewModel model = JsonConvert.DeserializeObject<PostReportsAdminViewModel>(serializedReport);
+
+            try
+            {
+                await _adminService.WarnApplicationUser(model.Id, model.PostId, postOwner);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+
+            var reports = await _adminService.GetAllReportsAsync();
+
+            return RedirectToAction(nameof(Reports), reports);
         }
 
         private async Task AddUserToAdminRole(string userId)

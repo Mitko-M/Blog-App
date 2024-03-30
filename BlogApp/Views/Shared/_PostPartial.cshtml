@@ -6,6 +6,11 @@
         <a asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
         <div class="card-body">
             <div class="small text-muted">Uploaded on @Model.CreatedOn</div>
+            @if (Model.Hidden)
+            {
+                <h1 class="text-danger">Hidden Post</h1>
+                <h2 class="text-danger">Delete it later or contact an admin</h2>
+            }
             <h2 class="card-title h4">@Model.Title</h2>
             <p class="card-text">@Model.ShortDescription</p>
             <a class="btn btn-info" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">Read more →</a>

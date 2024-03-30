@@ -183,6 +183,7 @@ namespace BlogApp.Core.Services
             var tags = await _context.Tags.ToListAsync();
 
             var postsToShow = posts
+                .Where(p => p.Hidden == false)
                 .Skip((currentPage - 1) * postsPerPage)
                 .Take(postsPerPage)
                 .Select(p => new PostsViewModel
@@ -206,11 +207,13 @@ namespace BlogApp.Core.Services
                                             .Select(pt => pt.TagId)
                                             .Contains(t.Id))
                             .Select(t => t.Name)
-                            .ToList()
+                            .ToList(),
+                    Hidden = p.Hidden
                 })
                 .ToList();
 
-            int allPostsCount = posts.Count;
+            int hidden = posts.Where(p => p.Hidden).Count();
+            int allPostsCount = posts.Count - hidden;
 
             return new PostQueryServiceModel()
             {
@@ -306,7 +309,8 @@ namespace BlogApp.Core.Services
                                             .Select(pt => pt.TagId)
                                             .Contains(t.Id))
                             .Select(t => t.Name)
-                            .ToList()
+                            .ToList(),
+                    Hidden = p.Hidden
                 })
                 .ToList();
 

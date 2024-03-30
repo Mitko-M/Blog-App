@@ -24,6 +24,10 @@
         <div class="row">
             @foreach (var post in Model.Posts)
             {
+                if (post.Hidden)
+                {
+                    continue;
+                }
                 <partial name="_PostPartial" model="@post"/>
             }
         </div>

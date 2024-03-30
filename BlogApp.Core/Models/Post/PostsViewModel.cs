@@ -10,6 +10,7 @@
         public string UpdatedOn { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
+        public bool Hidden { get; set; }
 
         public IEnumerable<string> Categories { get; set; } = new List<string>();
         public IEnumerable<string> Tags { get; set; } = new List<string>();

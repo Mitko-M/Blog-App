@@ -2,6 +2,7 @@
 using BlogApp.Core.Models.Identity;
 using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data;
+using BlogApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Core.Services
@@ -147,9 +148,45 @@ namespace BlogApp.Core.Services
             return model;
         }
 
-        public Task WarnApplicationUser(int reportId, int postId, string userId)
+        public async Task WarnApplicationUser(int reportId, int postId, string userId)
         {
-            throw new NotImplementedException();
+            var report = await GetReportById(reportId);
+
+            string reportReason = report.ReportContent;
+
+            await DeleteReport(reportId);
+
+            var post = await _context.Posts.FindAsync(postId);
+
+            if (post == null)
+            {
+                throw new ArgumentException($"Post with id {postId} doesn't exist");
+            }
+
+            var user = await _context.Users.Include(u => u.Warnings).FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"Application user with id {userId} doesn't exist");
+            }
+
+            post.Hidden = true;
+
+            var warning = new Warning()
+            {
+                UserId = userId,
+                HiddenPostId = postId,
+                WarningReason = reportReason,
+            };
+
+            user.Warnings.Add(warning);
+
+            if (user.Warnings.Count == 3)
+            {
+                user.Banned = true;
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }
