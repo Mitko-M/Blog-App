@@ -16,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddHttpContextAccessor();
 
             services.ConfigureApplicationCookie(options =>
