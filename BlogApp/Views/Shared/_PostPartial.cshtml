@@ -9,14 +9,16 @@
             @if (Model.Hidden)
             {
                 <h1 class="text-danger">Hidden Post</h1>
-                <h2 class="text-danger">Delete it later or contact an admin</h2>
+                <p class="text-danger">It seems like you recieved a warning if you recieve 3 you will be banned.</p>
+                <p class="text-danger">Due to the warning the reported post was hidden.</p>
+                <p class="text-danger">You can delete it or contact an Admin.</p>
             }
             <h2 class="card-title h4">@Model.Title</h2>
             <p class="card-text">@Model.ShortDescription</p>
-            <a class="btn btn-info" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">Read more →</a>
+            <a class="btn btn-info @(Model.Hidden ? "disabled" : string.Empty)" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">Read more →</a>
             @if (User.Id() == Model.UserId)
             {
-                <a class="btn btn-primary" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-primary @(Model.Hidden ? "disabled" : string.Empty)" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                 <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             }
         </div>
