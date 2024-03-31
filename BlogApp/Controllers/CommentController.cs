@@ -2,6 +2,7 @@
 using BlogApp.Core.Models.Comment;
 using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -28,6 +29,7 @@ namespace BlogApp.Controllers
             return RedirectToAction("Details", "Post", new { id = model.PostId });
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> LoadComments([FromQuery] int postId)
         {

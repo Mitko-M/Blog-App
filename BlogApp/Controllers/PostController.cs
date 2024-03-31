@@ -2,6 +2,7 @@
 using BlogApp.Core.Models.Post;
 using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
@@ -83,14 +84,10 @@ namespace BlogApp.Controllers
             return RedirectToAction("All", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            if (!(User?.Identity?.IsAuthenticated) ?? false)
-            {
-                return RedirectToAction("Login", "User");
-            }
-
             var post = await _postService.GetPostById(id);
 
             if (post == null)
@@ -278,11 +275,6 @@ namespace BlogApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Report(int id)
         {
-            if (!(User?.Identity?.IsAuthenticated) ?? false)
-            {
-                return RedirectToAction("Login", "User");
-            }
-
             var post = await _postService.GetPostById(id);
 
             if (post == null)
