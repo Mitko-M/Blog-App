@@ -29,4 +29,3 @@ $(document).ready(() => {
     $('#usersTable').DataTable();
     $('#reportsTable').DataTable();
 });
-
