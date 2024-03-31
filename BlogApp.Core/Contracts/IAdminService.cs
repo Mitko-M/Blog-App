@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Models.Identity;
+﻿using BlogApp.Core.Models;
+using BlogApp.Core.Models.Identity;
 using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
 

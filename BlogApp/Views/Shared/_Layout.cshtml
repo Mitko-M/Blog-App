@@ -44,7 +44,7 @@
                         <div class="modal-footer">
                             <form asp-action="Logout" asp-controller="User">
                                 <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" value="Log out"/>
-                                <a href="#" class="btn btn-primary">Contact And Admin</a>
+                                <a asp-controller="Contact" asp-action="Index" class="btn btn-primary">Contact And Admin</a>
                             </form>
                         </div>
                     </div>

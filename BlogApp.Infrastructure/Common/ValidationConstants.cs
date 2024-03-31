@@ -4,6 +4,16 @@
     {
         //change the values if needed later
 
+        //contact form
+        public const int ContactFormNameMin = 2;
+        public const int ContactFormNameMax = 50;
+
+        public const int ContactFormSubjectMin = 2;
+        public const int ContactFormSubjectMax = 50;
+
+        public const int ContactFormMessageMin = 5;
+        public const int ContactFormMessageMax = 1000;
+
         //post report
         public const int ReportContentMin = 5;
         public const int ReportContentMax = 1000;
