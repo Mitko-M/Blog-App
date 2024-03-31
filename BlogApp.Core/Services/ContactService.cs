@@ -26,7 +26,8 @@ namespace BlogApp.Core.Services
                 Name = model.Name,
                 Email = model.Email,
                 Subject = model.Subject,
-                Message = model.Message
+                Message = model.Message,
+                CreatedOn = DateTime.Now,
             };
 
             await _context.ContactFormEntries.AddAsync(contact);
