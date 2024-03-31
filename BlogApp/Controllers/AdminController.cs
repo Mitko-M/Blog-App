@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Contracts;
+using BlogApp.Core.Models;
 using BlogApp.Core.Models.Identity;
 using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using System.Security.Policy;
 
 namespace BlogApp.Controllers

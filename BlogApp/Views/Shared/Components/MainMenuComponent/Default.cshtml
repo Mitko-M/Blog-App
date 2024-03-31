@@ -20,6 +20,9 @@
                 <a class="nav-link @(request.Path.ToString().Contains("/Admin/Dashboard") ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
             </li>
         }
+        <li>
+            <a class="nav-link @(request.Path == "/Contact/Index" ? "active" : string.Empty)" asp-controller="Contact" asp-action="Index">Contact</a>
+        </li>
         <li class="nav-item dropdown">
             <a class ="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Posts

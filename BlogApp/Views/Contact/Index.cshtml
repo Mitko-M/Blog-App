@@ -1,0 +1,49 @@
+﻿@model ContactViewModel
+
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_ContactFormLayout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Contact An Admin</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" autocomplete="name" aria-required="true" placeholder=" Enter your name" asp-for="@Model.Name" />
+                        <label asp-for="@Model.Name">Name</label>
+                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="email" autocomplete="email" aria-required="true" placeholder="name@example.com" asp-for="@Model.Email" />
+                        <label asp-for="@Model.Email">Email</label>
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" aria-required="true" placeholder="Enter message subject" asp-for="@Model.Subject" />
+                        <label asp-for="@Model.Subject">Subject</label>
+                        <span asp-validation-for="@Model.Subject" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea style="height: 10em;" class="form-control" aria-required="true" placeholder="Enter message" asp-for="@Model.Message"></textarea>
+                        <label asp-for="@Model.Message">Message</label>
+                        <span asp-validation-for="@Model.Message" class="text-danger"></span>
+                    </div>
+                    <div class="mt-4 mb-0">
+                        <div class="d-grid">
+                            <button id="registerSubmit" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

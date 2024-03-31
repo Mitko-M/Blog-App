@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using BlogApp.Core.Contracts
+
+@using System.Security.Claims
+
+@inject IUserService _userService
+
+@{
+    bool banned = await _userService.IsUserBanned(User.Id());
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,6 +23,25 @@
     @await Component.InvokeAsync(nameof(ResponsiveNavComponent));
     <div class="container">
         <main role="main" class="pb-3 row">
+            <!-- Modal -->
+            <div class="modal fade" id="bannedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="bannedModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-danger" id="bannedModalLabel">Banned Alert</h1>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-danger">It seems like you were banned you can either log out or contact an Admin and wait for response.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form asp-action="Logout" asp-controller="User">
+                                <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" value="Log out" />
+                                <a asp-controller="Contact" asp-action="Index" class="btn btn-primary">Contact And Admin</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @RenderBody()
         </main>
     </div>
@@ -25,6 +54,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            let isBanned = '@(banned)';
+            if (isBanned === 'True') {
+                $('#bannedModal').modal('show');
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

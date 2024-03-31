@@ -12,7 +12,9 @@ namespace BlogApp.Infrastructure.Data
         {
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers {  get; set; }    
+        public DbSet<ApplicationUser> ApplicationUsers {  get; set; }   
+        
+        public DbSet<ContactFormEntry> ContactFormEntries { get; set; }
 
         public DbSet<PostReport> PostsReports { get; set; }
 
