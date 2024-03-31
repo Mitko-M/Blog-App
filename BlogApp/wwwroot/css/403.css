@@ -1,0 +1,106 @@
+﻿body {
+    transition: all 0.5s ease;
+}
+
+.page-wrap {
+    padding: 30px 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.page-wrap .page-not-found {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+.page-wrap .page-not-found .img-key {
+            margin-bottom: 0px;
+        }
+
+.page-wrap .page-not-found h1.text-xl {
+            color: #000;
+            text-transform: uppercase;
+            line-height: 50px;
+            font-size: 160px;
+            font-weight: 800;
+            letter-spacing: -28px;
+            text-shadow: -6px 4px 0px #fff;
+            margin-left: -20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+.page-wrap .page-not-found h1.text-xl span {
+                transition: all 1s ease;
+                display: inline-block;
+                animation: pulse 5s infinite;
+            }
+
+.page-wrap .page-not-found h4.text-md, 
+.page-wrap .page-not-found h4.text-sm {
+            letter-spacing: 0.38px;
+            font-weight: 400;
+            line-height: 20px;
+            font-size: 14px;
+            text-transform: none;
+            color: black;
+            margin-bottom: 0px;
+            width: 100%;
+        }
+
+.page-wrap .page-not-found h4.text-md a, 
+.page-wrap .page-not-found h4.text-sm a {
+                color: #1177bd;
+                text-decoration: underline;
+                font-weight: 700;
+            }
+
+.text-md {
+    margin-top: 100px;
+}
+
+.text-sm {
+    margin-top: 50px;
+}
+
+.page-wrap .page-not-found h4.text-md a:hover, 
+.page-wrap .page-not-found h4.text-md a:focus, 
+.page-wrap .page-not-found h4.text-sm a:hover, 
+.page-wrap .page-not-found h4.text-sm a:focus {
+                    text-decoration: none; 
+                }
+
+.page-wrap .page-not-found h4.text-md {
+            font-size: 50px;
+            font-weight: 700;
+            color: #1177bd;
+            text-transform: none;
+        }
+
+.page-wrap .page-not-found h4.text-sm-btm {
+            top: auto;
+            bottom: 40px;
+        }
+
+@media (max-width: 768px) {
+    .page-wrap .page-not-found h1.text-xl {
+        font-size: 120px;
+        letter-spacing: -20px;
+        margin-bottom: 30px;
+    }
+
+    .page-wrap .page-not-found h4.text-sm {
+        top: 10px;
+    }
+
+    .page-wrap .page-not-found h4.text-sm-btm {
+        bottom: -60px;
+    }
+
+    .page-wrap .page-not-found h4.text-md {
+        font-size: 30px;
+    }
+}

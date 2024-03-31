@@ -22,8 +22,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/User/Login";
-                options.LogoutPath = "/User/Logout";
+                options.LoginPath = "/User/Account/Login";
+                options.LogoutPath = "/User/Account/Logout";
+                options.AccessDeniedPath = "/User/AccessDenied";
             });
 
             services.AddRazorPages();
