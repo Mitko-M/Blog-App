@@ -24,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.LoginPath = "/User/Account/Login";
                 options.LogoutPath = "/User/Account/Logout";
+                options.AccessDeniedPath = "/User/AccessDenied";
             });
 
             services.AddRazorPages();

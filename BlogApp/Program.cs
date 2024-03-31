@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddAppDbContext(builder.Configuration);
 builder.Services.AddAppIdentity();
 
