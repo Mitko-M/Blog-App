@@ -311,7 +311,14 @@ namespace BlogApp.Controllers
             model.PostId = postId;
             model.UserId = userId;
 
-            await _postService.ReportPost(model);
+            try
+            {
+                await _postService.ReportPost(model);
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(500);
+            }
 
             return RedirectToAction(nameof(Details), "Post", new { id = model.PostId });
         }

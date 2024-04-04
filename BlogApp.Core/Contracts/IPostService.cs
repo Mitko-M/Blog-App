@@ -83,7 +83,7 @@ namespace BlogApp.Core.Contracts
         /// </summary>
         /// <param name="id">Post's identifier</param>
         /// <returns>An AddPostFormModel to be edited in a form</returns>
-        Task<AddPostFormModel> GetPostToEditAsync(int id);
+        Task<AddPostFormModel> GetPostToEditAsync(int id, Post givenPost = null);
 
         /// <summary>
         /// A method for updating the post in the database
@@ -111,6 +111,6 @@ namespace BlogApp.Core.Contracts
         /// Adds a report to a post
         /// </summary>
         /// <returns></returns>
-        Task ReportPost(PostReportViewModel report);
+        Task ReportPost(PostReportViewModel report, Post givenPost = null);
     }
 }

@@ -323,11 +323,18 @@ namespace BlogApp.Core.Services
             };
         }
 
-        public async Task<AddPostFormModel> GetPostToEditAsync(int id)
+        public async Task<AddPostFormModel> GetPostToEditAsync(int id, Post givenPost = null)
         {
-            var post = await GetPostById(id);
+            //if a post isn't given then we take it by it's id
+            //i added this parameter for unit testing
+            //since the relational methods such as Include and ThenInclude don't work
+            //with the ef core in memory database
+            if (givenPost == null)
+            {
+                givenPost = await GetPostById(id);
+            }
 
-            if (post == null)
+            if (givenPost == null)
             {
                 return null;
             }
@@ -335,11 +342,11 @@ namespace BlogApp.Core.Services
             var categories = await _categoryService.GetCategoriesWithIsSelected();
             var tags = await _tagService.GetTagsWithIsSelected();
 
-            var selectedCatsIds = post.PostsCategories
+            var selectedCatsIds = givenPost.PostsCategories
                                     .Select(pc => pc.CategoryId)
                                     .ToList();
 
-            var selectedTagsId = post.PostsTags
+            var selectedTagsId = givenPost.PostsTags
                                     .Select(pt => pt.TagId)
                                     .ToList();
 
@@ -361,10 +368,10 @@ namespace BlogApp.Core.Services
 
             return new AddPostFormModel()
             {
-                Title = post.Title,
-                Content = post.Content,
-                ShortDescription = post.ShortDescription,
-                UserId = post.UserId,
+                Title = givenPost.Title,
+                Content = givenPost.Content,
+                ShortDescription = givenPost.ShortDescription,
+                UserId = givenPost.UserId,
                 Categories = categories,
                 Tags = tags,
             };
@@ -503,9 +510,21 @@ namespace BlogApp.Core.Services
             return model;
         }
 
-        public async Task ReportPost(PostReportViewModel reportViewModel)
+        public async Task ReportPost(PostReportViewModel reportViewModel, Post givenPost = null)
         {
-            var post = await GetPostById(reportViewModel.PostId);
+            //if a post isn't given then we take it by it's id
+            //i added this parameter for unit testing
+            //since the relational methods such as Include and ThenInclude don't work
+            //with the ef core in memory database
+            if (givenPost == null)
+            {
+                givenPost = await GetPostById(reportViewModel.PostId);
+            }
+
+            if (givenPost == null)
+            {
+                throw new ArgumentException($"Post with id {reportViewModel.PostId} wasn't found");
+            }
 
             var report = new PostReport()
             {
@@ -514,7 +533,7 @@ namespace BlogApp.Core.Services
                 ReportContent = reportViewModel.ReportContent
             };
 
-            post.PostReports.Add(report);
+            givenPost.PostReports.Add(report);
 
             await _context.SaveChangesAsync();
         }
