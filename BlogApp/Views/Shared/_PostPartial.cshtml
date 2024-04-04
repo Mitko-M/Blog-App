@@ -15,7 +15,7 @@
             }
             <h2 class="card-title h4">@Model.Title</h2>
             <p class="card-text">@Model.ShortDescription</p>
-            <a class="btn btn-info @(Model.Hidden ? "disabled" : string.Empty)" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id">Read more →</a>
+            <a class="btn btn-info @(Model.Hidden ? "disabled" : string.Empty)" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id" asp-route-title="@Model.GetPostTitleInformation()">Read more →</a>
             @if (User.Id() == Model.UserId)
             {
                 <a class="btn btn-primary @(Model.Hidden ? "disabled" : string.Empty)" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>

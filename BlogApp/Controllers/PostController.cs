@@ -1,7 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Post;
 using BlogApp.Core.Models.Report;
-using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -86,7 +85,7 @@ namespace BlogApp.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string title)
         {
             var post = await _postService.GetPostById(id);
 
@@ -101,6 +100,11 @@ namespace BlogApp.Controllers
             }
 
             var model = _postService.GetPostDetailsViewModel(post);
+
+            if (title != model.GetPostTitleInformation())
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }

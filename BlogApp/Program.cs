@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,9 +35,18 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=All}/{id?}");
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Post Details",
+        pattern: "/Post/Details/{id}/{title}",
+        defaults: new { Controller = "Post", Action = "Details" });
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=All}/{id?}");
+
+    endpoints.MapRazorPages();
+});
 
 await app.RunAsync();
