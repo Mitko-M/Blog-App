@@ -22,11 +22,30 @@ namespace BlogApp.Core.Services
             _userService = userService;
         }
 
+        public async Task Bann(string userName)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"User with username {userName} wasn't found");
+            }
+
+            user.Banned = true;
+
+            int saves = await _context.SaveChangesAsync();
+
+            if (saves == 0)
+            {
+                throw new Exception("Database changes to the change Bann property weren't saves");
+            }
+        }
+
         public async Task DeleteContactFormEntry(int id)
         {
             var contactForm = await _context.ContactFormEntries.FindAsync(id);
 
-            if (contactForm != null)
+            if (contactForm == null)
             {
                 throw new ArgumentException($"Contact form with id {id} doesn't exist.");
             }
@@ -215,6 +234,11 @@ namespace BlogApp.Core.Services
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
 
+            if (user == null)
+            {
+                throw new ArgumentException("User wasn't found");
+            }
+
             var userToReturn = await _userService.GetUserById(user.Id);
 
             if (userToReturn == null)
@@ -223,6 +247,25 @@ namespace BlogApp.Core.Services
             }
 
             return userToReturn;
+        }
+
+        public async Task UnBann(string userName)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"User with username {userName} wasn't found");
+            }
+
+            user.Banned = false;
+
+            int saves = await _context.SaveChangesAsync();
+
+            if (saves == 0)
+            {
+                throw new Exception("Database changes to the change Bann property weren't saves");
+            }
         }
 
         public async Task WarnApplicationUser(int reportId, int postId, string userId)

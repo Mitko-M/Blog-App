@@ -324,7 +324,10 @@ namespace BlogApp.Controllers
                 return StatusCode(500);
             }
 
-            return RedirectToAction(nameof(Details), "Post", new { id = model.PostId });
+            //make custom model binder or hidden input when you have time
+            var postModel = _postService.GetPostDetailsViewModel(post);
+
+            return RedirectToAction(nameof(Details), "Post", new { id = model.PostId, title = postModel.GetPostTitleInformation()});
         }
     }
 }

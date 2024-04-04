@@ -1,4 +1,6 @@
-﻿namespace BlogApp.Core.Models.Identity
+﻿using BlogApp.Core.Models.Post;
+
+namespace BlogApp.Core.Models.Identity
 {
     public class ApplicationUserWithAllDataViewModel : ApplicationUserViewModel
     {
@@ -6,5 +8,7 @@
         //add the option to see the user's posts
         public bool Banned { get; set; }
         public int WarningsCount { get; set; }
+
+        public IEnumerable<PostDetailsViewModel> Posts { get; set; }
     }
 }

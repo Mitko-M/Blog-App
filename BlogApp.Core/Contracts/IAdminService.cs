@@ -88,5 +88,19 @@ namespace BlogApp.Core.Contracts
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<ApplicationUserWithAllDataViewModel> ManageUserByUserName(string userName);
+
+        /// <summary>
+        /// Banns a user by his username
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task Bann(string userName);
+
+        /// <summary>
+        /// Unbanns a user by his username
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task UnBann(string userName);
     }
 }

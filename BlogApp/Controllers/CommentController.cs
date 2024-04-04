@@ -24,9 +24,16 @@ namespace BlogApp.Controllers
         {
             model.UserId = User.Id();
 
+            //make custom model binder or hidden input when you have time
+            var post = await _postService.GetPostById(model.PostId);
+
+            var postModel = _postService.GetPostDetailsViewModel(post);
+
+            string title = postModel.GetPostTitleInformation();
+
             await _commentService.AddCommentAsync(model);
 
-            return RedirectToAction("Details", "Post", new { id = model.PostId });
+            return RedirectToAction("Details", "Post", new { id = model.PostId, title = title});
         }
 
         [AllowAnonymous]

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Security.Policy;
 
@@ -152,9 +153,7 @@ namespace BlogApp.Controllers
                 return StatusCode(500);
             }
 
-            var reports = await _adminService.GetAllReportsAsync();
-
-            return View(nameof(Reports), reports);
+            return RedirectToAction(nameof(Reports));
         }
 
         [HttpPost]
@@ -213,9 +212,7 @@ namespace BlogApp.Controllers
                 return StatusCode(500);
             }
 
-            var contactForms = _adminService.GetAllContactFormsAsync();
-
-            return View(nameof(ContactFormEntries), contactForms);
+            return RedirectToAction(nameof(ContactFormEntries));
         }
 
         [HttpGet]
@@ -233,6 +230,44 @@ namespace BlogApp.Controllers
             }
 
             return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Bann(string userName)
+        {
+            try
+            {
+                await _adminService.Bann(userName);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
+            return RedirectToAction(nameof(Dashboard));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnBann(string userName)
+        {
+            try
+            {
+                await _adminService.UnBann(userName);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
+            return RedirectToAction(nameof(Dashboard));
         }
 
         private async Task AddUserToAdminRole(string userId)

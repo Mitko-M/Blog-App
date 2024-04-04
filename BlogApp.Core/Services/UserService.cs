@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Contracts;
 using BlogApp.Core.Models.Identity;
+using BlogApp.Core.Models.Post;
 using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +21,14 @@ namespace BlogApp.Core.Services
 
         public async Task<ApplicationUserWithAllDataViewModel> GetUserById(string userId)
         {
-            int posts = _context.Posts.Where(p => p.UserId == userId).Count();
+            var posts = await _context.Posts
+                .Where(p => p.UserId == userId)
+                .Select(p => new PostDetailsViewModel()
+                {
+                    Id = p.Id,
+                    Title = p.Title
+                })
+                .ToListAsync();
 
             //joining the UserRole with User and Role so i can take only the role name
             var role = await _context.UserRoles
@@ -47,7 +55,8 @@ namespace BlogApp.Core.Services
                     Email = u.Email,
                     Banned = u.Banned,
                     Role = role,
-                    PostCount = posts
+                    PostCount = posts.Count,
+                    Posts = posts
                 })
                 .FirstOrDefaultAsync();
 

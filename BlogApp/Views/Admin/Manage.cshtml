@@ -1,7 +1,111 @@
 ﻿@model ApplicationUserWithAllDataViewModel
 
 @{
-    ViewData["Title"] = "Manage User";
+    ViewData["Title"] = $"Manage User: {Model.UserName}";
 }
 
-<h1>Username: @Model.UserName</h1>
+<div class="row">
+    <div class="col-lg-8">
+        <h4 class="mt-4" style="font-weight: normal;"><strong>First Name:</strong> @Model.FirstName</h4>
+        <hr />
+        <h4 class="mt-4" style="font-weight: normal;"><strong>Last Name:</strong> @Model.LastName</h4>
+        <hr />
+        <h4 class="mt-4" style="font-weight: normal;"><strong>Email:</strong> @Model.Email</h4>
+        <hr />
+        <h4 class="mt-4" style="font-weight: normal;"><strong>Role:</strong> @Model.Role</h4>
+        <hr />
+        <h4 class="mt-4" style="font-weight: normal;"><strong>Posts Count:</strong> @Model.PostCount</h4>
+        <hr />
+        <div class="row mt-4">
+            <h4 style="font-weight: normal;">
+                <strong>Actions:</strong>
+                @if (Model.Banned)
+                {
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticUnbannBackdrop">
+                        Unbann
+                    </button>
+                }
+                else
+                {
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBannBackdrop">
+                        Bann
+                    </button>
+                }
+
+                @if (Model.Role != "Admin")
+                {
+                    <a class="btn btn-success ml-5" href="">Promote To Admin</a>
+                }
+                <form asp-action="UnBann" asp-controller="Admin" asp-route-userName="@Model.UserName" method="post">
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticUnbannBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticUnbannBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticUnbannBackdropLabel">Unbann User @Model.UserName</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Are you sure you want to unbann this user?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Unann</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form asp-action="Bann" asp-controller="Admin" asp-route-userName="@Model.UserName" method="post">
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBannBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBannBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBannBackdropLabel">Bann @Model.UserName</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Are you sure you want to bann this user?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Bann</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </h4>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                <h3>User's Posts</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                @if (Model.PostCount > 0)
+                {
+                    @foreach (var post in Model.Posts)
+                    {
+                        <a class="list-group-item list-group-item-action"
+                           asp-action="Details"
+                           asp-controller="Post"
+                           asp-route-id="@post.Id"
+                           asp-route-title="@post.GetPostTitleInformation()">
+                            <h4>@post.Title</h4>
+                        </a>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item"><h4>The User doesn't have any posts yet!</h4></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
