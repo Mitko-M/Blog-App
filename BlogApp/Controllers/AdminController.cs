@@ -218,6 +218,23 @@ namespace BlogApp.Controllers
             return View(nameof(ContactFormEntries), contactForms);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Manage(string userName)
+        {
+            ApplicationUserWithAllDataViewModel user;
+
+            try
+            {
+                user = await _adminService.ManageUserByUserName(userName);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
         private async Task AddUserToAdminRole(string userId)
         {
             var roleName = "Admin";

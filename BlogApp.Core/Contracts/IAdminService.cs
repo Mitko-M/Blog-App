@@ -81,5 +81,12 @@ namespace BlogApp.Core.Contracts
         /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteContactFormEntry(int id);
+
+        /// <summary>
+        /// Gets the user by username and gives the admin the rights to manage him/her
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<ApplicationUserWithAllDataViewModel> ManageUserByUserName(string userName);
     }
 }

@@ -12,9 +12,14 @@ namespace BlogApp.Core.Services
     public class AdminService : IAdminService
     {
         private readonly BlogAppDbContext _context;
-        public AdminService(BlogAppDbContext context)
+        private readonly IUserService _userService;
+        public AdminService(
+            BlogAppDbContext context, 
+            IUserService userService
+            )
         {
             _context = context;
+            _userService = userService;
         }
 
         public async Task DeleteContactFormEntry(int id)
@@ -156,7 +161,7 @@ namespace BlogApp.Core.Services
         {
             //joining the AspNetUser with AspNetRoles and AspNetUserRoles
             //and then we take only the needed values
-            var joinedUserRoles = _context.UserRoles
+            var joinedUserRoles = await _context.UserRoles
                             .Join(_context.Users,
                                 userRole => userRole.UserId,
                                 user => user.Id,
@@ -165,13 +170,13 @@ namespace BlogApp.Core.Services
                                 userRoleUser => userRoleUser.UserRole.RoleId,
                                 role => role.Id,
                                 (userRoleUser, role) => new { UserRoleUser = userRoleUser, Role = role })
-                            .Select(x => new
+                            .Select(ur => new
                             {
-                                UserId = x.UserRoleUser.User.Id,
-                                RoleId = x.Role.Id,
-                                RoleName = x.Role.Name
+                                UserId = ur.UserRoleUser.User.Id,
+                                RoleId = ur.Role.Id,
+                                RoleName = ur.Role.Name
                             })
-                            .ToList();
+                            .ToListAsync();
 
             //we take all users
             var users = await _context.ApplicationUsers.ToListAsync();
@@ -204,6 +209,20 @@ namespace BlogApp.Core.Services
             model = model.Where(u => u.Role == roleName).ToList();
 
             return model;
+        }
+
+        public async Task<ApplicationUserWithAllDataViewModel> ManageUserByUserName(string userName)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            var userToReturn = await _userService.GetUserById(user.Id);
+
+            if (userToReturn == null)
+            {
+                throw new ArgumentException("User wasn't found");
+            }
+
+            return userToReturn;
         }
 
         public async Task WarnApplicationUser(int reportId, int postId, string userId)

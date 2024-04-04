@@ -109,7 +109,7 @@
                             <td scope="col">@user.PhoneNumber</td>
                         }
                         <td>
-                            <a href="#" class="btn btn-primary m-2">Manage</a>
+                            <a asp-action="Manage" asp-controller="Admin" asp-route-userName="@user.UserName" class="btn btn-primary m-2">Manage</a>
                         </td>
                     </tr>
                     num++;

@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Contracts;
+using BlogApp.Core.Models.Identity;
 using BlogApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,43 @@ namespace BlogApp.Core.Services
         {
             _context = context;
         }
+
+        public async Task<ApplicationUserWithAllDataViewModel> GetUserById(string userId)
+        {
+            int posts = _context.Posts.Where(p => p.UserId == userId).Count();
+
+            //joining the UserRole with User and Role so i can take only the role name
+            var role = await _context.UserRoles
+                            .Join(_context.Users,
+                                userRole => userRole.UserId,
+                                user => user.Id,
+                                (userRole, user) => new { UserRole = userRole, User = user })
+                            .Join(_context.Roles,
+                                userRoleUser => userRoleUser.UserRole.RoleId,
+                                role => role.Id,
+                                (userRoleUser, role) => new { UserRoleUser = userRoleUser, Role = role })
+                            .Where(ur => ur.UserRoleUser.User.Id == userId)
+                            .Select(ur => ur.Role.Name)
+                            .FirstOrDefaultAsync();
+
+            var user =  await _context.Users
+                .Where(u  => u.Id == userId)
+                .Select(u => new ApplicationUserWithAllDataViewModel()
+                {
+                    Id = userId,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    Banned = u.Banned,
+                    Role = role,
+                    PostCount = posts
+                })
+                .FirstOrDefaultAsync();
+
+            return user;
+        }
+
         public async Task<bool> IsUserBanned(string userId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
@@ -28,5 +66,7 @@ namespace BlogApp.Core.Services
 
             return user.Banned;
         }
+
+
     }
 }
