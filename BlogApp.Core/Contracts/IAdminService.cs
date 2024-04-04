@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Models;
+using BlogApp.Core.Models.Contact;
 using BlogApp.Core.Models.Identity;
 using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data.Models;
@@ -60,5 +61,25 @@ namespace BlogApp.Core.Contracts
         /// <param name="userId">The user identifier to be warned and potentially baned if he must</param>
         /// <returns></returns>
         Task WarnApplicationUser(int reportId, int postId, string userId);
+
+        /// <summary>
+        /// Returns all submitted contact forms converted to a view model
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ContactAdminViewModel>> GetAllContactFormsAsync();
+
+        /// <summary>
+        /// Finds and returns a contact form entry by it's id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ContactAdminViewModel> GetContactFormById(int id);
+
+        /// <summary>
+        /// Deletes a contact form entry with the given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteContactFormEntry(int id);
     }
 }

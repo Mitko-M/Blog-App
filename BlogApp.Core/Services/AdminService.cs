@@ -1,10 +1,11 @@
 ﻿using BlogApp.Core.Contracts;
-using BlogApp.Core.Models;
+using BlogApp.Core.Models.Contact;
 using BlogApp.Core.Models.Identity;
 using BlogApp.Core.Models.Report;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using static BlogApp.Infrastructure.Common.ValidationConstants;
 
 namespace BlogApp.Core.Services
 {
@@ -14,6 +15,20 @@ namespace BlogApp.Core.Services
         public AdminService(BlogAppDbContext context)
         {
             _context = context;
+        }
+
+        public async Task DeleteContactFormEntry(int id)
+        {
+            var contactForm = await _context.ContactFormEntries.FindAsync(id);
+
+            if (contactForm != null)
+            {
+                throw new ArgumentException($"Contact form with id {id} doesn't exist.");
+            }
+
+            _context.ContactFormEntries.Remove(contactForm);
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteReport(int id)
@@ -35,6 +50,23 @@ namespace BlogApp.Core.Services
             var users = await GetUsersOnRoleNameAsync("Admin");
 
             return users;
+        }
+
+        public async Task<IEnumerable<ContactAdminViewModel>> GetAllContactFormsAsync()
+        {
+            return await _context.ContactFormEntries
+                .Select(c => new ContactAdminViewModel()
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    Name = c.Name,
+                    Email = c.Email,
+                    Subject = c.Subject,
+                    Message = c.Message,
+                    CreatedOn = c.CreatedOn.ToString(PostDateFormat)
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<PostReportsAdminViewModel>> GetAllReportsAsync()
@@ -61,6 +93,31 @@ namespace BlogApp.Core.Services
             var allUsers = admins.Concat(users).ToList();
 
             return allUsers;
+        }
+
+        public async Task<ContactAdminViewModel> GetContactFormById(int id)
+        {
+            var contactForm = await _context.ContactFormEntries
+                .Include(cf => cf.User)
+                .FirstOrDefaultAsync(cf => cf.Id == id);
+
+            if (contactForm == null)
+            {
+                return null;
+            }
+
+            var model = new ContactAdminViewModel()
+            {
+                Id = contactForm.Id,
+                Name = contactForm.Name,
+                UserName = contactForm.User.UserName,
+                Email = contactForm.Email,
+                Subject = contactForm.Subject,
+                Message = contactForm.Message,
+                CreatedOn = contactForm.CreatedOn.ToString(PostDateFormat)
+            };
+
+            return model;
         }
 
         public async Task<PostReportsAdminViewModel> GetReportById(int id)

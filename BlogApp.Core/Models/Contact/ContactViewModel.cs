@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static BlogApp.Infrastructure.Common.ValidationConstants;
 
-namespace BlogApp.Core.Models
+namespace BlogApp.Core.Models.Contact
 {
     public class ContactViewModel
     {

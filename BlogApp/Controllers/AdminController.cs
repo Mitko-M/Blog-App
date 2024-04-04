@@ -129,6 +129,8 @@ namespace BlogApp.Controllers
                 return NotFound();
             }
 
+            //temp data only accepts objects as json
+            //later this temp data is used in WarnUser if the admin decides to warn him/her
             string serializedReport = JsonConvert.SerializeObject(report);
 
             TempData["ReportModel"] = serializedReport;
@@ -169,12 +171,51 @@ namespace BlogApp.Controllers
             }
             catch (ArgumentException)
             {
-                return NotFound();
+                return StatusCode(500);
             }
 
             var reports = await _adminService.GetAllReportsAsync();
 
             return RedirectToAction(nameof(Reports), reports);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ContactFormEntries()
+        {
+            var contactForms = await _adminService.GetAllContactFormsAsync();
+
+            return View(contactForms);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PreviewContactFormEntry(int id)
+        {
+            var contactForm = await _adminService.GetContactFormById(id);
+
+            if (contactForm == null)
+            {
+                return NotFound();
+            }
+
+            return View(contactForm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ContactFormDeleteConfirmed(int id)
+        {
+            try
+            {
+                await _adminService.DeleteContactFormEntry(id);
+            }
+            catch (ArgumentException)
+            {
+                _logger.LogCritical($"Something happened while deleting a contact form with id {id}");
+                return StatusCode(500);
+            }
+
+            var contactForms = _adminService.GetAllContactFormsAsync();
+
+            return View(nameof(ContactFormEntries), contactForms);
         }
 
         private async Task AddUserToAdminRole(string userId)

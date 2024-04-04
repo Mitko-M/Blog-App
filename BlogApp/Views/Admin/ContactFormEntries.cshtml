@@ -1,14 +1,14 @@
-﻿@model List<PostReportsAdminViewModel>
+﻿@model List<ContactAdminViewModel>
 
 @{
-    ViewBag.Title = "Reports";
+    ViewData["Title"] = "Contact Form Entries";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int num = 1;
-    string reportContentSubstring = string.Empty;
+    string messageSubstring = string.Empty;
 }
 
 <div class="container mt-5">
-    <h1 class="text-center">All Submitted Reports</h1>
+    <h1 class="text-center">All Submitted Contact Forms</h1>
 
     @if (Model.Count > 0)
     {
@@ -17,36 +17,42 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Reported Post's Title</th>
-                        <th scope="col">Reporter Username</th>
-                        <th scope="col">Reason For Reporting</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Submitted On</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var report in Model)
+                    @foreach (var contactForm in Model)
                     {
                         <tr>
                             <th scope="row">@num</th>
-                            <td>@report.PostTitle</td>
-                            <td>@report.ReporterUserName</td>
+                            <td>@contactForm.Name</td>
+                            <td>@contactForm.UserName</td>
+                            <td>@contactForm.Email</td>
+                            <td>@contactForm.Subject</td>
                             <td>
-                                @if (report.ReportContent.Length > 30)
+                                @if (contactForm.Message.Length > 30)
                                 {
-                                    string splitedContent = report.ReportContent.Substring(0, 27) + "...";
-                                    reportContentSubstring = splitedContent;
+                                    string splitedMessage = contactForm.Message.Substring(0, 27) + "...";
+                                    messageSubstring = splitedMessage;
                                 }
                                 else
                                 {
-                                    reportContentSubstring = report.ReportContent;
+                                    messageSubstring = contactForm.Message;
                                 }
-                                @reportContentSubstring
+                                @messageSubstring
                             </td>
+                            <td>@contactForm.CreatedOn</td>
                             <td>
                                 <div class="d-flex flex-row">
-                                    <a asp-controller="Admin" asp-action="PreviewReport" asp-route-id="@report.Id" class="btn btn-primary m-2">View</a>
-                                    <form method="post" asp-controller="Admin" asp-action="DeleteConfirmed" asp-route-reportId="@report.Id">
+                                    <a asp-controller="Admin" asp-action="PreviewContactFormEntry" asp-route-id="@contactForm.Id" class="btn btn-primary m-2">View</a>
+                                    <form method="post" asp-controller="Admin" asp-action="ContactFormDeleteConfirmed" asp-route-id="@contactForm.Id">
                                         <!-- Button trigger modal -->
                                         <input class="btn btn-danger m-2" type="button" value="Delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(num)" />
 
@@ -80,9 +86,12 @@
                 <tfoot class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Reported Post's Title</th>
-                        <th scope="col">Reporter Username</th>
-                        <th scope="col">Reason For Reporting</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Submitted On</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </tfoot>
@@ -91,6 +100,6 @@
     }
     else
     {
-        <h3 class="text-center mt-4">No reports for now.</h3>
+        <h3 class="text-center mt-4">No contact forms submitted for now.</h3>
     }
 </div>

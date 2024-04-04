@@ -1,5 +1,5 @@
 ﻿using BlogApp.Core.Contracts;
-using BlogApp.Core.Models;
+using BlogApp.Core.Models.Contact;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 

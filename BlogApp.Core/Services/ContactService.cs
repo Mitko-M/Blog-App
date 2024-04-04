@@ -1,13 +1,7 @@
 ﻿using BlogApp.Core.Contracts;
-using BlogApp.Core.Models;
+using BlogApp.Core.Models.Contact;
 using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlogApp.Core.Services
 {
