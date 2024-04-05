@@ -1,13 +1,9 @@
-﻿@page
-
-@model BlogApp.Areas.User.Pages.AccessDeniedModel
-
-@{
+﻿@{
     ViewData["Title"] = "Access Denied";
     Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
 }
 
-<link rel="stylesheet" href="~/css/403.css"/>
+<link rel="stylesheet" href="~/css/403.css" />
 
 <div class="page-wrap position-absolute top-50 start-50 translate-middle">
     <div class="page-not-found">
@@ -19,8 +15,8 @@
         </h1>
         <h4 class="text-md">Access Denied !</h4>
         <h4 class="text-sm text-sm-btm">
-            You don’t have access to this area of application. Speak to your administrator to unblock this feature. You can go back to 
+            You don’t have access to this area of application. Speak to your administrator to unblock this feature. You can go back to
             <a href='javascript:history.go(-1)'>previous page</a>
-       </h4>
+        </h4>
     </div>
 </div>

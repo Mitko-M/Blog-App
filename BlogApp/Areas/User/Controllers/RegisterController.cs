@@ -2,19 +2,16 @@
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BlogApp.Areas.User.Pages.Account
+namespace BlogApp.Areas.User.Controllers
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class RegisterController : UserBaseController
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public RegisterModel(
+        public RegisterController(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager
@@ -22,56 +19,51 @@ namespace BlogApp.Areas.User.Pages.Account
         {
             _roleManager = roleManager;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
-        public string ReturnUrl { get; set; }
-
-        [BindProperty]
-        public RegisterViewModel Input { get; set; }
-
-        public async Task OnGetAsync(string returnUrl)
+        [HttpGet]
+        public IActionResult Index()
         {
-            ReturnUrl = returnUrl;
+            RegisterViewModel model = new RegisterViewModel();
+
+            return View(model);
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> Index(RegisterViewModel model)
         {
-           ReturnUrl ??= Url.Content("~/User/Account/Login");
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new ApplicationUser()
+                return View(model);
+            }
+
+            var user = new ApplicationUser()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                UserName = model.UserName,
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                try
                 {
-                    FirstName = Input.FirstName,
-                    LastName = Input.LastName,
-                    Email = Input.Email,
-                    UserName = Input.UserName,
-                };
-
-                var result = await _userManager.CreateAsync(user, Input.Password);
-
-                if (result.Succeeded)
-                {
-                    try
-                    {
-                        await AddUserToRole(user.Id);
-                    }
-                    catch (ArgumentException)
-                    {
-                        return StatusCode(500);
-                    }
-
-                    return LocalRedirect(ReturnUrl);
+                    await AddUserToRole(user.Id);
                 }
-
-                foreach (var error in result.Errors)
+                catch (ArgumentException)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return StatusCode(500);
                 }
             }
 
-            return Page();
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(error.Code.ToString(), error.Description);
+            }
+
+            return RedirectToAction("Index", "Login");
         }
 
         private async Task AddUserToRole(string userId)

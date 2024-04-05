@@ -1,8 +1,4 @@
-﻿@page
-
-@model LogoutModel
-
-@{
+﻿@{
     ViewData["Title"] = "Log out";
     Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
 }
@@ -15,8 +11,8 @@
         <div class="card-body">
             <h5 class="card-title">Logging out</h5>
             <p class="card-text">Do you wish to log out?</p>
-            <form class="form-inline" asp-area="User" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <a asp-controller="Home" asp-action="All" class="btn btn-danger">No</a>
+            <form class="form-inline" asp-area="User" asp-controller="Logout" asp-action="Index" method="post">
+                <a asp-area="" asp-controller="Home" asp-action="All" class="btn btn-danger">No</a>
                 <button type="submit" class="btn btn-primary">Yes</button>
             </form>
         </div>
