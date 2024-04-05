@@ -8,9 +8,3 @@
     align-items: center;
     justify-content: center;
 }
-
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-}
