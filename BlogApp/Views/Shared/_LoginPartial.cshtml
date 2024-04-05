@@ -12,7 +12,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/Identity/Account/Manage" ? "active" : string.Empty)" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a class="nav-link @(request.Path == "/Identity/Account/Manage" ? "active" : string.Empty)" asp-area="User" asp-controller="Manage" asp-action="Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
             <a class="nav-link @(request.Path == "/User/Logout/Index" ? "active" : string.Empty)" asp-area="User" asp-controller="Logout" asp-action="Index">Logout</a>

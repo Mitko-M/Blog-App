@@ -44,7 +44,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapAreaControllerRoute(
         name: "User Area",
         areaName: "User",
-        pattern: "User/{controller}/{action}");
+        pattern: "User/{controller}/{action}/{id?}");
 
     endpoints.MapControllerRoute(
         name: "Post Details",

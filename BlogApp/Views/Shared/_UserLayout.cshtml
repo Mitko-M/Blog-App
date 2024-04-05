@@ -17,18 +17,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/styles.css"/>
+    <link rel="stylesheet" href="~/css/styles.css" />
 </head>
 <body>
     @await Component.InvokeAsync(nameof(ResponsiveNavComponent));
-    <!-- Page header with logo and tagline-->
-    <header class="py-5 bg-light border-bottom mb-4">
-        <div class="container">
-            <div class="text-center my-5">
-                <h1 class="fw-bolder">@ViewBag.Title</h1>
-            </div>
-        </div>
-    </header>
     <div class="container">
         <main role="main" class="pb-4 row">
             <!-- Modal -->
@@ -43,7 +35,7 @@
                         </div>
                         <div class="modal-footer">
                             <form asp-area="User" asp-controller="Logout" asp-action="Index">
-                                <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" value="Log out"/>
+                                <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" value="Log out" />
                                 <a asp-area="" asp-controller="Contact" asp-action="Index" class="btn btn-primary">Contact And Admin</a>
                             </form>
                         </div>

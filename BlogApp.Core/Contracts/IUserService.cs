@@ -22,5 +22,13 @@ namespace BlogApp.Core.Contracts
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<ApplicationUserWithAllDataViewModel> GetUserById(string userId);
+
+        /// <summary>
+        /// Updates user data
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task UpdateUserData(ApplicationUserViewModel model, string userId);
     }
 }

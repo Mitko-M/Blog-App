@@ -56,7 +56,8 @@ namespace BlogApp.Core.Services
                     Banned = u.Banned,
                     Role = role,
                     PostCount = posts.Count,
-                    Posts = posts
+                    Posts = posts,
+                    PhoneNumber = u.PhoneNumber
                 })
                 .FirstOrDefaultAsync();
 
@@ -76,6 +77,27 @@ namespace BlogApp.Core.Services
             return user.Banned;
         }
 
+        public async Task UpdateUserData(ApplicationUserViewModel model, string userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
 
+            if (user == null)
+            {
+                throw new ArgumentException("User wasn't found");
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.UserName = model.UserName;
+
+            int save = await _context.SaveChangesAsync();
+
+            if (save == 0)
+            {
+                throw new Exception("Database wasn't saved");
+            }
+        }
     }
 }
