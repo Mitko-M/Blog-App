@@ -10,7 +10,7 @@
 <div class="container mt-5">
     <h1 class="text-center">All Submitted Reports</h1>
     <div class="text-center mt-5">
-        <a class="btn btn-primary" asp-action="Dashboard" asp-controller="Admin"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
+        <a class="btn btn-primary" asp-area="Admin" asp-action="Index" asp-controller="Home"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
     </div>
 
     @if (Model.Count > 0)
@@ -48,8 +48,8 @@
                             </td>
                             <td>
                                 <div class="d-flex flex-row">
-                                    <a asp-controller="Admin" asp-action="PreviewReport" asp-route-id="@report.Id" class="btn btn-primary m-2">View</a>
-                                    <form method="post" asp-controller="Admin" asp-action="DeleteConfirmed" asp-route-reportId="@report.Id">
+                                    <a asp-area="Admin" asp-controller="Report" asp-action="Preview" asp-route-id="@report.Id" class="btn btn-primary m-2">View</a>
+                                    <form method="post" asp-area="Admin" asp-controller="Report" asp-action="Delete" asp-route-id="@report.Id">
                                         <!-- Button trigger modal -->
                                         <input class="btn btn-danger m-2" type="button" value="Delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(num)" />
 

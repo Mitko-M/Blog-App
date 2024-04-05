@@ -10,7 +10,7 @@
 <div class="container mt-5">
     <h1 class="text-center">All Submitted Contact Forms</h1>
     <div class="text-center mt-5">
-        <a class="btn btn-primary" asp-action="Dashboard" asp-controller="Admin"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
+        <a class="btn btn-primary" asp-area="Admin" asp-action="Index" asp-controller="Home"><i class="fa-solid fa-arrow-left"></i> Back To Dashboard</a>
     </div>
 
     @if (Model.Count > 0)
@@ -54,8 +54,8 @@
                             <td>@contactForm.CreatedOn</td>
                             <td>
                                 <div class="d-flex flex-row">
-                                    <a asp-controller="Admin" asp-action="PreviewContactFormEntry" asp-route-id="@contactForm.Id" class="btn btn-primary m-2">View</a>
-                                    <form method="post" asp-controller="Admin" asp-action="ContactFormDeleteConfirmed" asp-route-id="@contactForm.Id">
+                                    <a asp-area="Admin" asp-controller="Contact" asp-action="Preview" asp-route-id="@contactForm.Id" class="btn btn-primary m-2">View</a>
+                                    <form method="post" asp-area="Admin" asp-controller="Contact" asp-action="Delete" asp-route-id="@contactForm.Id">
                                         <!-- Button trigger modal -->
                                         <input class="btn btn-danger m-2" type="button" value="Delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(num)" />
 
@@ -64,11 +64,11 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting Report</h1>
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting Contact Form</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Are you sure you want to delete this report?</p>
+                                                        <p>Are you sure you want to delete this contact form?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

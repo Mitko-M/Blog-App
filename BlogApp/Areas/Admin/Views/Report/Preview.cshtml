@@ -1,8 +1,14 @@
-﻿@model PostReportsAdminViewModel
+﻿@using BlogApp.Core.Contracts
+
+@inject IPostService _postService
+
+@model PostReportsAdminViewModel
 
 @{
     ViewBag.Title = "Report Preview";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    string title = _postService.GetPostDetailsViewModel(await _postService.GetPostById(Model.PostId)).GetPostTitleInformation();
 }
 
 <div class="container-sm">
@@ -14,9 +20,9 @@
             <h4 class="card-title p-3">Post Title: @Model.PostTitle</h4>
             <h5 class="card-text p-3">Reason For Reporting: <strong>@Model.ReportContent</strong></h5>
             <div class="d-flex flex-row justify-content-center">
-                <a class="btn btn-primary m-1" asp-action="Details" asp-controller="Post" asp-route-id="@Model.PostId">Check Post</a>
-                <a class="btn btn-primary m-1" asp-action="Reports" asp-controller="Admin">Back To Reports</a>
-                <form method="post" asp-controller="Admin" asp-action="DeleteConfirmed" asp-route-reportId="@Model.Id">
+                <a class="btn btn-primary m-1" asp-area=""  asp-action="Details" asp-controller="Post" asp-route-id="@Model.PostId" asp-route-title="@title">Check Post</a>
+                <a class="btn btn-primary m-1" asp-area="Admin" asp-action="All" asp-controller="Report">Back To Reports</a>
+                <form method="post" asp-area="Admin" asp-controller="Report" asp-action="Delete" asp-route-id="@Model.Id">
                     <!-- Button trigger modal -->
                     <input class="btn btn-danger m-1" type="button" value="Delete Report" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
 
@@ -39,7 +45,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" asp-action="WarnUser" asp-controller="Admin">
+                <form method="post" asp-area="Admin" asp-action="Warn" asp-controller="User">
                     <!-- Button trigger modal -->
                     <input class="btn btn-warning m-1" type="button" value="Warn The Post Owner" data-bs-toggle="modal" data-bs-target="#staticBackdropWarn" />
 

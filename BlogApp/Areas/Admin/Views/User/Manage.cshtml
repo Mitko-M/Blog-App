@@ -38,7 +38,7 @@
                 {
                     <a class="btn btn-success ml-5" href="">Promote To Admin</a>
                 }
-                <form asp-action="UnBann" asp-controller="Admin" asp-route-userName="@Model.UserName" method="post">
+                <form asp-area="Admin" asp-action="UnBann" asp-controller="Bann" asp-route-userName="@Model.UserName" method="post">
                     <!-- Modal -->
                     <div class="modal fade" id="staticUnbannBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticUnbannBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </form>
-                <form asp-action="Bann" asp-controller="Admin" asp-route-userName="@Model.UserName" method="post">
+                <form asp-area="Admin" asp-action="Bann" asp-controller="Bann" asp-route-userName="@Model.UserName" method="post">
                     <!-- Modal -->
                     <div class="modal fade" id="staticBannBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBannBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -93,6 +93,7 @@
                     @foreach (var post in Model.Posts)
                     {
                         <a class="list-group-item list-group-item-action"
+                           asp-area="" 
                            asp-action="Details"
                            asp-controller="Post"
                            asp-route-id="@post.Id"

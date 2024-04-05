@@ -14,19 +14,19 @@
         @if (User.IsInRole("Admin"))
         {
             <li class="nav-item">
-                <a class="nav-link @(request.Path.ToString().Contains("/Admin/Dashboard") ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                <a class="nav-link @(request.Path.ToString().Contains("/Admin/Dashboard") ? "active" : string.Empty)" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @(request.Path == "/Admin/Reports" ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="Reports">Reports</a>
+                <a class="nav-link @(request.Path == "/Admin/Reports" ? "active" : string.Empty)" asp-area="Admin" asp-controller="Report" asp-action="All">Reports</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @(request.Path == "/Admin/ContactFormEntries" ? "active" : string.Empty)" asp-area="" asp-controller="Admin" asp-action="ContactFormEntries">Contact Forms</a>
+                <a class="nav-link @(request.Path == "/Admin/ContactFormEntries" ? "active" : string.Empty)" asp-area="Admin" asp-controller="Contact" asp-action="All">Contact Forms</a>
             </li>
         }
         <li>
-            <a class="nav-link @(request.Path == "/Contact/Index" ? "active" : string.Empty)" asp-controller="Contact" asp-action="Index">Contact</a>
+            <a class="nav-link @(request.Path == "/Contact/Index" ? "active" : string.Empty)" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
         </li>
         <li class="nav-item dropdown">
             <a class ="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -14,10 +14,10 @@
             <h4 class="card-title p-3">Name: @Model.UserName</h4>
             <h5 class="card-text p-3">Email: @Model.Email</h5>
             <h5 class="card-text p-3">Subject: @Model.Subject</h5>
-            <h5 class="card-text p-3">Message: @Model.Message</h5>
+            <h5 class="card-text p-3" style="font-weight: normal;"><strong>Message:</strong> @Model.Message</h5>
             <div class="d-flex flex-row justify-content-center">
-                <a class="btn btn-primary m-1" asp-action="ContactFormEntries" asp-controller="Admin">Back To Contact Forms</a>
-                <form method="post" asp-controller="Admin" asp-action="ContactFormDeleteConfirmed" asp-route-reportId="@Model.Id">
+                <a class="btn btn-primary m-1" asp-area="Admin" asp-action="All" asp-controller="Contact">Back To Contact Forms</a>
+                <form method="post" asp-area="Admin" asp-controller="Contact" asp-action="Delete" asp-route-id="@Model.Id">
                     <!-- Button trigger modal -->
                     <input class="btn btn-danger m-1" type="button" value="Delete Contact Form" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
 
@@ -26,11 +26,11 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting Report</h1>
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deleting Contact Form</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Are you sure you want to delete this report?</p>
+                                    <p>Are you sure you want to delete this contact form?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
