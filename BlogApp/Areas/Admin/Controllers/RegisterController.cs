@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class RegisterController : Controller
+    public class RegisterController : AdminBaseController
     {
         private readonly ILogger<RegisterController> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;

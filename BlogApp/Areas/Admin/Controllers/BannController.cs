@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class BannController : Controller
+    public class BannController : AdminBaseController
     {
         private readonly IAdminService _adminService;
         public BannController(

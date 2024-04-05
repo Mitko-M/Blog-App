@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class ContactController : Controller
+    public class ContactController : AdminBaseController
     {
         private readonly IAdminService _adminService;
         private readonly ILogger _logger;

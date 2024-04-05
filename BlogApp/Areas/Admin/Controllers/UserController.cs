@@ -7,9 +7,7 @@ using Newtonsoft.Json;
 
 namespace BlogApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class UserController : Controller
+    public class UserController : AdminBaseController
     {
         private readonly IAdminService _adminService;
         public UserController(

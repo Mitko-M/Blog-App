@@ -5,9 +5,7 @@ using Newtonsoft.Json;
 
 namespace BlogApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class ReportController : Controller
+    public class ReportController : AdminBaseController
     {
         private readonly ILogger _logger;
         private readonly IAdminService _adminService;
