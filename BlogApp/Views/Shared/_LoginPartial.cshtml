@@ -12,19 +12,19 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/Identity/Account/Manage" ? "active" : string.Empty)" asp-area="User" asp-controller="Manage" asp-action="Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a class="nav-link @(request.Path == "/User/Account/Manage" ? "active" : string.Empty)" asp-area="User" asp-controller="Account" asp-action="Manage" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/User/Logout/Index" ? "active" : string.Empty)" asp-area="User" asp-controller="Logout" asp-action="Index">Logout</a>
+            <a class="nav-link @(request.Path == "/User/Account/Logout" ? "active" : string.Empty)" asp-area="User" asp-controller="Account" asp-action="Logout">Logout</a>
     </li>
 }
 else
 {
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/User/Register/Index" ? "active" : string.Empty)" asp-area="User" asp-controller="Register" asp-action="Index">Register</a>
+            <a class="nav-link @(request.Path == "/User/Account/Register" ? "active" : string.Empty)" asp-area="User" asp-controller="Account" asp-action="Register">Register</a>
     </li>
     <li class="nav-item">
-            <a class="nav-link @(request.Path == "/User/Login/Index" ? "active" : string.Empty)" asp-area="User" asp-controller="Login" asp-action="Index">Login</a>
+            <a class="nav-link @(request.Path == "/User/Account/Login" ? "active" : string.Empty)" asp-area="User" asp-controller="Account" asp-action="Login">Login</a>
     </li>
 }
 </ul>

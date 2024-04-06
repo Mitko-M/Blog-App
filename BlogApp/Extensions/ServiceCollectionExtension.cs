@@ -22,8 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/User/Login/Index";
-                options.LogoutPath = "/User/Logout/Index";
+                options.LoginPath = "/User/Account/Login";
+                options.LogoutPath = "/User/Account/Logout";
                 options.AccessDeniedPath = "/User/Access/Index";
             });
 

@@ -42,7 +42,7 @@
                             <p class="text-danger">It seems like you were banned you can either log out or contact an Admin and wait for response.</p>
                         </div>
                         <div class="modal-footer">
-                            <form asp-area="User" asp-controller="Logout" asp-action="Index">
+                            <form asp-area="User" asp-controller="Account" asp-action="Logout">
                                 <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" value="Log out"/>
                                 <a asp-area="" asp-controller="Contact" asp-action="Index" class="btn btn-primary">Contact And Admin</a>
                             </form>
