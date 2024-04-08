@@ -86,6 +86,17 @@ namespace BlogApp.Core.Services
                 throw new ArgumentException("User wasn't found");
             }
 
+            bool dataChanged = true;
+
+            if (user.FirstName == model.FirstName &&
+                user.LastName == model.LastName &&
+                user.Email == model.Email &&
+                user.PhoneNumber == model.PhoneNumber &&
+                user.UserName == model.UserName)
+            {
+                dataChanged = false;
+            }
+
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
@@ -94,7 +105,7 @@ namespace BlogApp.Core.Services
 
             int save = await _context.SaveChangesAsync();
 
-            if (save == 0)
+            if (save == 0 && dataChanged)
             {
                 throw new Exception("Database wasn't saved");
             }

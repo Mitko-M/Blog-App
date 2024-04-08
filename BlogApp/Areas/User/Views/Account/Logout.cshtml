@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutWithoutWidgets.cshtml";
 }
 
-<div class="container position-absolute top-50 start-50 translate-middle">
+<div class="container position-absolute top-50 start-50 translate-middle" style="width: 400px;">
     <div class="card text-center">
         <div class="card-header">
             <h1>@ViewData["Title"]</h1>
@@ -11,12 +11,10 @@
         <div class="card-body">
             <h5 class="card-title">Logging out</h5>
             <p class="card-text">Do you wish to log out?</p>
-            <form class="form-inline" asp-area="User" asp-controller="Account" asp-action="Logout" method="post">
-                <a asp-area="" asp-controller="Home" asp-action="All" class="btn btn-danger">No</a>
-                <button type="submit" class="btn btn-primary">Yes</button>
+            <form class="form-inline d-flex justify-content-evenly" asp-area="User" asp-controller="Account" asp-action="Logout" method="post">
+                <a asp-area="" asp-controller="Home" asp-action="All" class="btn btn-danger" style="width: 100px;">No</a>
+                <button type="submit" class="btn btn-primary" style="width: 100px;">Yes</button>
             </form>
-        </div>
-        <div class="card-footer text-body-secondary">
         </div>
     </div>
 </div>
