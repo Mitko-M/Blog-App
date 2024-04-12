@@ -124,7 +124,7 @@ namespace BlogApp.Core.Test
 
 
             var options = new DbContextOptionsBuilder<BlogAppDbContext>()
-                .UseInMemoryDatabase(databaseName: "BlogInMemoryDb")
+                .UseInMemoryDatabase(databaseName: "PostInMemoryDatabase")
                 .Options;
 
             context = new BlogAppDbContext(options);
