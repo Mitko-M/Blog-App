@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Models.Comment;
+using BlogApp.Infrastructure.Data.Models;
 
 namespace BlogApp.Core.Contracts
 {

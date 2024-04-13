@@ -60,7 +60,7 @@ namespace BlogApp.Core.Services
 
         public async Task<IEnumerable<CommentViewModel>> LoadCommentsAsync(int postId)
         {
-            var post = await _postService.GetPostById(postId);
+            Post post = await _postService.GetPostById(postId);
 
             var comments = await _context.Comments
                 .Where(c => c.PostId == postId)
@@ -79,7 +79,7 @@ namespace BlogApp.Core.Services
                                         })
                                         .ToList()
                 })
-                .OrderBy( c => c.CommentUploadDate)
+                .OrderBy(c => c.CommentUploadDate)
                 .ToListAsync();
 
             return comments;
@@ -102,6 +102,8 @@ namespace BlogApp.Core.Services
             }
 
             _context.CommentsLikes.Remove(commentLike);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
