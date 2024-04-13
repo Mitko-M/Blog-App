@@ -14,15 +14,15 @@
         @if (User.IsInRole("Admin"))
         {
             <li class="nav-item">
-                <a class="nav-link @(request.Path.ToString().Contains("/Admin/Dashboard") ? "active" : string.Empty)" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
+                <a class="nav-link @(request.Path == "/Admin" || request.Path.ToString().Contains("/Admin/Home") ? "active" : string.Empty)" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @(request.Path == "/Admin/Reports" ? "active" : string.Empty)" asp-area="Admin" asp-controller="Report" asp-action="All">Reports</a>
+                <a class="nav-link @(request.Path == "/Admin/Report/All" ? "active" : string.Empty)" asp-area="Admin" asp-controller="Report" asp-action="All">Reports</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @(request.Path == "/Admin/ContactFormEntries" ? "active" : string.Empty)" asp-area="Admin" asp-controller="Contact" asp-action="All">Contact Forms</a>
+                <a class="nav-link @(request.Path == "/Admin/Contact/All" ? "active" : string.Empty)" asp-area="Admin" asp-controller="Contact" asp-action="All">Contact Forms</a>
             </li>
         }
         <li>

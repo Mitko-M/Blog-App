@@ -44,31 +44,30 @@ namespace BlogApp.Core.Services
                             .Select(ur => ur.Role.Name)
                             .FirstOrDefaultAsync();
 
-            var user =  await _context.Users
-                .Where(u  => u.Id == userId)
-                .Select(u => new ApplicationUserWithAllDataViewModel()
-                {
-                    Id = userId,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    UserName = u.UserName,
-                    Email = u.Email,
-                    Banned = u.Banned,
-                    Role = role,
-                    PostCount = posts.Count,
-                    Posts = posts,
-                    PhoneNumber = u.PhoneNumber
-                })
-                .FirstOrDefaultAsync();
+            var userDbModel = await _context.Users.FindAsync(userId);
+
+            var user = new ApplicationUserWithAllDataViewModel()
+            {
+                Id = userId,
+                FirstName = userDbModel.FirstName,
+                LastName = userDbModel.LastName,
+                UserName = userDbModel.UserName,
+                Email = userDbModel.Email,
+                Banned = userDbModel.Banned,
+                Role = role,
+                PostCount = posts.Count,
+                Posts = posts,
+                PhoneNumber = userDbModel.PhoneNumber
+            };
 
             return user;
         }
 
         public async Task<bool> IsUserBanned(string userId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var user = await _context.Users.FindAsync(userId);
 
-            //if a user wasn't found it means he is loged out
+            //if a user wasn't found it means he is loged out since the loged user id is passed
             if (user == null)
             {
                 return false;
@@ -96,13 +95,18 @@ namespace BlogApp.Core.Services
             {
                 dataChanged = false;
             }
+            else
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                user.UserName = model.UserName;
+                user.NormalizedEmail = model.Email.ToUpper();
+                user.NormalizedUserName = model.UserName.ToUpper();
+            }
 
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
-            user.UserName = model.UserName;
-
+           
             int save = await _context.SaveChangesAsync();
 
             if (save == 0 && dataChanged)
