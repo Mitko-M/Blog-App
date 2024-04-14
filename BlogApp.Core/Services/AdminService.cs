@@ -198,7 +198,7 @@ namespace BlogApp.Core.Services
                             .ToListAsync();
 
             //we take all users
-            var users = await _context.ApplicationUsers.ToListAsync();
+            var users = await _context.Users.ToListAsync();
 
             //we take all roles
             var roles = await _context.Roles.ToArrayAsync();
