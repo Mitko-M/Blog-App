@@ -325,6 +325,7 @@ namespace BlogApp.Controllers
             }
 
             //make custom model binder or hidden input when you have time
+            //this was written half a month ago, now i don't know why i wrote this comment
             var postModel = _postService.GetPostDetailsViewModel(post);
 
             return RedirectToAction(nameof(Details), "Post", new { id = model.PostId, title = postModel.GetPostTitleInformation()});
