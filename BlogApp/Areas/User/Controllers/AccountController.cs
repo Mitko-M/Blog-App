@@ -31,6 +31,11 @@ namespace BlogApp.Areas.User.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return NotFound();
+            }
+
             LoginViewModel model = new LoginViewModel();
 
             return View(model);
@@ -66,6 +71,11 @@ namespace BlogApp.Areas.User.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return NotFound();
+            }
+
             RegisterViewModel model = new RegisterViewModel();
 
             return View(model);
