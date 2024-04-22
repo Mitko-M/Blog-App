@@ -38,8 +38,6 @@ namespace BlogApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddPostFormModel model)
         {
-            //TODO: Make a model binder for the categories and tags since i used ul
-            //and it can't have the asp-for attribute
             model.Categories = await _categoryService.GetCategoriesWithIsSelected();
             model.Tags = await _tagService.GetTagsWithIsSelected();
 

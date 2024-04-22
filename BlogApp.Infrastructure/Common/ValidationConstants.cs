@@ -26,7 +26,7 @@
         public const int LastNameMin = 3;
 
         public const int UserNameMax = 20; 
-        public const int UserNameMin = 5;
+        public const int UserNameMin = 3;
 
         public const int EmailMax = 60;
         public const int EmailMin = 10;
