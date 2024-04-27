@@ -286,6 +286,8 @@ namespace BlogApp.Controllers
 
             var model = new PostReportViewModel();
 
+            //in this case i think the UserId in the TempData is useless
+            //i can call it in the post request
             TempData["PostId"] = id;
             TempData["UserId"] = User.Id();
 
