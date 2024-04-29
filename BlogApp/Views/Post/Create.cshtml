@@ -26,9 +26,18 @@
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
 
-            @* add labels after checkbox check *@
+            <div class="container mb-2 d-flex gap-3">
+                <div id="categories-display">
+                    <h5>Selected Categories</h5>
+                </div>
+
+                <div id="tags-display">
+                    <h5>Selected Tags</h5>
+                </div>
+            </div>
+
             <div class="d-flex flex-row gap-3">
-                <div class="mb-3">
+                <div class="mb-3" id="categories">
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,7 +49,7 @@
                                 <li>
                                     <a class="dropdown-item">
                                         <div class="form-check">
-                                            <input asp-for="@category.IsSelected" class="form-check-input" value="@category.Id" id="@category.Name" />
+                                            <input asp-for="@category.IsSelected" class="form-check-input" value="@category.Id" id="@category.Name" type="checkbox"/>
                                             <label asp-for="@category.Name" class="form-check-label">@category.Name</label>
                                         </div>
                                     </a>
@@ -50,7 +59,7 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3" id="tags">
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +83,7 @@
             </div>
 
             <div class="mb-3">
-                <input class="btn btn-dark mb-2 w-100 p-3 fw-bold" type="submit" value="Create" />
+                <input class="btn btn-dark mb-4 w-100 p-3 fw-bold" type="submit" value="Create" />
             </div>
         </form>
     </div>
@@ -86,6 +95,24 @@
     <script>
         tinymce.init({
             selector: 'textarea#Content'
+        });
+
+        $('#categories input[type="checkbox"]').on('change', function () {
+            if ($(this).is(':checked')) {
+                let text = '<p class="badge bg-secondary text-decoration-none link-light m-1">' + $(this).attr("id") + '</p>';
+                $('#categories-display').append(text);
+            } else {
+                $('p:contains("' + $(this).attr("id") + '")').remove();
+            }
+        });
+
+        $('#tags input[type="checkbox"]').on('change', function () {
+            if ($(this).is(':checked')) {
+                let text = '<p class="badge bg-secondary text-decoration-none link-light m-1">' + '#' + $(this).attr("id") + '</p>';
+                $('#tags-display').append(text);
+            } else {
+                $('p:contains("' + $(this).attr("id") + '")').remove();
+            }
         });
     </script>
 }

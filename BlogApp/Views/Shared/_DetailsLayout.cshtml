@@ -21,7 +21,7 @@
 </head>
 <body>
     @await Component.InvokeAsync(nameof(ResponsiveNavComponent));
-    <div class="container">
+    <div class="container mb-4">
         <main role="main" class="pb-3 row">
             <!-- Modal -->
             <div class="modal fade" id="bannedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="bannedModalLabel" aria-hidden="true">
@@ -45,7 +45,7 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-3">
         <div class="container">
             &copy; @DateTime.Now.Year - BlogApp
         </div>
