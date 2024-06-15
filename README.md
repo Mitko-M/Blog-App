@@ -1,6 +1,6 @@
 # BlogApp
 
-Welcome to My BlogApp, a simple yet powerful blogging platform built with ASP.NET MVC and SQL. This application allows you to create, edit, and manage your blog posts with ease.
+Welcome to BlogApp, a simple yet powerful blogging platform built with ASP.NET MVC and SQL. This application allows you to create, edit, and manage your blog posts with ease.
 
 ## Features
 
