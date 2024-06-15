@@ -36,6 +36,14 @@ After logging in, you can start creating your blog posts using the intuitive edi
 - [ASP.NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc) - The web framework used
 - [SQL Server](https://www.microsoft.com/en-us/sql-server) - Database system
 - [Enums.NET](https://github.com/TylerBrinkley/Enums.NET) - Library for robust enum handling in .NET
+- [NUnit](https://nunit.org/) - Framework used for unit testing
+
+## Testing
+
+This application includes a suite of unit tests using the NUnit framework to ensure functionality works as expected. To run the tests:
+
+1. Navigate to the test project directory.
+2. Use the following command: ```dotnet test``` or click the button in the test explorer to run all tests
 
 ## Contributing
 
