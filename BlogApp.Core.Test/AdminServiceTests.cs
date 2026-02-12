@@ -6,6 +6,7 @@ using BlogApp.Infrastructure.Data;
 using BlogApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 using Moq;
 
 namespace BlogApp.Core.Test
@@ -134,7 +135,7 @@ namespace BlogApp.Core.Test
             await adminService.Bann(userName);
             var user = context.Users.First();
 
-            Assert.IsTrue(user.Banned);
+            Assert.That(user.Banned, Is.True);  
         }
 
         [Test]
@@ -146,7 +147,7 @@ namespace BlogApp.Core.Test
             await adminService.DeleteContactFormEntry(id);
             int actualCount = context.ContactFormEntries.Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -158,7 +159,7 @@ namespace BlogApp.Core.Test
             await adminService.DeleteReport(id);
             int actualCount = context.PostsReports.Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -166,9 +167,9 @@ namespace BlogApp.Core.Test
         {
             int count = 1;
 
-            var admins = await adminService.GetAdminsAsync();
+            int actualCount = (await adminService.GetAdminsAsync()).Count();
 
-            Assert.AreEqual(count, admins.Count());
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -176,9 +177,9 @@ namespace BlogApp.Core.Test
         {
             int count = 1;
 
-            var contactForms = await adminService.GetAllContactFormsAsync();
+            var actualCount = (await adminService.GetAllContactFormsAsync()).Count();
 
-            Assert.AreEqual(count, contactForms.Count());
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -186,9 +187,9 @@ namespace BlogApp.Core.Test
         {
             int count = 1;
 
-            var reports = await adminService.GetAllReportsAsync();
+            var actualCount = (await adminService.GetAllReportsAsync()).Count();
 
-            Assert.AreEqual(count, reports.Count());
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -196,9 +197,9 @@ namespace BlogApp.Core.Test
         {
             int count = 2;
 
-            var users = await adminService.GetAllUsersAsync();
+            var actualCount = (await adminService.GetAllUsersAsync()).Count();
 
-            Assert.AreEqual(count, users.Count());
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -206,7 +207,7 @@ namespace BlogApp.Core.Test
         {
             var contactForm = await adminService.GetContactFormById(1);
 
-            Assert.IsNotNull(contactForm);
+            Assert.That(contactForm, Is.Not.Null);
         }
 
         [Test]
@@ -214,7 +215,7 @@ namespace BlogApp.Core.Test
         {
             var report = await adminService.GetReportById(1);
 
-            Assert.IsNotNull(report);
+            Assert.That(report, Is.Not.Null);
         }
 
         [Test]
@@ -222,9 +223,9 @@ namespace BlogApp.Core.Test
         {
             int count = 1;
 
-            var users = await adminService.GetUsersAsync();
+            var actualCount = (await adminService.GetUsersAsync()).Count();
 
-            Assert.AreEqual(count, users.Count());
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -233,9 +234,9 @@ namespace BlogApp.Core.Test
             int count = 1;
             string roleName = "Admin";
 
-            var users = await adminService.GetUsersOnRoleNameAsync(roleName);
+            var actualCount = (await adminService.GetUsersOnRoleNameAsync(roleName)).Count();
 
-            Assert.AreEqual(count, users.Count());
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -243,7 +244,7 @@ namespace BlogApp.Core.Test
         {
             var user = await adminService.ManageUserByUserName("admin");
 
-            Assert.IsNotNull(user);
+            Assert.That(user, Is.Not.Null);
         }
 
         [Test]
@@ -254,7 +255,7 @@ namespace BlogApp.Core.Test
             await adminService.UnBann(userName);
             var user = context.Users.First(u => u.Id == "userId");
 
-            Assert.IsFalse(user.Banned);
+            Assert.That(user.Banned, Is.False);
         }
 
         [Test]
@@ -273,9 +274,9 @@ namespace BlogApp.Core.Test
             int actualReportCount = context.PostsReports.Count();
             var post = context.Posts.First();
 
-            Assert.AreEqual(count, warnings);
-            Assert.AreEqual(reportCount, actualReportCount);
-            Assert.IsTrue(post.Hidden);
+            Assert.That(count, Is.EqualTo(warnings));
+            Assert.That(reportCount, Is.EqualTo(actualReportCount));
+            Assert.That(post.Hidden, Is.True);
         }
 
         [TearDown]

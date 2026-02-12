@@ -101,7 +101,7 @@ namespace BlogApp.Core.Test
             await commentService.AddCommentAsync(model);
             int actualCount = context.Comments.Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace BlogApp.Core.Test
 
             int actualCount = (await commentService.LoadCommentsAsync(1)).Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace BlogApp.Core.Test
             await commentService.LikeComment(1, "adminId");
             int actualCount = context.CommentsLikes.Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace BlogApp.Core.Test
             await commentService.UnlikeComment(1, "adminId");
             int actualCount = context.CommentsLikes.Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [TearDown]

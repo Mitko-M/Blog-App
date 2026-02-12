@@ -59,7 +59,7 @@ namespace BlogApp.Core.Test
             int catCount = cats.Count();
 
             //assert
-            Assert.AreEqual(count, catCount, message: "Wrond category numbers");
+            Assert.That(count, Is.EqualTo(catCount), message: "Wrond category numbers");
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace BlogApp.Core.Test
             int catCount = cats.Count();
 
             //assert
-            Assert.AreEqual(count, catCount);
+            Assert.That(count, Is.EqualTo(catCount));
         }
 
         [TearDown]

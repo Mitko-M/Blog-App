@@ -85,7 +85,7 @@ namespace BlogApp.Core.Test
 
             int actualCount = context.ContactFormEntries.Count();
 
-            Assert.AreEqual(count, actualCount);
+            Assert.That(count, Is.EqualTo(actualCount));
         }
 
         [TearDown]

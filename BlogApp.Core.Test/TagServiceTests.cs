@@ -54,7 +54,7 @@ namespace BlogApp.Core.Test
             var tags = await tagService.GetTagsAsync();
             int tagCount = tags.Count();
 
-            Assert.AreEqual(count, tagCount);
+            Assert.That(count, Is.EqualTo(tagCount));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace BlogApp.Core.Test
             var tags = await tagService.GetTagsWithIsSelected();
             int tagCount = tags.Count();
 
-            Assert.AreEqual(count, tagCount);
+            Assert.That(count, Is.EqualTo(tagCount));
         }
 
         [TearDown]

@@ -158,7 +158,7 @@ namespace BlogApp.Core.Test
             int actualPostCount = context.Posts.Count();
 
             //assert
-            Assert.AreEqual(postsCount, actualPostCount,
+            Assert.That(postsCount, Is.EqualTo(actualPostCount),
                 message: "A post wasn't successfully added with AddPostAsync method");
 
             Assert.DoesNotThrow(() => context.SaveChangesAsync(),
@@ -206,7 +206,7 @@ namespace BlogApp.Core.Test
             }
 
             //assert
-            Assert.True(tagCheck && carCheck, message: "The method GetPostFormModel returns wrong model");
+            Assert.That(tagCheck && carCheck, Is.True, message: "The method GetPostFormModel returns wrong model");
         }
 
         //TODO: Test the methods listed below in integration tests with real database
@@ -229,7 +229,7 @@ namespace BlogApp.Core.Test
             var returnedPostModel = await postService.GetPostToEditAsync(id, post);
 
             //assert
-            Assert.AreEqual(post.Title, returnedPostModel.Title);
+            Assert.That(post.Title, Is.EqualTo(returnedPostModel.Title));
         }
 
         [Test]
@@ -246,8 +246,8 @@ namespace BlogApp.Core.Test
             //assert
             string title = context.Posts.FirstOrDefault(p => p.Id == id).Title;
 
-            Assert.AreEqual(string.Empty, title,
-                message: "Post with id {0} wasn't updated successfully with empty model", id);
+            Assert.That(string.Empty, Is.EqualTo(title),
+                message: $"Post with id {id} wasn't updated successfully with empty model");
         }
 
         [Test]
@@ -263,7 +263,7 @@ namespace BlogApp.Core.Test
             //assert
             int actualPostCount = context.Posts.Count();
 
-            Assert.AreEqual(postCount, actualPostCount);
+            Assert.That(postCount, Is.EqualTo(actualPostCount));
         }
 
         [Test]
@@ -276,7 +276,7 @@ namespace BlogApp.Core.Test
             var postViewModel = postService.GetPostDetailsViewModel(post);
 
             //assert
-            Assert.AreEqual(post.Id, postViewModel.Id);
+            Assert.That(post.Id, Is.EqualTo(postViewModel.Id));
         }
 
         [Test]
@@ -297,7 +297,7 @@ namespace BlogApp.Core.Test
 
             //assert
             int actualReportCount = context.PostsReports.Count();
-            Assert.AreEqual(reportCount, actualReportCount);
+            Assert.That(reportCount, Is.EqualTo(actualReportCount));
         }
 
         [TearDown]
