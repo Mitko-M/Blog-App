@@ -43,7 +43,7 @@ namespace BlogApp.Core.Test
         {
             var user = await userService.GetUserById("1");
 
-            Assert.IsNotNull(user);
+            Assert.That(user, Is.Not.Null);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace BlogApp.Core.Test
 
             var bannedUser = await userService.IsUserBanned("1");
 
-            Assert.AreEqual(banned, bannedUser);
+            Assert.That(banned, Is.EqualTo(bannedUser));
         }
 
         [Test]
@@ -72,10 +72,10 @@ namespace BlogApp.Core.Test
 
             var user = context.Users.Find("1");
 
-            Assert.AreEqual(model.FirstName, user.FirstName);
-            Assert.AreEqual(model.LastName, user.LastName);
-            Assert.AreEqual(model.Email, user.Email);
-            Assert.AreEqual(model.UserName, user.UserName);
+            Assert.That(model.FirstName, Is.EqualTo(user.FirstName));
+            Assert.That(model.LastName, Is.EqualTo(user.LastName));
+            Assert.That(model.Email, Is.EqualTo(user.Email));
+            Assert.That(model.UserName, Is.EqualTo(user.UserName));
         }
 
         [TearDown]

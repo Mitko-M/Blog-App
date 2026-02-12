@@ -63,7 +63,7 @@ namespace BlogApp.Infrastructure.Data.Configuration
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             var directoryName = Path.GetFileName(currentDirectory);
-            var relativePath = directoryName.StartsWith("net6.0") ? @"../../../" : string.Empty;
+            var relativePath = directoryName.StartsWith("net10.0") ? @"../../../" : string.Empty;
 
             return relativePath;
         }
