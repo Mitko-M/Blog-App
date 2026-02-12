@@ -15,7 +15,7 @@ namespace BlogApp.Core.Models.Post
 
         //if the short description isn't provided
         //just use the first 3-4 sentences
-        //TODO: thing of a better idea
+        //TODO: think of a better idea
         [StringLength(PostShortDescriptionMax, MinimumLength = PostShortDescriptionMin, ErrorMessage = InputError)]
         [Display(Name = "Short Description")]
         public string ShortDescription { get; set; } = string.Empty;
