@@ -89,4 +89,5 @@ This project is licensed under the MIT License — see `LICENSE.txt` for details
 If you want help or to report issues, open an issue in the repository.
 
 ---
+
 _This README was expanded automatically by a workspace documentation pass. See `ARCHITECTURE.md` for more details._
