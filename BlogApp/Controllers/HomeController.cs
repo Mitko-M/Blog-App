@@ -9,6 +9,14 @@ using System.Security.Claims;
 
 namespace BlogApp.Controllers
 {
+    /// <summary>
+    /// Main homepage controller handling public-facing views and post listings.
+    /// 
+    /// Provides endpoints for:
+    /// - Displaying all posts with filtering, searching, and sorting
+    /// - Handling error pages
+    /// - Supporting anonymous user access
+    /// </summary>
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
@@ -28,6 +36,20 @@ namespace BlogApp.Controllers
             _tagService = tagService;
         }
 
+        /// <summary>
+        /// GET: / or /Home/All
+        /// Displays all blog posts with support for filtering, searching, and sorting.
+        /// 
+        /// Query Parameters:
+        /// - tagName: Filter posts by tag name (optional)
+        /// - categoryName: Filter posts by category name (optional)
+        /// - postSorting: Sort order (Newest, Oldest, MostLiked, etc.) (optional)
+        /// - currentPage: Pagination page number (default: 1)
+        /// - postsPerPage: Posts per page (default: configured value)
+        /// - searchTerm: Full-text search term (optional)
+        /// 
+        /// Returns: View with AllPostsQueryModel containing filtered posts and categories/tags
+        /// </summary>
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All([FromQuery]AllPostsQueryModel model)
@@ -57,6 +79,12 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// GET: /Home/Error
+        /// Displays error page with request information for debugging.
+        /// 
+        /// Returns: Error view with RequestId for tracking
+        /// </summary>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
