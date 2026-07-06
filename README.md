@@ -1,6 +1,22 @@
 # BlogApp
 
-BlogApp is an ASP.NET MVC blogging platform implementing post creation, comments, tagging, categories, admin actions and a small reporting/workflow system. It is structured as a solution with three main projects: the web UI (`BlogApp`), the domain/core (`BlogApp.Core`) and the data layer (`BlogApp.Infrastructure`).
+BlogApp is an ASP.NET Core blogging platform implementing post creation, comments, tagging, categories, admin actions and a small reporting/workflow system. It is structured as a solution with three main projects: the web UI (`BlogApp`), the domain/core (`BlogApp.Core`) and the data layer (`BlogApp.Infrastructure`).
+
+## 📖 Documentation
+
+Comprehensive documentation is available in the `/docs` folder:
+
+- **[SETUP.md](./docs/SETUP.md)** - Installation, database configuration, and running locally
+- **[SERVICES.md](./docs/SERVICES.md)** - Service interfaces and methods reference
+- **[DATABASE.md](./docs/DATABASE.md)** - Database schema and entity documentation
+- **[FEATURES.md](./docs/FEATURES.md)** - Feature descriptions and workflows
+- **[DEVELOPMENT.md](./docs/DEVELOPMENT.md)** - Developer guide and coding standards
+- **[TESTING.md](./docs/TESTING.md)** - Testing strategies and examples
+- **[DEPLOYMENT.md](./docs/DEPLOYMENT.md)** - Production deployment guide
+- **[TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)** - Common issues and solutions
+- **[ARCHITECTURE.md](./docs/ARCHITECTURE.md)** - System design and structure
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines
+- **[CHANGELOG.md](./CHANGELOG.md)** - Version history and roadmap
 
 ## Quick summary
 

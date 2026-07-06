@@ -640,4 +640,4 @@ Planned enhancements:
 
 - [DEVELOPMENT.md](./DEVELOPMENT.md) - Adding new features
 - [TESTING.md](./TESTING.md) - Testing features
-- [API.md](./API.md) - Service methods for features
+- [SERVICES.md](./SERVICES.md) - Service methods for features

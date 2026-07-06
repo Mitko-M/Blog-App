@@ -1,6 +1,6 @@
-# API Documentation - Service Interfaces
+# Services Reference
 
-This document describes all service interfaces and their methods in the BlogApp.Core layer.
+This document describes all service interfaces and their methods in the BlogApp.Core layer. These services provide the core business logic for the blogging platform.
 
 ## Table of Contents
 

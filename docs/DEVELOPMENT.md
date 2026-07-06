@@ -489,7 +489,7 @@ public async Task GetFeaturedPostsAsync_ReturnsFeaturedPosts()
 #### 8. Update Documentation
 
 - Update [FEATURES.md](./FEATURES.md) with new feature description
-- Update [API.md](./API.md) with new service methods
+- Update [SERVICES.md](./SERVICES.md) with new service methods
 - Add XML documentation to code
 
 ---
@@ -790,4 +790,4 @@ Use Visual Studio Diagnostic Tools:
 
 - [TESTING.md](./TESTING.md) - Writing unit tests
 - [ARCHITECTURE.md](../ARCHITECTURE.md) - System design
-- [API.md](./API.md) - Service documentation
+- [SERVICES.md](./SERVICES.md) - Service documentation
