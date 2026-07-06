@@ -1,65 +1,92 @@
 # BlogApp
 
-Welcome to BlogApp, a simple yet powerful blogging platform built with ASP.NET MVC and SQL. This application allows you to create, edit, and manage your blog posts with ease.
+BlogApp is an ASP.NET MVC blogging platform implementing post creation, comments, tagging, categories, admin actions and a small reporting/workflow system. It is structured as a solution with three main projects: the web UI (`BlogApp`), the domain/core (`BlogApp.Core`) and the data layer (`BlogApp.Infrastructure`).
+
+## Quick summary
+
+- Web UI: Razor views, components and controllers in the `BlogApp` project.
+- Domain & services: business logic, DTOs and service contracts in `BlogApp.Core`.
+- Persistence: Entity Framework Core models, configurations and `Migrations/` in `BlogApp.Infrastructure`.
+- Tests: unit tests for core services in `BlogApp.Core.Test`.
 
 ## Features
 
-- **User Authentication**: Secure login and registration functionality.
-- **Blog Post Management**: Create, edit, and delete blog posts.
-- **Comment System**: Readers can leave comments on your posts.
-- **Category Filtering**: Organize posts by categories.
-- **Search Functionality**: Find posts quickly with an integrated search feature.
-- **Responsive Design**: Enjoy a mobile-friendly interface.
-- **Report function**: You can report posts that you think are inaproparate or should be deleted.
+- User authentication (register/login/manage account)
+- CRUD for posts with rich text editor
+- Comments with moderation and likes/dislikes
+- Categories and tags for filtering and discovery
+- Search and sorting support
+- Admin dashboard for user, contact and report management
+- Contact form with storage and admin preview
+- Unit tests for core services (NUnit + Moq)
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
+- .NET SDK (6.0+ / matching the solution target)
+- SQL Server (localdb or a networked instance)
+- (Optional) `dotnet-ef` tools to run migrations
 
-- .NET Framework
-- SQL Server
-
-### Installation
+## Run locally
 
 1. Clone the repository: https://github.com/Mitko-M/Blog-App.git
-2. Open the solution in Visual Studio.
-3. Restore the NuGet packages.
-4. Update the connection string in `appsettings.json` to match your SQL server.
-5. Run the application.
+2. From the solution root, restore packages:
 
-## Usage
+```bash
+dotnet restore
+```
 
-After logging in, you can start creating your blog posts using the intuitive editor provided. You can categorize your posts, manage comments, and more.
+3. Update the connection string in `BlogApp/appsettings.json` (or `appsettings.Development.json`) to point to your SQL Server instance.
+4. Apply EF migrations (optional if database already seeded):
 
-## Built With
+```bash
+dotnet tool install --global dotnet-ef # if you don't have dotnet-ef
+dotnet ef database update --project BlogApp.Infrastructure --startup-project BlogApp
+```
 
-- [ASP.NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc) - The web framework used
-- [Entity Framework](https://docs.microsoft.com/en-us/ef/) - Object-relational mapping framework
-- [SQL Server](https://www.microsoft.com/en-us/sql-server) - Database system
-- [Enums.NET](https://github.com/TylerBrinkley/Enums.NET) - Library for robust enum handling in .NET
-- [NUnit](https://nunit.org/) - Framework used for unit testing
-- [Moq](https://github.com/moq/moq4) - Mocking framework for .NET
-- [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer) - To sanitize HTML to prevent XSS attacks
+5. Run the application from the solution or using CLI from the `BlogApp` folder:
 
-## Testing
+```bash
+dotnet run --project BlogApp
+```
 
-This application includes a suite of unit tests using NUnit and Moq frameworks to ensure functionality works as expected and to mock the database context for testing. HtmlSanitizer is used to clean user input and prevent XSS attacks. To run the tests:
+6. Run unit tests from the solution root:
 
-1. Navigate to the test project directory.
-2. Use the following command: ```dotnet test``` or click the button in the test explorer to run all tests
+```bash
+dotnet test
+```
+
+## Project structure (high level)
+
+- `BlogApp/` — ASP.NET MVC web project (controllers, views, components, wwwroot)
+- `BlogApp.Core/` — service interfaces (`Contracts/`), implementations (`Services/`), view models (`Models/`) and enums
+- `BlogApp.Infrastructure/` — EF Core `BlogAppDbContext`, entity models, configurations and `Migrations/`
+- `BlogApp.Core.Test/` — unit tests for core services
+
+For a detailed architecture and file mapping see `ARCHITECTURE.md`.
+
+## Tests
+
+This repository uses NUnit and Moq for unit testing. Tests live in `BlogApp.Core.Test` and cover the core service layer.
+
+Run all tests:
+
+```bash
+dotnet test
+```
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+1. Fork the repo and create a feature branch.
+2. Add tests for your feature where appropriate.
+3. Open a pull request with a clear description of changes.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.txt](https://github.com/Mitko-M/Blog-App/blob/development/LICENSE.txt) file for details.
+This project is licensed under the MIT License — see `LICENSE.txt` for details.
 
-## Acknowledgments
+## Contact
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+If you want help or to report issues, open an issue in the repository.
 
-**Feel free to message me via social media**
+---
+_This README was expanded automatically by a workspace documentation pass. See `ARCHITECTURE.md` for more details._
