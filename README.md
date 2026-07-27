@@ -98,9 +98,7 @@ dotnet test
 
 ## License
 
-This project is licensed under the MIT License — see `LICENSE.txt` for details.
-
-## Contact
+This project is licensed under the MIT License - see the [LICENSE.txt](https://github.com/Mitko-M/Blog-App/blob/master/LICENSE.txt) file for details.
 
 If you want help or to report issues, open an issue in the repository.
 
