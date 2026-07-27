@@ -17,10 +17,10 @@ namespace BlogApp.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.28")
+                .HasAnnotation("ProductVersion", "10.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.ApplicationUser", b =>
                 {
@@ -128,7 +128,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("Category identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -138,7 +138,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -190,7 +190,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("Comment identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CommentUploadDate")
                         .HasColumnType("datetime2");
@@ -216,7 +216,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.CommentLike", b =>
@@ -225,7 +225,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CommentId")
                         .HasColumnType("int");
@@ -240,7 +240,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CommentsLikes");
+                    b.ToTable("CommentsLikes", (string)null);
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.ContactFormEntry", b =>
@@ -249,7 +249,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -278,7 +278,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ContactFormEntries");
+                    b.ToTable("ContactFormEntries", (string)null);
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Favorite", b =>
@@ -288,7 +288,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("Favorite identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("PostId")
                         .HasColumnType("int")
@@ -305,7 +305,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Favorites");
+                    b.ToTable("Favorites", (string)null);
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.LikeDislike", b =>
@@ -315,7 +315,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("LikeDislike identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Liked")
                         .HasColumnType("bit")
@@ -336,7 +336,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LikesDislikes");
+                    b.ToTable("LikesDislikes", (string)null);
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.Post", b =>
@@ -346,7 +346,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("Post identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -386,7 +386,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
 
                     b.HasData(
                         new
@@ -436,7 +436,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("PostsCategories");
+                    b.ToTable("PostsCategories", (string)null);
 
                     b.HasData(
                         new
@@ -462,7 +462,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -481,7 +481,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PostsReports");
+                    b.ToTable("PostsReports", (string)null);
                 });
 
             modelBuilder.Entity("BlogApp.Infrastructure.Data.Models.PostTag", b =>
@@ -496,7 +496,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("PostsTags");
+                    b.ToTable("PostsTags", (string)null);
 
                     b.HasData(
                         new
@@ -523,7 +523,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("Tag identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -533,7 +533,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
 
                     b.HasData(
                         new
@@ -585,7 +585,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasComment("Warning identifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("HiddenPostId")
                         .HasColumnType("int")
@@ -605,7 +605,7 @@ namespace BlogApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Warning");
+                    b.ToTable("Warning", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -657,7 +657,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -682,7 +682,7 @@ namespace BlogApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
